@@ -10,6 +10,9 @@
 
 Production: https://g10-kirov.vercel.app/
 
+Резервная копия GitHub: `git@github.com:Habibianolabs/Landing-Kirov.git`.
+Основная ветка: `main`. Точка восстановления: commit `2e685957aacfdda4c1edd30d9168306016b91224`, тег `baseline-2026-07-26`.
+
 ## Что прочитать в новом чате
 
 1. `PROJECT_CONTEXT.md` — технический контекст и ограничения.
@@ -25,6 +28,8 @@ Production: https://g10-kirov.vercel.app/
 Frontend реализован и опубликован. Backend намеренно не подключён. Форма пока выполняет клиентскую валидацию без отправки данных.
 
 Следующий безопасный шаг: прочитать перечисленные документы, подтвердить открытые контентные решения, затем отдельно спроектировать серверный endpoint формы и secrets/environment variables.
+
+Backend остаётся на паузе. Production в Vercel после создания GitHub-резервной копии не изменялся.
 
 ## Структура копии
 
