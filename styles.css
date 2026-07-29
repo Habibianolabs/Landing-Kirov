@@ -466,7 +466,7 @@ h2 {
 .about-visual img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; background: var(--page-deep); transition: transform .75s cubic-bezier(.22, .61, .36, 1); }
 .about-visual:hover img { transform: scale(1.02); }
 
-.culture-story { overflow: hidden; background: linear-gradient(135deg, rgba(213, 226, 250, .82), rgba(247, 250, 255, .72)); }
+.culture-story { overflow: hidden; background: linear-gradient(135deg, rgba(195, 214, 244, .94), rgba(226, 237, 251, .94)); }
 .culture-story__header { max-width: 760px; }
 .culture-story__header h2 { max-width: 16ch; }
 .culture-story__body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(24px, 5vw, 72px); margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
