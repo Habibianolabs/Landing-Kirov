@@ -469,11 +469,14 @@ h2 {
 .culture-story { overflow: hidden; background: linear-gradient(135deg, rgba(195, 214, 244, .94), rgba(226, 237, 251, .94)); }
 .culture-story__header { max-width: 760px; }
 .culture-story__header h2 { max-width: 16ch; }
-.culture-story__body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(24px, 5vw, 72px); margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
-.culture-story__lead { max-width: 31ch; margin: 0; color: var(--ink); font-size: clamp(21px, 2.4vw, 31px); font-weight: 800; line-height: 1.16; letter-spacing: -.035em; }
-.culture-story__copy { display: grid; gap: 17px; max-width: 52ch; }
-.culture-story__copy p { margin: 0; color: var(--ink-soft); font-size: 16px; line-height: 1.5; }
-.culture-story__copy strong { color: var(--accent-deep); }
+.culture-story__body { margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
+.culture-story__quote { position: relative; margin: 0; padding: clamp(26px, 4vw, 44px) clamp(22px, 4vw, 48px) clamp(24px, 3.4vw, 38px); overflow: hidden; border: 1px solid rgba(145, 169, 208, .62); border-left: 4px solid var(--accent); border-radius: 18px; background: rgba(247, 250, 255, .48); }
+.culture-story__quote-mark { position: absolute; top: -14px; right: clamp(18px, 4vw, 48px); color: rgba(42, 99, 210, .16); font-family: Georgia, serif; font-size: clamp(92px, 10vw, 150px); line-height: 1; pointer-events: none; }
+.culture-story__quote-content { position: relative; display: grid; gap: 26px; }
+.culture-story__quote-lead { max-width: 31ch; margin: 0; color: var(--ink); font-size: clamp(24px, 3.1vw, 38px); font-weight: 700; line-height: 1.16; letter-spacing: -.035em; }
+.culture-story__quote-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 4vw, 54px); padding-top: 22px; border-top: 1px solid rgba(145, 169, 208, .52); }
+.culture-story__quote-details p { margin: 0; color: var(--ink); font-size: 16px; line-height: 1.55; }
+.culture-story__quote-details strong { color: var(--accent-deep); }
 
 .partner-visual strong { font-size: 24px; letter-spacing: -.04em; }
 .partner-visual small { max-width: 32ch; color: var(--ink-soft); font-size: 12px; }
@@ -566,9 +569,11 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .hero__footer { align-items: flex-start; flex-direction: column; padding: 16px; }
   .hero__footer .button { width: 100%; }
   .program-partners-grid, .project-partners-grid, .about-section { grid-template-columns: 1fr; }
-  .culture-story__body { grid-template-columns: 1fr; gap: 22px; margin-top: 24px; padding-top: 22px; }
+  .culture-story__body { margin-top: 24px; padding-top: 22px; }
   .culture-story__header h2 { max-width: none; }
-  .culture-story__lead { max-width: 24ch; }
+  .culture-story__quote { padding: 26px 20px 22px; }
+  .culture-story__quote-details { grid-template-columns: 1fr; gap: 16px; }
+  .culture-story__quote-lead { max-width: none; font-size: clamp(23px, 7vw, 30px); }
   .concepts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefit-card { grid-template-columns: 1fr; gap: 12px; min-height: 0; padding: 16px; }
