@@ -11,8 +11,8 @@
 Production: https://g10-kirov.vercel.app/
 
 Резервная копия GitHub: `git@github.com:Habibianolabs/Landing-Kirov.git`.
-Основная ветка: `main`. Локальный `HEAD` и `origin/main` совпадают: commit `6f5e77c211080020ece8ea056ad5e03083c77ca1` (`style: add blue glass surfaces`).
-Последний production deployment Vercel: `dpl_7aaZE79PwnfmysHi5q8LPbMj3w6r`, статус `READY`, алиас `https://g10-kirov.vercel.app/`.
+Основная ветка: `main`. Локальный `HEAD` и `origin/main` совпадают; точный SHA проверяется командой `git rev-parse HEAD`.
+Последний production deployment Vercel проверен через CLI: статус `READY`, алиас `https://g10-kirov.vercel.app/`.
 
 ## Что прочитать в новом чате
 
