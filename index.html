@@ -8,6 +8,9 @@
     <meta name="description" content="G10. Рестораторы и опердиры России. Перезагрузка. Образовательный бизнес-проект в Кирове, 5–7 октября 2026 года.">
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="styles.css">
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -15,7 +18,7 @@
     <header class="site-header" id="top">
       <div class="site-header__inner">
         <a class="brand-placeholder" href="#top" aria-label="Ресторанные ведомости">
-          <img class="brand-logo" src="assets/site/kirov/logos/restorannye-vedomosti-ekb.svg" alt="Информационная группа «Ресторанные ведомости»">
+          <img class="brand-logo" src="assets/site/kirov/logos/restorannye-vedomosti.svg" alt="Информационная группа «Ресторанные ведомости»">
         </a>
 
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Открыть меню">
@@ -25,7 +28,7 @@
         <nav class="site-nav" id="site-navigation" aria-label="Верхнее меню">
           <a href="#about" data-nav-section="about">О проекте</a>
           <a href="#schedule" data-nav-section="schedule">Программа</a>
-          <a href="#restaurateurs" data-nav-section="restaurateurs">Спикеры</a>
+          <a href="#restaurateurs" data-nav-section="restaurateurs">Эксперты</a>
           <a href="#topics" data-nav-section="topics">Темы</a>
           <a href="#pricing" data-nav-section="pricing">Стоимость участия</a>
           <a class="nav-cta" href="#application" data-open-application>Оставить заявку</a>
@@ -47,10 +50,9 @@
         </div>
       </section>
 
-      <section class="section-frame section-frame--compact" id="program-partners" aria-labelledby="program-partners-title">
-        <div class="section-heading">
+      <section class="section-frame section-frame--compact" id="program-partners" aria-label="Партнёры программы">
+        <div class="section-heading section-heading--label-only">
           <p class="section-kicker">Партнёры программы</p>
-          <h2 id="program-partners-title">Люди и проекты, которые формируют программу</h2>
         </div>
         <div class="program-partners-grid">
           <article class="logo-card">
@@ -59,7 +61,7 @@
                 <img class="logo-image logo-image--culture" src="assets/site/kirov/logos/kultura-gostepriimstva.png" alt="Культура Гостеприимства">
               </div>
             </a>
-            <p class="logo-card__name">Культура Гостеприимства</p>
+            <p class="logo-card__name">Ресторанный альянс «Культура гостеприимства»</p>
             <p>Проекты Андрея Несветаева и Владимира Шаклеина</p>
           </article>
           <article class="logo-card">
@@ -74,10 +76,13 @@
         </div>
       </section>
 
-      <section class="section-frame culture-story" aria-labelledby="culture-story-title">
+      <section class="section-frame culture-story" aria-label="Культура Гостеприимства">
         <div class="culture-story__intro">
           <p class="section-kicker">Культура Гостеприимства</p>
-          <h2 id="culture-story-title">Операционная система, которая помогает расти</h2>
+          <div class="culture-story__fact culture-story__fact--years">
+            <strong>16</strong>
+            <p><b>лет</b> она прошла путь от регионального игрока до масштабной ресторанной группы, успешно развивающей проекты в пяти городах России.</p>
+          </div>
         </div>
         <div class="culture-story__content">
           <blockquote class="culture-story__quote">
@@ -85,10 +90,6 @@
             <p>В поисках лучших управленческих практик Информационная группа «Ресторанные ведомости» изучает ведущие ресторанные компании страны. Одним из самых ярких открытий стала кировская компания «Культура гостеприимства».</p>
           </blockquote>
           <div class="culture-story__facts">
-            <div class="culture-story__fact culture-story__fact--years">
-              <strong>16</strong>
-              <p><b>лет</b> она прошла путь от регионального игрока до масштабной ресторанной группы, успешно развивающей проекты в пяти городах России.</p>
-            </div>
             <div class="culture-story__fact culture-story__fact--system">
               <span class="culture-story__fact-icon" aria-hidden="true">
                 <svg viewBox="0 0 48 48" role="presentation">
@@ -103,54 +104,50 @@
         </div>
       </section>
 
-      <section class="section-frame about-section" id="about" aria-labelledby="about-title">
+      <section class="section-frame about-section" id="about" aria-label="О проекте">
         <div class="about-copy">
           <p class="section-kicker">О проекте</p>
-          <h2 id="about-title">Опыт лидеров — внутри ресторанного бизнеса</h2>
-          <p class="about-lead">Образовательный бизнес-проект «G10. Рестораторы России. Опыт лидеров» — это проект, в котором ведущие рестораторы страны делятся уникальным опытом ведения ресторанного бизнеса в своих городах.</p>
-          <p>3 дня полноценного погружения в операционную работу ведущих ресторанных компаний в составе закрытой группы.</p>
+          <p class="about-lead">Образовательный бизнес-проект «G10. Рестораторы России. Опыт лидеров» — это проект, в котором ведущие рестораторы страны делятся уникальным опытом ведения ресторанного бизнеса в своих городах. 3 дня полноценного погружения в операционную работу ведущих ресторанных компаний в составе закрытой группы — до 20 рестораторов.</p>
         </div>
         <figure class="about-visual">
-          <img src="assets/site/kirov/photos/about-g10-krasnoyarsk.jpg" alt="Участники образовательного проекта G10">
+          <img src="assets/site/kirov/photos/about-g10.jpg" alt="Участники образовательного проекта G10">
         </figure>
       </section>
 
-      <section class="section-frame section-frame--compact" id="program" aria-labelledby="program-title">
-        <div class="section-heading">
+      <section class="section-frame section-frame--compact" id="program" aria-label="Содержание программы">
+        <div class="section-heading section-heading--label-only">
           <p class="section-kicker">Содержание программы</p>
-          <h2 id="program-title">Три дня практики, разговоров и живого опыта</h2>
         </div>
         <div class="benefits-grid">
-          <article class="benefit-card"><span class="index-mark" aria-hidden="true">01</span><p>Насыщенная деловая программа с командами непосредственно на ресторанных площадках.</p></article>
-          <article class="benefit-card"><span class="index-mark" aria-hidden="true">02</span><p>Круглые столы и дискуссионные панели с владельцами и топ-менеджерами.</p></article>
-          <article class="benefit-card"><span class="index-mark" aria-hidden="true">03</span><p>Рестотуры по ведущим ресторанным проектам.</p></article>
-          <article class="benefit-card"><span class="index-mark" aria-hidden="true">04</span><p>Аудит операционной деятельности.</p></article>
-          <article class="benefit-card"><span class="index-mark" aria-hidden="true">05</span><p>Гастрономические дегустации лучших блюд.</p></article>
-          <article class="benefit-card"><span class="index-mark" aria-hidden="true">06</span><p>Личное обучение и знакомство с ведущими рестораторами города и их командами.</p></article>
+          <article class="benefit-card"><span class="index-mark" aria-hidden="true">1</span><p>Насыщенная деловая программа с командами непосредственно на ресторанных площадках.</p></article>
+          <article class="benefit-card"><span class="index-mark" aria-hidden="true">2</span><p>Круглые столы и дискуссионные панели с владельцами и топ-менеджерами.</p></article>
+          <article class="benefit-card"><span class="index-mark" aria-hidden="true">3</span><p>Рестотуры по ведущим ресторанным проектам.</p></article>
+          <article class="benefit-card"><span class="index-mark" aria-hidden="true">4</span><p>Аудит операционной деятельности.</p></article>
+          <article class="benefit-card"><span class="index-mark" aria-hidden="true">5</span><p>Гастрономические дегустации лучших блюд.</p></article>
+          <article class="benefit-card"><span class="index-mark" aria-hidden="true">6</span><p>Личное общение и знакомство с ведущими рестораторами города и их командами.</p></article>
         </div>
       </section>
 
-      <section class="section-frame topics-section" id="topics" aria-labelledby="topics-title">
-        <div class="section-heading">
+      <section class="section-frame topics-section" id="topics" aria-label="Ключевые темы проекта">
+        <div class="section-heading section-heading--label-only">
           <p class="section-kicker">Ключевые темы проекта</p>
-          <h2 id="topics-title">Разговор о том, что управляет рестораном завтра</h2>
         </div>
         <div class="topics-grid">
           <article class="topic-group">
-            <button class="topic-group__trigger" type="button" aria-expanded="false" aria-controls="topic-scale" data-disclosure-trigger><span>01</span><strong>Масштабирование и ошибки роста</strong><span class="disclosure-plus" aria-hidden="true">+</span></button>
-            <div class="topic-group__panel disclosure-panel" id="topic-scale" hidden><ul><li>Почему рост ломает ресторанный бизнес: 7 ошибок масштабирования, которые стоят времени, денег и людей.</li><li>Как построить ресторанную систему, которая выдерживает масштаб: контроль не равен управляемости.</li><li>Как освободить 30% времени руководителя и улучшить операционные результаты без тотального контроля.</li><li>Сохранение культуры компании в регионе: как формируется лояльность и доверие сотрудников.</li></ul></div>
+            <div class="topic-group__heading"><span>01</span><strong>Масштабирование и ошибки роста</strong></div>
+            <div class="topic-group__panel disclosure-panel"><ul><li>Почему рост ломает ресторанный бизнес: 7 ошибок масштабирования, которые стоят времени, денег и людей.</li><li>Как построить ресторанную систему, которая выдерживает масштаб: контроль не равен управляемости.</li><li>Как освободить 30% времени руководителя и улучшить операционные результаты без тотального контроля.</li><li>Сохранение культуры компании в регионе: как формируется лояльность и доверие сотрудников.</li></ul></div>
           </article>
           <article class="topic-group">
-            <button class="topic-group__trigger" type="button" aria-expanded="false" aria-controls="topic-ai" data-disclosure-trigger><span>02</span><strong>Автоматизация и искусственный интеллект</strong><span class="disclosure-plus" aria-hidden="true">+</span></button>
-            <div class="topic-group__panel disclosure-panel" id="topic-ai" hidden><ul><li>Метрики будущего: какие показатели действительно управляют выручкой ресторана.</li><li>ИИ в ресторанах: где он уже экономит деньги и время, а где остается дорогой игрушкой.</li><li>Как выстроить систему управления, основанную на данных, а не на интуиции.</li></ul></div>
+            <div class="topic-group__heading"><span>02</span><strong>Автоматизация и искусственный интеллект</strong></div>
+            <div class="topic-group__panel disclosure-panel"><ul><li>Метрики будущего: какие показатели действительно управляют выручкой ресторана.</li><li>ИИ в ресторанах: где он уже экономит деньги и время, а где остается дорогой игрушкой.</li><li>Как выстроить систему управления, основанную на данных, а не на интуиции.</li></ul></div>
           </article>
           <article class="topic-group">
-            <button class="topic-group__trigger" type="button" aria-expanded="false" aria-controls="topic-team" data-disclosure-trigger><span>03</span><strong>Управление персоналом и командой</strong><span class="disclosure-plus" aria-hidden="true">+</span></button>
-            <div class="topic-group__panel disclosure-panel" id="topic-team" hidden><ul><li>Цена ошибки в найме: почему качество собеседований определяет результаты ресторана.</li><li>Кого не увольняют вовремя, тот увольняет результат: как кадровые решения влияют на успех ресторана.</li><li>Как вырастить управленческую команду из линейного персонала.</li><li>Инструменты системного развития сильных руководителей в условиях дефицита кадров и активного масштабирования.</li></ul></div>
+            <div class="topic-group__heading"><span>03</span><strong>Управление персоналом и командой</strong></div>
+            <div class="topic-group__panel disclosure-panel"><ul><li>Цена ошибки в найме: почему качество собеседований определяет результаты ресторана.</li><li>Кого не увольняют вовремя, тот увольняет результат: как кадровые решения влияют на успех ресторана.</li><li>Как вырастить управленческую команду из линейного персонала.</li><li>Инструменты системного развития сильных руководителей в условиях дефицита кадров и активного масштабирования.</li></ul></div>
           </article>
           <article class="topic-group">
-            <button class="topic-group__trigger" type="button" aria-expanded="false" aria-controls="topic-service" data-disclosure-trigger><span>04</span><strong>Маркетинг и сервис</strong><span class="disclosure-plus" aria-hidden="true">+</span></button>
-            <div class="topic-group__panel disclosure-panel" id="topic-service" hidden><ul><li>Контроль сервиса через метрики будущего: как сохранить высокий стандарт сервиса при масштабировании ресторанной сети.</li><li>Живой ресторан: как меняться, ориентируясь на изменение гостя, сохраняя основу концепции.</li><li>Маркетинг за ноль рублей.</li></ul></div>
+            <div class="topic-group__heading"><span>04</span><strong>Маркетинг и сервис</strong></div>
+            <div class="topic-group__panel disclosure-panel"><ul><li>Контроль сервиса через метрики будущего: как сохранить высокий стандарт сервиса при масштабировании ресторанной сети.</li><li>Живой ресторан: как меняться, ориентируясь на изменение гостя, сохраняя основу концепции.</li><li>Маркетинг за ноль рублей.</li></ul></div>
           </article>
         </div>
         <div class="inline-cta inline-cta--light">
@@ -159,10 +156,9 @@
         </div>
       </section>
 
-      <section class="section-frame" id="project-partners" aria-labelledby="project-partners-title">
-        <div class="section-heading">
+      <section class="section-frame" id="project-partners" aria-label="Партнёры проекта">
+        <div class="section-heading section-heading--label-only">
           <p class="section-kicker">Партнёры проекта</p>
-          <h2 id="project-partners-title">Компании, которые показывают операционную систему изнутри</h2>
         </div>
         <div class="project-partners-grid">
           <article class="project-partner-card">
@@ -179,7 +175,7 @@
                 <span><strong>1,5 млрд ₽</strong>выручка</span>
               </div>
               <button class="text-button" type="button" data-open-partner="culture">Подробнее <span aria-hidden="true">↗</span></button>
-              <button class="partner-speakers-trigger" type="button" aria-expanded="false" aria-controls="culture-speakers" data-disclosure-trigger>Спикеры альянса <span class="disclosure-plus" aria-hidden="true">+</span></button>
+              <button class="partner-speakers-trigger" type="button" aria-expanded="false" aria-controls="culture-speakers" data-disclosure-trigger>Эксперты альянса <span class="disclosure-plus" aria-hidden="true">+</span></button>
               <div class="partner-speakers disclosure-panel" id="culture-speakers" hidden>
                 <ul>
                   <li><strong>Андрей Несветаев</strong> — основатель, CEO</li>
@@ -216,10 +212,9 @@
         </div>
       </section>
 
-      <section class="section-frame concepts-section" id="concepts" aria-labelledby="concepts-title">
-        <div class="section-heading">
+      <section class="section-frame concepts-section" id="concepts" aria-label="Концепции">
+        <div class="section-heading section-heading--label-only">
           <p class="section-kicker">Концепции</p>
-          <h2 id="concepts-title">Проекты, в которых можно увидеть систему в действии</h2>
         </div>
         <div class="concepts-grid">
           <article class="concept-card"><img src="assets/site/kirov/concepts/iskra.jpg" alt="Интерьер кофейни «Искра»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Кофейня</p><h3>Искра</h3><dl><div><dt>Посадочных мест</dt><dd>92</dd></div><div><dt>Средний чек</dt><dd>1 200 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-iskra" data-disclosure-trigger>Подробнее <span aria-hidden="true">↗</span></button><div class="concept-card__details disclosure-panel" id="concept-iskra" hidden><p>Городская кофейня с ежедневно обновляемым ассортиментом свежей выпечки: слойки — визитная карточка проекта. Широкое меню включает завтраки, салаты, супы и горячие блюда.</p></div></div></article>
@@ -234,10 +229,9 @@
         </div>
       </section>
 
-      <section class="section-frame schedule-section" id="schedule" aria-labelledby="schedule-title">
-        <div class="section-heading">
+      <section class="section-frame schedule-section" id="schedule" aria-label="Программа">
+        <div class="section-heading section-heading--label-only">
           <p class="section-kicker">Программа</p>
-          <h2 id="schedule-title">Три дня, чтобы увидеть операционную систему изнутри</h2>
         </div>
         <div class="schedule-intro schedule-intro--single">
           <div class="schedule-placeholder">
@@ -256,7 +250,7 @@
 
       <section class="section-frame" id="restaurateurs" aria-labelledby="restaurateurs-title">
         <div class="section-heading">
-          <p class="section-kicker">Спикеры</p>
+          <p class="section-kicker">Эксперты</p>
           <h2 id="restaurateurs-title">Люди, которые строят систему изнутри</h2>
         </div>
         <div class="people-grid">
@@ -321,7 +315,7 @@
       <section class="section-frame testimonials-section" id="testimonials" aria-labelledby="testimonials-title">
         <div class="section-heading"><p class="section-kicker">Отзывы участников</p><h2 id="testimonials-title">Один интенсив, который остаётся в работе</h2></div>
         <div class="testimonials-grid">
-          <article class="testimonial-card"><blockquote>«Спасибо большое за ваш труд, организаторы, модераторы и спикеры! Невероятно интересно наблюдать за каждым, узнавать инструменты для роста компании и развития»</blockquote><p>Римма Кантимирова <span>Just Family</span></p></article>
+          <article class="testimonial-card"><blockquote>«Спасибо большое за ваш труд, организаторы, модераторы и эксперты! Невероятно интересно наблюдать за каждым, узнавать инструменты для роста компании и развития»</blockquote><p>Римма Кантимирова <span>Just Family</span></p></article>
           <article class="testimonial-card"><blockquote>«Благодарю организаторов за насыщенную программу обучения. Очень информативно и полезно! Благодарю коллег за тот самый нетворкинг и атмосферу!»</blockquote><p>Иван Пикулев <span>Sangre Fresca</span></p></article>
           <article class="testimonial-card"><blockquote>«Коллеги, всем спасибо за эти три прекрасных дня. Буду рада видеть в Нижнем Новгороде! До новых встреч!»</blockquote><p>Марина Степанова <span>TTBistro, BerёzkaGroup</span></p></article>
           <article class="testimonial-card"><blockquote>«Спасибо организаторам и модераторам за 3 прекрасных образовательных дня! Удачи!»</blockquote><p>Павел Азанов <span>пекарня «Хлебница»</span></p></article>
@@ -337,6 +331,7 @@
             <label>Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
             <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
             <input type="hidden" name="source" value="inline-form"><input type="hidden" name="plan" value="">
+            <div class="form-honeypot" hidden aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
             <label class="consent-field"><input type="checkbox" name="consent" required><span>Согласен(а) на обработку персональных данных и принимаю <a href="https://restoved.ru/privacy-notice" target="_blank" rel="noreferrer">уведомление о конфиденциальности</a>.</span></label>
             <button class="button button--primary" type="submit">Отправить заявку <span class="cta-arrow" aria-hidden="true">↗</span></button>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
@@ -372,6 +367,7 @@
           <label>Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
           <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
           <input type="hidden" name="source" value="modal"><input type="hidden" name="plan" value="">
+          <div class="form-honeypot" hidden aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
           <label class="consent-field"><input type="checkbox" name="consent" required><span>Согласен(а) на обработку персональных данных и принимаю <a href="https://restoved.ru/privacy-notice" target="_blank" rel="noreferrer">уведомление о конфиденциальности</a>.</span></label>
           <button class="button button--primary" type="submit">Отправить заявку <span class="cta-arrow" aria-hidden="true">↗</span></button>
           <p class="form-status" data-form-status role="status" aria-live="polite"></p>
@@ -399,8 +395,8 @@
 
     <footer class="site-footer">
       <div class="site-footer__inner">
-        <div><img class="footer-logo" src="assets/site/kirov/logos/restorannye-vedomosti-ekb.svg" alt="Ресторанные ведомости"><p>© 2026 Ресторанные ведомости</p></div>
-        <nav class="footer-nav" aria-label="Навигация в подвале"><a href="#about">О проекте</a><a href="#schedule">Программа</a><a href="#restaurateurs">Спикеры</a><a href="#topics">Темы</a><a href="#pricing">Стоимость участия</a></nav>
+        <div><img class="footer-logo" src="assets/site/kirov/logos/restorannye-vedomosti.svg" alt="Ресторанные ведомости"><p>© 2026 Ресторанные ведомости</p></div>
+        <nav class="footer-nav" aria-label="Навигация в подвале"><a href="#about">О проекте</a><a href="#schedule">Программа</a><a href="#restaurateurs">Эксперты</a><a href="#topics">Темы</a><a href="#pricing">Стоимость участия</a></nav>
         <div class="footer-contacts"><a href="tel:+78007757853">+7 800 775 78 53</a><a href="tel:+74959213625">+7 (495) 921-36-25</a><a href="mailto:event@restoranoff.ru">event@restoranoff.ru</a><a href="https://restoved.ru/" target="_blank" rel="noreferrer">restoved.ru</a></div>
       </div>
       <div class="site-footer__legal"><a href="https://restoved.ru/privacy-notice" target="_blank" rel="noreferrer">Уведомление о конфиденциальности</a><a href="https://restoved.ru/upload/terms.pdf" target="_blank" rel="noreferrer">Пользовательское соглашение</a><button type="button" class="text-button" data-open-consent>Настройки cookies</button></div>

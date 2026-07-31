@@ -1,6 +1,6 @@
 # Проектный контекст
 
-Дата обновления: 25 июля 2026 года.
+Дата обновления: 30 июля 2026 года.
 
 ## Назначение
 
@@ -13,20 +13,23 @@ Production URL: https://g10-kirov.vercel.app/
 - `index.html` — семантическая разметка всех публичных секций, формы, dialog-контейнеры и footer.
 - `styles.css` — design tokens, голубой градиентный фон, диагональный pattern, layout, responsive и motion states.
 - `script.js` — navigation, active sections, disclosures, partner/application/gallery dialogs, client-side form validation и cookie consent.
+- `api/submit-application.js` — Vercel Function: server-side validation, honeypot, rate limiting, optional Turnstile и отправка через Resend.
+- `.env.example` — контракт environment-переменных для Resend, Upstash Redis и Turnstile.
 - `assets/site/kirov/` — баннер, логотипы, фотографии партнёров, фото «О проекте» и локальные event-фото.
+- `assets/source-materials/Бриф для лендинга Киров.docx` — канонический бриф, приоритетный источник требований.
 - `vercel.json` — clean URLs без завершающего слеша.
 - `package.json` — минимальные метаданные без runtime-зависимостей.
 
 ## Реализованный frontend
 
-- Верхнее sticky-меню: «О проекте», «Программа», «Спикеры», «Темы», «Стоимость участия», CTA.
+- Верхнее sticky-меню: «О проекте», «Программа», «Эксперты», «Темы», «Стоимость участия», CTA.
 - Полный баннер 16:9 без обрезки и без DOM-текста поверх изображения.
 - Партнёры программы и шесть пунктов содержания программы.
 - «О проекте» с фото участников.
 - «Партнёры проекта»: «Культура Гостеприимства» и «Мамина кухня», реальные фотографии, карточки и подробные dialogs.
 - Placeholder программы с раскрытием трёх дней.
 - Карточки трёх рестораторов; портреты пока обозначены явными placeholders.
-- Четыре disclosure-группы ключевых тем с 14 пунктами.
+- Четыре статичные группы ключевых тем с 14 пунктами, раскрытые сразу для чтения.
 - Тарифы «Оптима» и «Корпоратив», ценовые периоды и состав участия.
 - Event-gallery из четырёх локальных изображений и доступный lightbox.
 - Текстовые отзывы, ссылка на видеоотзыв, inline-форма и modal-форма.
@@ -43,13 +46,14 @@ Production URL: https://g10-kirov.vercel.app/
 
 ## Ограничения и честные placeholders
 
-- Backend формы не подключён: клиентская проверка не отправляет данные.
+- Backend route формы создан локально, но production-отправка заблокирована до добавления Resend и Upstash credentials в Vercel и нового deploy.
 - Финальное расписание 5–7 октября ещё не утверждено; черновик с `???` не публикуется.
 - Лимит группы требует решения: 20 или 25 участников.
 - Портреты трёх рестораторов отсутствуют.
 - Цена на 29 августа–4 сентября не определена.
 - Rutube сейчас представлен внешней ссылкой без autoplay/embed.
-- Аналитика и Envybox не подключены.
+- Vercel Analytics подключается после analytics consent; событие `application_submitted` добавлено, production-проверка ещё не выполнена.
+- Envybox не подключён.
 - Credentials, API-ключи и routing получателей не находятся в клиентском коде.
 
 ## Источники
@@ -58,4 +62,8 @@ Production URL: https://g10-kirov.vercel.app/
 
 ## Git и публикация
 
-Проект опубликован в Vercel project `g10-kirov`. Локальные изменения пока не оформлены первым commit; destructive Git-команды не использовать.
+Проект опубликован в Vercel project `g10-kirov`. Backend-изменения и чистка материалов пока не оформлены первым commit; destructive Git-команды не использовать.
+
+## Передача в новый чат
+
+Готовое сообщение со всеми путями, ссылками и ограничениями находится в `NEW_CHAT_CONTEXT.md`. Полный handoff — в `HANDOFF.md`.

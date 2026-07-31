@@ -3,6 +3,14 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const pendingNotice = document.querySelector(".pending-notice");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const menuBackground = document.querySelectorAll("main, .site-footer, [data-cookie-banner]");
+
+function setMenuBackgroundInert(isInert) {
+  menuBackground.forEach((element) => {
+    element.inert = isInert;
+    element.toggleAttribute("aria-hidden", isInert);
+  });
+}
 
 function setupScrollReveal() {
   if (prefersReducedMotion) return;
@@ -47,12 +55,14 @@ function setupScrollReveal() {
 
 setupScrollReveal();
 
-function closeMenu() {
+function closeMenu({ restoreFocus = false } = {}) {
   if (!menuToggle || !siteNav) return;
   menuToggle.setAttribute("aria-expanded", "false");
   menuToggle.setAttribute("aria-label", "Открыть меню");
   siteNav.classList.remove("is-open");
   body.classList.remove("menu-open");
+  setMenuBackgroundInert(false);
+  if (restoreFocus) menuToggle.focus();
 }
 
 menuToggle?.addEventListener("click", () => {
@@ -61,6 +71,8 @@ menuToggle?.addEventListener("click", () => {
   menuToggle.setAttribute("aria-label", isOpen ? "Открыть меню" : "Закрыть меню");
   siteNav?.classList.toggle("is-open", !isOpen);
   body.classList.toggle("menu-open", !isOpen);
+  setMenuBackgroundInert(!isOpen);
+  if (!isOpen) siteNav?.querySelector("a")?.focus();
 });
 
 function showPendingNotice(message = "Этот блок будет добавлен после получения подтверждённых материалов.") {
@@ -181,16 +193,83 @@ document.querySelector("[data-close-application]")?.addEventListener("click", cl
 applicationDialog?.addEventListener("click", (event) => { if (event.target === applicationDialog) closeApplicationDialog(); });
 applicationDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeApplicationDialog(); });
 
-document.querySelectorAll("[data-application-form]").forEach((form) => {
-  form.addEventListener("submit", (event) => {
+function loadVercelAnalytics() {
+  if (document.querySelector("script[data-vercel-analytics]")) return;
+  const script = document.createElement("script");
+  script.defer = true;
+  script.src = "/_vercel/insights/script.js";
+  script.dataset.vercelAnalytics = "true";
+  document.head.appendChild(script);
+}
+
+function trackEvent(name, data = {}) {
+  if (typeof window.va === "function") window.va("event", { name, ...data });
+}
+
+function hasAnalyticsConsent() {
+  try {
+    const consent = localStorage.getItem(consentStorageKey);
+    return consent === "all" || consent === "analytics";
+  } catch (error) { return false; }
+}
+
+document.querySelectorAll("[data-application-form]").forEach((form, index) => {
+  const status = form.querySelector("[data-form-status]");
+  const errorId = `application-form-errors-${index + 1}`;
+  if (status) status.id = errorId;
+
+  const fields = [...form.querySelectorAll("input:not([type='hidden'])")];
+  fields.forEach((field) => field.setAttribute("aria-describedby", errorId));
+
+  function showFormStatus(message, { isError = false } = {}) {
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle("is-error", isError);
+    status.setAttribute("role", isError ? "alert" : "status");
+    status.setAttribute("aria-live", isError ? "assertive" : "polite");
+  }
+
+  function clearFieldErrors() {
+    fields.forEach((field) => field.removeAttribute("aria-invalid"));
+  }
+
+  fields.forEach((field) => field.addEventListener("input", () => {
+    field.removeAttribute("aria-invalid");
+  }));
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const status = form.querySelector("[data-form-status]");
+    clearFieldErrors();
     if (!form.checkValidity()) {
-      form.reportValidity();
-      if (status) { status.textContent = "Проверьте обязательные поля и согласие."; status.classList.add("is-error"); }
+      const invalidFields = fields.filter((field) => !field.validity.valid);
+      invalidFields.forEach((field) => field.setAttribute("aria-invalid", "true"));
+      const firstInvalid = invalidFields[0];
+      const fieldNames = invalidFields.map((field) => (field.closest("label")?.innerText?.trim().replace(/\s+/g, " ") || "поле").replace(/[.。]+$/, ""));
+      showFormStatus(`Проверьте поля: ${fieldNames.join(", ")}.`, { isError: true });
+      firstInvalid?.focus();
       return;
     }
-    if (status) { status.textContent = "Frontend-форма проверена. Отправка будет подключена после добавления backend."; status.classList.remove("is-error"); }
+    const submitButton = form.querySelector("[type='submit']");
+    const formData = Object.fromEntries(new FormData(form).entries());
+    if (submitButton) submitButton.disabled = true;
+    showFormStatus("Отправляем заявку…");
+
+    try {
+      const response = await fetch("/api/submit-application", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formData)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.message || "Не удалось отправить заявку.");
+      showFormStatus("Заявка отправлена. Мы свяжемся с вами в ближайшее время.");
+      trackEvent("application_submitted", { plan: formData.plan || "not_selected", source: formData.source || "unknown" });
+      form.reset();
+    } catch (error) {
+      showFormStatus(error.message || "Не удалось отправить заявку. Попробуйте ещё раз.", { isError: true });
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 });
 
@@ -199,6 +278,7 @@ const galleryImage = galleryDialog?.querySelector("[data-gallery-image]");
 const galleryCaption = galleryDialog?.querySelector("[data-gallery-caption]");
 const galleryItems = [...document.querySelectorAll("[data-gallery-item]")];
 let galleryIndex = 0;
+let lastGalleryTrigger = null;
 function renderGalleryImage(index) {
   if (!galleryImage || !galleryItems.length) return;
   galleryIndex = (index + galleryItems.length) % galleryItems.length;
@@ -207,33 +287,68 @@ function renderGalleryImage(index) {
   galleryImage.alt = item.dataset.galleryAlt || "";
   if (galleryCaption) galleryCaption.textContent = item.dataset.galleryAlt || "";
 }
-galleryItems.forEach((item, index) => item.addEventListener("click", () => { renderGalleryImage(index); showDialog(galleryDialog); }));
+function closeGalleryDialog() {
+  closeDialog(galleryDialog);
+  lastGalleryTrigger?.focus();
+  lastGalleryTrigger = null;
+}
+galleryItems.forEach((item, index) => item.addEventListener("click", () => {
+  lastGalleryTrigger = item;
+  renderGalleryImage(index);
+  showDialog(galleryDialog);
+}));
 document.querySelector("[data-gallery-prev]")?.addEventListener("click", () => renderGalleryImage(galleryIndex - 1));
 document.querySelector("[data-gallery-next]")?.addEventListener("click", () => renderGalleryImage(galleryIndex + 1));
-document.querySelector("[data-close-gallery]")?.addEventListener("click", () => closeDialog(galleryDialog));
-galleryDialog?.addEventListener("click", (event) => { if (event.target === galleryDialog) closeDialog(galleryDialog); });
-galleryDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeDialog(galleryDialog); });
+document.querySelector("[data-close-gallery]")?.addEventListener("click", closeGalleryDialog);
+galleryDialog?.addEventListener("click", (event) => { if (event.target === galleryDialog) closeGalleryDialog(); });
+galleryDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeGalleryDialog(); });
 
 const consentDialog = document.getElementById("consentDialog");
 const cookieBanner = document.querySelector("[data-cookie-banner]");
 const consentStorageKey = "g10-kirov-consent-v1";
+let lastConsentTrigger = null;
 function setConsent(value) {
-  try { localStorage.setItem(consentStorageKey, value); } catch (error) { /* private browsing can block storage */ }
+  let savedValue = value;
+  if (value === "custom") {
+    const analyticsEnabled = consentDialog?.querySelector("[name='analytics-cookies']")?.checked;
+    savedValue = analyticsEnabled ? "analytics" : "necessary";
+  }
+  try { localStorage.setItem(consentStorageKey, savedValue); } catch (error) { /* private browsing can block storage */ }
+  if (savedValue === "all" || savedValue === "analytics") loadVercelAnalytics();
   if (cookieBanner) cookieBanner.hidden = true;
-  closeDialog(consentDialog);
+  closeConsentDialog();
 }
-function openConsentSettings() { showDialog(consentDialog); }
+function openConsentSettings(event) {
+  lastConsentTrigger = event?.currentTarget || document.activeElement;
+  showDialog(consentDialog);
+}
+function closeConsentDialog() {
+  closeDialog(consentDialog);
+  lastConsentTrigger?.focus();
+  lastConsentTrigger = null;
+}
 try { if (!localStorage.getItem(consentStorageKey) && cookieBanner) cookieBanner.hidden = false; } catch (error) { if (cookieBanner) cookieBanner.hidden = false; }
+if (hasAnalyticsConsent()) loadVercelAnalytics();
 document.querySelector("[data-cookie-accept]")?.addEventListener("click", () => setConsent("all"));
 document.querySelector("[data-cookie-reject]")?.addEventListener("click", () => setConsent("necessary"));
 document.querySelector("[data-cookie-settings]")?.addEventListener("click", openConsentSettings);
 document.querySelector("[data-open-consent]")?.addEventListener("click", openConsentSettings);
-document.querySelector("[data-close-consent]")?.addEventListener("click", () => closeDialog(consentDialog));
+document.querySelector("[data-close-consent]")?.addEventListener("click", closeConsentDialog);
 document.querySelector("[data-save-consent]")?.addEventListener("click", () => setConsent("custom"));
-consentDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeDialog(consentDialog); });
+consentDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeConsentDialog(); });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && siteNav?.classList.contains("is-open")) closeMenu();
+  if (event.key === "Escape" && siteNav?.classList.contains("is-open")) closeMenu({ restoreFocus: true });
+  if (event.key === "Tab" && siteNav?.classList.contains("is-open") && menuToggle) {
+    const menuFocusables = [menuToggle, ...siteNav.querySelectorAll("a[href]")];
+    const currentIndex = menuFocusables.indexOf(document.activeElement);
+    if (currentIndex === -1) return;
+    const nextIndex = event.shiftKey
+      ? (currentIndex - 1 + menuFocusables.length) % menuFocusables.length
+      : (currentIndex + 1) % menuFocusables.length;
+    event.preventDefault();
+    menuFocusables[nextIndex].focus();
+  }
   if (event.key === "ArrowLeft" && galleryDialog?.open) renderGalleryImage(galleryIndex - 1);
   if (event.key === "ArrowRight" && galleryDialog?.open) renderGalleryImage(galleryIndex + 1);
 });

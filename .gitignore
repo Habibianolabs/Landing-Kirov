@@ -6,3 +6,4 @@ output/
 .playwright-cli/
 .vercel
 .env*
+!.env.example

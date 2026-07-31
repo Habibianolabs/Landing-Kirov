@@ -1,6 +1,6 @@
 # Текущий статус проекта
 
-Дата обновления: 25 июля 2026 года.
+Дата обновления: 30 июля 2026 года.
 
 ## Последняя завершенная задача
 
@@ -17,14 +17,14 @@ Production: https://g10-kirov.vercel.app/
 - Блок «О проекте» с фото и блок «Партнёры проекта» с двумя карточками и рабочими dialog-окнами.
 - Placeholder программы на три дня без публикации черновика с `???`.
 - Три карточки рестораторов с явными placeholders портретов.
-- Четыре раскрывающиеся группы тем с 14 пунктами из текущего брифа.
+- Четыре статично раскрытые группы тем с 14 пунктами из текущего брифа; текст виден без клика.
 - Два тарифа, ценовые периоды и четыре пункта состава участия.
 - Галерея из четырёх локальных фотографий с lightbox.
 - Отзывы, внешний Rutube-видеоотзыв, inline-форма и modal-форма.
 - Cookie banner и окно настроек consent.
 - Footer, legal links и контакты.
 - Адаптивность desktop/mobile, scroll-reveal, hover/focus states и reduced-motion fallback.
-- Фото «Маминой кухни» подключено в карточку партнёра: `assets/site/kirov/partners/mamina-kuhnya.webp`.
+- Для карточки «Мамина кухня» используется фото концепции «Царское село» из production-набора.
 
 ## Последняя проверка
 
@@ -48,21 +48,23 @@ Production: https://g10-kirov.vercel.app/
 
 ### Техническая frontend-доработка
 
-- Полный accessibility-аудит: focus trap/restore focus для всех dialogs, клавиатурный проход, 200% zoom и screen reader announcements.
+- [x] Управление фокусом: галерея, форма и настройки cookies возвращают фокус на исходный control; мобильное меню изолирует фон и циклически удерживает Tab-навигацию.
+- Полный accessibility-аудит: keyboard-only проход вне dialogs, 200% zoom, контраст и screen reader-проверка в VoiceOver/NVDA.
 - Решение по встраиванию Rutube: сейчас используется внешняя ссылка и честный placeholder без autoplay.
 - Responsive/performance-полировка: derivatives фотографий, dimensions для всех media, LCP/CLS/INP и проверка на матрице 320–1920 px.
 - События CTA, dialogs, disclosures, тарифов и форм после согласования аналитики.
 - Envybox после получения кода и правил consent/позиционирования.
 
-## Backend ещё не реализован
+## Backend: первый этап реализован
 
-Формы сейчас только валидируются на клиенте и показывают frontend-статус. Серверный endpoint, отправка на четыре адреса, request ID, rate limit, honeypot и credentials будут отдельным этапом.
+Добавлен Vercel Function `api/submit-application.js`: server-side validation, honeypot, memory fallback для локальной разработки, Upstash rate limiting при наличии credentials, optional Cloudflare Turnstile и отправка через Resend. Production-заявки начнут отправляться после настройки переменных из `.env.example` в Vercel.
 
 ## Следующий порядок работы
 
 1. Зафиксировать решения и материалы из раздела «Что осталось во frontend».
 2. Закрыть accessibility/performance polish и повторить production QA.
-3. После этого подключить backend формы и серверную доставку заявок.
+3. Настроить production environment variables для backend из `.env.example`, выполнить deploy и smoke test формы.
+4. После технической проверки закрыть оставшиеся analytics/Envybox и контентные решения.
 
 ## Рабочие ограничения
 

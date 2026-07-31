@@ -1,6 +1,6 @@
 # TODO — текущий roadmap G10 Киров
 
-Дата обновления: 25 июля 2026 года.
+Дата обновления: 30 июля 2026 года.
 
 Легенда: `[x]` выполнено, `[~]` частично или требует решения, `[ ]` не выполнено.
 
@@ -39,7 +39,7 @@
 - [x] Партнёры проекта и подробные dialogs.
 - [x] Placeholder программы и раскрытие трёх дней.
 - [x] Карточки трёх рестораторов с честными placeholders портретов.
-- [x] Четыре disclosure-группы тем с 14 пунктами.
+- [x] Четыре группы тем с 14 пунктами, текст виден сразу без раскрытия.
 - [x] Тарифы, ценовые периоды и состав участия.
 - [x] Галерея из четырёх фото и lightbox.
 - [x] Отзывы и ссылка на видеоотзыв.
@@ -49,33 +49,34 @@
 
 ## 4. Оставшийся frontend polish
 
-- [~] Довести focus trap и restore focus для gallery/application/consent dialogs; partner dialog уже восстанавливает фокус.
+- [x] Довести focus trap и restore focus для gallery/application/consent dialogs; partner dialog уже восстанавливает фокус.
 - [~] Полностью пройти accessibility-аудит: keyboard-only, screen reader, labels/errors, contrast и 200% zoom.
 - [~] Решить, нужен ли Rutube embed с poster; сейчас используется внешняя ссылка без autoplay.
 - [ ] Выполнить responsive QA на 320×568, 360×800, 393×844, 768×1024, 1024×768, 1366×768, 1440×900 и 1920×1080.
 - [ ] Подготовить responsive derivatives фотографий и проверить dimensions/aspect-ratio всех media.
 - [ ] Проверить LCP, CLS, INP, lazy loading, cache headers и broken links.
-- [ ] После получения analytics map добавить frontend-события CTA, dialogs, disclosures, тарифов, формы и видео.
+- [x] Добавить событие `application_submitted` после успешной отправки формы.
 - [ ] После получения Envybox config проверить safe area и конфликт с меню, формами и cookie UI.
 
-## 5. Backend формы — следующий этап
+## 5. Backend формы
 
-- [ ] Получить API/SMTP/provider и server-side credentials.
-- [ ] Подтвердить четыре адреса получателей, sender, Reply-To и subject format.
-- [ ] Создать server-side endpoint для inline и modal форм.
-- [ ] Добавить server validation, нормализацию и request ID.
-- [ ] Добавить honeypot/rate limit/anti-spam.
-- [ ] Реализовать success/error/loading states и сохранение данных при ошибке.
-- [ ] Не хранить credentials в HTML/CSS/JS.
+- [x] Выбрать Resend как email provider и описать env-контракт.
+- [ ] Добавить `RESEND_API_KEY`, verified sender и Upstash credentials в Vercel.
+- [x] Подтвердить четыре адреса получателей из брифа и Reply-To заявки.
+- [x] Создать server-side endpoint для inline и modal форм.
+- [x] Добавить server validation, нормализацию, honeypot и server-side rate limiting; production требует Upstash credentials.
+- [~] Подключить Cloudflare Turnstile при необходимости: server-side adapter готов, frontend widget пока не включён.
+- [x] Реализовать success/error/loading states.
+- [x] Не хранить credentials в HTML/CSS/JS; production secrets должны находиться только в Vercel Environment Variables.
 - [ ] Провести staging smoke test и реальную тестовую заявку.
 - [ ] Проверить доставку на четыре адреса.
 
 ## 6. Аналитика, cookies и Envybox
 
 - [x] Создать frontend cookie banner с Accept/Reject/Settings.
-- [~] Consent хранится локально, но необязательные vendor scripts пока отсутствуют.
-- [ ] Получить analytics IDs, цели и consent mode.
-- [ ] Подключить аналитику только после соответствующего consent.
+- [~] Consent хранится локально; Vercel Analytics загружается только после analytics consent, остальные vendor scripts пока отсутствуют.
+- [x] Подключить Vercel Analytics только после соответствующего consent.
+- [ ] Проверить событие `application_submitted` в production.
 - [ ] Получить Envybox code/config и подключить отложенно.
 - [ ] Проверить mobile positioning и отсутствие перекрытий.
 
