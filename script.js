@@ -55,6 +55,60 @@ function setupScrollReveal() {
 
 setupScrollReveal();
 
+function setupAboutCarousel() {
+  const carousel = document.querySelector("[data-about-carousel]");
+  if (!carousel) return;
+
+  const viewport = carousel.querySelector(".about-carousel__viewport");
+  const track = carousel.querySelector(".about-carousel__track");
+  const slides = [...carousel.querySelectorAll("[data-about-slide]")];
+  const dots = [...carousel.querySelectorAll("[data-about-dot]")];
+  const counter = carousel.querySelector("[data-about-counter]");
+  const previousButton = carousel.querySelector("[data-about-prev]");
+  const nextButton = carousel.querySelector("[data-about-next]");
+  if (!viewport || !track || !slides.length) return;
+
+  let currentIndex = 0;
+  let pointerStartX = null;
+
+  function renderAboutSlide(nextIndex) {
+    currentIndex = (nextIndex + slides.length) % slides.length;
+    track.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
+    slides.forEach((slide, index) => {
+      const isCurrent = index === currentIndex;
+      slide.classList.toggle("is-active", isCurrent);
+      slide.setAttribute("aria-hidden", String(!isCurrent));
+    });
+    dots.forEach((dot, index) => {
+      const isCurrent = index === currentIndex;
+      dot.classList.toggle("is-active", isCurrent);
+      if (isCurrent) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+    if (counter) counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+  }
+
+  previousButton?.addEventListener("click", () => renderAboutSlide(currentIndex - 1));
+  nextButton?.addEventListener("click", () => renderAboutSlide(currentIndex + 1));
+  dots.forEach((dot, index) => dot.addEventListener("click", () => renderAboutSlide(index)));
+
+  viewport.addEventListener("pointerdown", (event) => {
+    pointerStartX = event.clientX;
+  });
+  viewport.addEventListener("pointerup", (event) => {
+    if (pointerStartX === null) return;
+    const distance = event.clientX - pointerStartX;
+    pointerStartX = null;
+    if (Math.abs(distance) < 40) return;
+    renderAboutSlide(currentIndex + (distance < 0 ? 1 : -1));
+  });
+  viewport.addEventListener("pointercancel", () => { pointerStartX = null; });
+
+  renderAboutSlide(0);
+}
+
+setupAboutCarousel();
+
 function closeMenu({ restoreFocus = false } = {}) {
   if (!menuToggle || !siteNav) return;
   menuToggle.setAttribute("aria-expanded", "false");

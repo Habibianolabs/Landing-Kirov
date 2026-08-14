@@ -1,79 +1,76 @@
 # Handoff для нового чата
 
-Дата проверки: 30 июля 2026 года.
+Дата проверки: 12 августа 2026 года.
 
 ## Канонический проект
 
 - Рабочая папка: `/Users/lilcheecha/Documents/Landings`
-- Проект: G10 «Рестораторы и опердиры России. Перезагрузка» для города Киров
-- GitHub: https://github.com/Habibianolabs/Landing-Kirov
+- Проект: G10 «Рестораторы и опердиры России. Перезагрузка» для Кирова
+- GitHub: [Habibianolabs/Landing-Kirov](https://github.com/Habibianolabs/Landing-Kirov)
 - Git remote: `git@github.com:Habibianolabs/Landing-Kirov.git`
 - Ветка: `main`
 - Vercel project: `g10-kirov`
-- Production: https://g10-kirov.vercel.app/
-- Функциональный референс структуры: https://g10-5.restoved.ru/ekaterinburg
+- Production: [https://g10-kirov.vercel.app/](https://g10-kirov.vercel.app/)
+- Функциональный референс: [https://g10-5.restoved.ru/ekaterinburg](https://g10-5.restoved.ru/ekaterinburg)
 
-Екатеринбург используется только как небольшой функциональный референс расположения блоков и поведения. Его визуальную айдентику, контент и материалы переносить нельзя. Проект делается только для Кирова; другие города к нему не относятся и не должны появляться в коде, контенте, названиях файлов или документации.
+Екатеринбург — только референс структуры и поведения. Проект делается только для Кирова. Не переносить чужую визуальную систему, контент, виджеты или случайные изображения.
 
-## Источники и материалы
+## Источники
 
-- Канонический бриф в репозитории: `assets/source-materials/Бриф для лендинга Киров.docx`
-- Оригинальный файл брифа: `/Users/lilcheecha/Downloads/Telegram Desktop/Бриф для лендинга Киров(1).docx`
-- Полная актуальная папка исходников: `/Users/lilcheecha/Downloads/G10 Рестораторы России Киров 3`
-- Production-assets: `assets/site/kirov/`
+- Канонический бриф: `assets/source-materials/Бриф для лендинга Киров.docx`
+- Оригинальный бриф: `/Users/lilcheecha/Downloads/Telegram Desktop/Бриф для лендинга Киров(1).docx`
+- Актуальная папка: `/Users/lilcheecha/Downloads/G10 Рестораторы России Киров 3`
+- Папка портретов экспертов: `/Users/lilcheecha/Downloads/Эксперты/`
+- Подключённые assets: `assets/site/kirov/`
 - Индекс материалов: `MATERIALS_INDEX.md`
-- Открытые контентные вопросы: `MISSING_MATERIALS.md`
+- Открытые решения: `MISSING_MATERIALS.md`
 
-При конфликте источников приоритет у брифа, затем у актуальной папки материалов. Черновое расписание с `???`, неподтвержденные портреты и неподтвержденные цены нельзя выдавать за финальные данные.
+## Что прочитать сначала
 
-## Что прочитать в новом чате
+1. `PROJECT.md` — краткая карта стека, структуры и production.
+2. `AGENTS.md` — правила работы с проектом.
+3. `PROJECT_CONTEXT.md` — технический контекст.
+4. `CURRENT_TASK.md` — текущий статус и порядок задач.
+5. `CONTENT_MAP.md` — карта контента.
+6. `MATERIALS_INDEX.md` — исходники и production-assets.
+7. `MISSING_MATERIALS.md` — блокеры и конфликты.
+8. `IMPLEMENTATION_PLAN.md` — этапы и критерии готовности.
+9. `TODO.md` — чек-лист.
 
-1. `PROJECT_CONTEXT.md` — технический контекст и ограничения.
-2. `CURRENT_TASK.md` — текущий статус и ближайшие действия.
-3. `CONTENT_MAP.md` — карта требований и контента.
-4. `MATERIALS_INDEX.md` — источники и подключенные assets.
-5. `MISSING_MATERIALS.md` — незакрытые материалы и решения.
-6. `IMPLEMENTATION_PLAN.md` — план и история этапов.
-7. `TODO.md` — checklist.
-8. `NEW_CHAT_CONTEXT.md` — готовое сообщение для передачи в новый чат.
+## Стек и структура
+
+[FACT] Проект статический: `index.html` + `styles.css` + `script.js`, без Next.js/React/Vite и без сборщика. Серверная часть — только `api/submit-application.js` как Vercel Function. Конфигурация — `vercel.json`; env-контракт — `.env.example`; runtime-зависимости отсутствуют.
 
 ## Текущее состояние
 
-Frontend — статический HTML/CSS/JavaScript без Next.js и без сборщика:
+[FACT] В карточке «Мамина кухня» секции «Партнёры программы» подключён новый предоставленный логотип `assets/site/kirov/logos/mamina-kuhnya-program.png`.
 
-- `index.html` — разметка, секции и две формы;
-- `styles.css` — визуальная система и responsive;
-- `script.js` — навигация, dialogs, disclosures, lightbox, consent, отправка формы и Vercel Analytics;
-- `api/submit-application.js` — Vercel Function формы;
-- `.env.example` — список production environment variables.
+[FACT] В секции «Партнёры проекта и их концепции» шесть карточек «Культуры Гостеприимства» используют графические иллюстрации из предоставленного референса в `assets/site/kirov/concepts/illustrations/`; тексты и характеристики остаются HTML-контентом, а три карточки «Маминой кухни» сохраняют фотографии.
 
-Frontend опубликован. Локально добавлен backend формы: server-side validation, honeypot, rate limiting, optional Cloudflare Turnstile, Resend adapter, Reply-To и обработка success/error/loading. Production-отправка пока не считается включенной: в Vercel ещё нужно добавить реальные переменные и выполнить deploy/smoke test.
+[FACT] Production содержит секцию «Партнёры проекта и их концепции» с двумя последовательными группами: «Культура Гостеприимства» с шестью концепциями и «Мамина кухня» с тремя. В карточках и экспертных профилях используются роли «со-основатель» и «со-основатели». В раскрывающемся списке «Эксперты альянса» подключены 10 локальных миниатюр портретов; в трёх больших карточках секции «Эксперты» подключены портреты Андрея Несветаева и Владимира Шаклеина, а для Михаила Скрябина пока сохранён silhouette fallback. Production также содержит карусель из пяти фотографий с исходным кадром первым, стрелками, точками, счётчиком и свайпом; вводный текст стоимости — «Доступна рассрочка.»; видеоблок содержит сразу видимый Rutube iframe без autoplay.
 
-## Backend: что осталось
+[FACT] Backend-код уже опубликован, но production email delivery не активна: нужны подтверждённые Resend sender/recipients, `RESEND_API_KEY`, Upstash Redis URL/token, Vercel env и тестовая доставка. Honeypot работает в коде; Turnstile — optional и не включён в frontend; rate limiting в production требует Upstash.
 
-1. В Resend создать API key и подтвердить домен/адрес отправителя.
-2. В Upstash создать Redis и получить REST URL/token.
-3. Добавить переменные из `.env.example` в Vercel Project Settings → Environment Variables.
-4. Выполнить production deploy и проверить rate limiting, honeypot и доставку тестовой заявки на четыре адреса.
-5. При необходимости подключить Cloudflare Turnstile: нужны site key для frontend и `TURNSTILE_SECRET_KEY` для backend; сейчас серверная проверка уже поддержана, но widget в HTML не включен.
-6. Проверить событие `application_submitted` в production после analytics consent.
+Аналитика: Vercel Analytics загружается после analytics consent, event `application_submitted` реализован. Яндекс Метрика и Envybox пока не подключены.
 
-Получатели по умолчанию: `lp@restoranoff.ru`, `rv@restoranoff.ru`, `event@restoranoff.ru`, `p.spiridonova@restoranoff.ru`. Секреты в Git и в клиентский код не добавлять.
+## Открытые решения
 
-## Контент, который ещё требует решения
+[FACT] Предыдущая production-правка от 5 августа 2026 года добавила подпись «Ресторанный альянс «Культура гостеприимства»» в секцию о компании; рамка переносит текст без горизонтального переполнения. В больших карточках экспертов подключены портреты Андрея Несветаева и Владимира Шаклейна, а карточка Михаила Скрябина сохраняет silhouette fallback.
 
-- финальная программа 5–7 октября;
-- лимит группы: 20 или 25 участников;
-- цена на период 29 августа–4 сентября;
-- выбор 14 тем брифа или 13 тем пресс-релиза;
-- официальные портреты трёх рестораторов или подтверждение силуэтов;
-- финальные отзывы и разрешение на публикацию;
-- права на локальные event-фото и Rutube-материал;
-- код и правила показа Envybox;
-- постоянный домен, если нужен вместо Vercel alias.
+[FACT] Михаил Скрябин обозначен как основатель сети «Мамина кухня». Блок «Как проходят наши мероприятия» использует три предоставленные фотографии и трёхколоночную desktop-сетку.
 
-## Проверки
+[FACT] Секция «Партнёры программы» возвращена к исходной композиции: стандартный фон секции, обычные внешние карточки и одинаковые внутренние рамки вокруг обоих логотипов с фоном `var(--surface-muted)`.
 
-Последние локальные проверки: `node --check script.js`, `node --check api/submit-application.js`, `git diff --check`, проверка локальных ссылок и дубликатов assets — пройдены. Локально в Playwright проверены возврат фокуса из gallery/cookies, ошибки формы и tab-cycle мобильного меню на 390 px. В рабочем дереве есть незакоммиченные изменения; первый commit ещё не создан.
+- программа 5–7 октября;
+- лимит 20/25 участников;
+- цена 29 августа–4 сентября;
+- 14 или 13 публичных тем;
+- отдельный портрет Михаила Скрябина для третьей карточки секции «Эксперты»;
+- финальные отзывы и права на публикацию;
+- права на event-фото/Rutube;
+- постоянный домен заказчика;
+- Turnstile, Яндекс Метрика, Envybox.
 
-Не выполнять destructive Git-команды и не переписывать историю без отдельного указания.
+## Проверки и безопасность
+
+Последние проверки: `node --check script.js`, `node --check api/submit-application.js`, `git diff --check`, desktop/mobile smoke test и production GET `/api/submit-application` → 405 пройдены. В рабочем дереве есть незакоммиченные изменения. Не включать `.env.local` или `.vercel/.env.production.local` в документы, commit или архив; если локальный токен когда-либо раскрыт, его нужно отозвать и выпустить заново.

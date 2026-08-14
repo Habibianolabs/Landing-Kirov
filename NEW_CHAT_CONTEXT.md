@@ -1,6 +1,8 @@
 # Сообщение для нового чата
 
-Скопируй в новый чат весь текст ниже.
+Дата актуализации: 12 августа 2026 года.
+
+Скопируй в новый чат текст ниже.
 
 ```text
 Продолжаем проект лендинга G10 «Рестораторы и опердиры России. Перезагрузка» только для города Киров.
@@ -8,45 +10,60 @@
 Корень проекта:
 /Users/lilcheecha/Documents/Landings
 
-Главный источник:
-/Users/lilcheecha/Documents/Landings/assets/source-materials/Бриф для лендинга Киров.docx
+Сначала прочитай:
+/Users/lilcheecha/Documents/Landings/PROJECT.md
+/Users/lilcheecha/Documents/Landings/AGENTS.md
+/Users/lilcheecha/Documents/Landings/PROJECT_CONTEXT.md
+/Users/lilcheecha/Documents/Landings/CURRENT_TASK.md
+/Users/lilcheecha/Documents/Landings/HANDOFF.md
+/Users/lilcheecha/Documents/Landings/CONTENT_MAP.md
+/Users/lilcheecha/Documents/Landings/MATERIALS_INDEX.md
+/Users/lilcheecha/Documents/Landings/MISSING_MATERIALS.md
+/Users/lilcheecha/Documents/Landings/IMPLEMENTATION_PLAN.md
+/Users/lilcheecha/Documents/Landings/TODO.md
 
-Оригинальный бриф:
-/Users/lilcheecha/Downloads/Telegram Desktop/Бриф для лендинга Киров(1).docx
-
-Актуальная папка с исходными фотографиями, логотипами и документами:
-/Users/lilcheecha/Downloads/G10 Рестораторы России Киров 3
-
-Папка подключенных production-assets:
-/Users/lilcheecha/Documents/Landings/assets/site/kirov
-
-Сначала прочитай в корне проекта:
-- PROJECT_CONTEXT.md
-- CURRENT_TASK.md
-- CONTENT_MAP.md
-- MATERIALS_INDEX.md
-- MISSING_MATERIALS.md
-- IMPLEMENTATION_PLAN.md
-- TODO.md
-- HANDOFF.md
+Источники:
+- Канонический бриф: /Users/lilcheecha/Documents/Landings/assets/source-materials/Бриф для лендинга Киров.docx
+- Оригинал: /Users/lilcheecha/Downloads/Telegram Desktop/Бриф для лендинга Киров(1).docx
+- Актуальная папка: /Users/lilcheecha/Downloads/G10 Рестораторы России Киров 3
+- Папка портретов экспертов: /Users/lilcheecha/Downloads/Эксперты/
+- Production-assets: /Users/lilcheecha/Documents/Landings/assets/site/kirov
 
 Ссылки:
 - GitHub: https://github.com/Habibianolabs/Landing-Kirov
-- Vercel production: https://g10-kirov.vercel.app/
+- Vercel direct deployment (актуальная локальная версия): https://g10-kirov-habibiano.vercel.app/
+- Публичный alias: https://g10-kirov.vercel.app/ → редиректит на внешний nginx-origin https://g10.kirov.restoved.ru/; этот origin пока отдаёт старую сборку
 - Vercel project: g10-kirov
-- Функциональный референс структуры: https://g10-5.restoved.ru/ekaterinburg
-
-Екатеринбург — только небольшой референс по расположению блоков и поведению. Не копируй его визуальный стиль, контент или материалы. Используй только кировские данные; другие города не относятся к проекту и не должны появляться в файлах.
+- Референс структуры: https://g10-5.restoved.ru/ekaterinburg
 
 Техническая основа:
 - статический index.html + styles.css + script.js;
+- без Next.js, React, Vite и без сборщика;
 - Vercel Function: api/submit-application.js;
-- env-контракт: .env.example;
-- backend уже содержит server validation, honeypot, rate limiting, optional Turnstile и отправку через Resend;
-- production backend ещё не активирован: нужны Resend API key/from email, Upstash REST URL/token, Vercel env и deploy/smoke test;
-- событие аналитики после успешной заявки: application_submitted.
+- env-контракт: .env.example.
 
-Не клади секреты в Git или frontend. При конфликте данных приоритет у брифа, затем у актуальной папки исходников. Не публикуй черновое расписание с ???, неподтвержденные портреты и неподтвержденные цены. Не выполняй destructive Git-команды и не переписывай историю.
+Стиль работы с пользователем:
+- Пользователь не программист. Любой технический термин, сокращение или сообщение об ошибке нужно объяснять простым русским языком: что это, зачем нужно и какое действие требуется.
+- Не оставлять без расшифровки слова `hash`, `commit`, `CLI`, `SSH`, `public key`, `API`, `DNS`, `nginx`, `FTP`, `FTPS`, `SFTP` и похожий сленг.
+- Не просить присылать пароли, приватные ключи или токены в чат.
 
-Открытые решения: финальная программа 5–7 октября, лимит 20/25 участников, цена 29 августа–4 сентября, список 14/13 тем, портреты рестораторов, финальные отзывы и разрешения, права на event-фото/Rutube, Envybox и постоянный домен.
+Frontend последней production-версии:
+- удалён заголовок «Люди, которые строят систему изнутри», название блока «Эксперты» сохранено;
+- номера тем: 1, 2, 3, 4;
+- banner статичный, без вращения и бликов;
+- blue-glass surfaces применены ко всему проекту.
+- В блоке «Как проходят наши мероприятия» Rutube iframe отображается сразу, воспроизведение запускается пользователем.
+- В секциях от «Экспертов» до CTA удалены крупные заголовки, названия блоков сохранены; CTA-заголовок «Станьте самым эффективным операционистом собственного бизнеса» оставлен.
+- В секции о компании подпись-кicker — «Ресторанный альянс «Культура гостеприимства»»; длинный текст переносится внутри рамки на desktop и mobile.
+- В больших карточках экспертов подключены портреты Андрея Несветаева и Владимира Шаклейна; для Михаила Скрябина отдельный портрет не найден, используется silhouette fallback.
+- Михаил Скрябин указан как основатель сети «Мамина кухня». В блоке «Как проходят наши мероприятия» подключены три предоставленные фотографии: `g10-discussion.jpg`, `g10-community.jpg`, `g10-kitchen.jpg`.
+- В карточке «Мамина кухня» секции «Партнёры программы» подключён новый предоставленный логотип `mamina-kuhnya-program.png`.
+- Секция «Партнёры программы» возвращена к исходной композиции: стандартный фон секции, обычные внешние карточки и одинаковые внутренние рамки вокруг обоих логотипов с фоном `var(--surface-muted)`.
+- В секции «Партнёры проекта и их концепции» шесть карточек «Культуры Гостеприимства» используют графические иллюстрации из предоставленного референса в `assets/site/kirov/concepts/illustrations/`; живые тексты карточек сохранены, три карточки «Маминой кухни» оставлены с фотографиями.
+
+Backend уже написан, но production-доставка заявок НЕ активна до настройки Resend sender/API key, Upstash Redis URL/token, Vercel env и успешной тестовой заявки. Honeypot работает; Turnstile optional и пока не включён; аналитика application_submitted загружается после consent.
+
+После каждого согласованного runtime-изменения сначала проверить локально, затем вручную синхронизировать production Vercel. Документы-only на Vercel не деплоить. Не хранить секреты в Git, frontend, Markdown или архиве.
+
+Открытые решения: программа 5–7 октября, лимит 20/25, цена 29 августа–4 сентября, портрет Михаила Скрябина для третьей большой карточки, отзывы и права на media, получатели формы, постоянный домен, Envybox/Метрика/Turnstile. Портреты Андрея Несветаева и Владимира Шаклейна уже подключены в большие карточки.
 ```
