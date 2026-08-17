@@ -1,6 +1,6 @@
 # Handoff для нового чата
 
-Дата проверки: 12 августа 2026 года.
+Дата проверки: 17 августа 2026 года.
 
 ## Канонический проект
 
@@ -9,8 +9,9 @@
 - GitHub: [Habibianolabs/Landing-Kirov](https://github.com/Habibianolabs/Landing-Kirov)
 - Git remote: `git@github.com:Habibianolabs/Landing-Kirov.git`
 - Ветка: `main`
-- Vercel project: `g10-kirov`
-- Production: [https://g10-kirov.vercel.app/](https://g10-kirov.vercel.app/)
+- Vercel project: `g10-kirov`; прямой актуальный deployment: [g10-kirov-habibiano.vercel.app](https://g10-kirov-habibiano.vercel.app/)
+- Публичный сайт: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/)
+- Публичный сервер: IHC, `95.181.224.17`, `nginx/1.20.2`
 - Функциональный референс: [https://g10-5.restoved.ru/ekaterinburg](https://g10-5.restoved.ru/ekaterinburg)
 
 Екатеринбург — только референс структуры и поведения. Проект делается только для Кирова. Не переносить чужую визуальную систему, контент, виджеты или случайные изображения.
@@ -40,6 +41,14 @@
 ## Стек и структура
 
 [FACT] Проект статический: `index.html` + `styles.css` + `script.js`, без Next.js/React/Vite и без сборщика. Серверная часть — только `api/submit-application.js` как Vercel Function. Конфигурация — `vercel.json`; env-контракт — `.env.example`; runtime-зависимости отсутствуют.
+
+## Размещение и доступ
+
+[FACT] `g10-kirov.vercel.app` перенаправляет на публичный сайт IHC. 17 августа 2026 года FileZilla успешно открыл корень публичного сервера: `index.html`, `assets/`, `api/`, Markdown-файлы и `webstat`. Доступ к спискам файлов нестабилен: сервер иногда закрывает защищённый канал передачи после команды списка, поэтому сверку и загрузку нужно выполнять малыми проверяемыми порциями.
+
+[UNKNOWN] Адрес панели управления конкретного заказа IHC не подтверждён. Не записывать в этот файл или Git IP-логины, пароли, приватные ключи либо содержимое `.env.local`. Папку `webstat` и `.env.local` на сервере не перезаписывать.
+
+[FACT] Локальная папка и GitHub `main` совпадают в версии `fef0f7d`. Перед публикацией на IHC сравнить runtime-файлы; помните, что папка `api/` не запускает Vercel Function на обычном статическом сервере автоматически.
 
 ## Текущее состояние
 
@@ -73,4 +82,4 @@
 
 ## Проверки и безопасность
 
-Последние проверки: `node --check script.js`, `node --check api/submit-application.js`, `git diff --check`, desktop/mobile smoke test и production GET `/api/submit-application` → 405 пройдены. В рабочем дереве есть незакоммиченные изменения. Не включать `.env.local` или `.vercel/.env.production.local` в документы, commit или архив; если локальный токен когда-либо раскрыт, его нужно отозвать и выпустить заново.
+Последние проверки: `node --check script.js`, `node --check api/submit-application.js`, `git diff --check`, desktop/mobile smoke test, GitHub-сверка версии `fef0f7d`, HTTP/HTTPS-проверка публичного IHC origin и успешный список корня FileZilla. После этой документационной правки в рабочем дереве есть Markdown-изменения. Не включать `.env.local` или `.vercel/.env.production.local` в документы, Git или архив; если локальный токен когда-либо раскрыт, его нужно отозвать и выпустить заново.

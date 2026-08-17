@@ -1,6 +1,6 @@
 # Сообщение для нового чата
 
-Дата актуализации: 12 августа 2026 года.
+Дата актуализации: 17 августа 2026 года.
 
 Скопируй в новый чат текст ниже.
 
@@ -32,7 +32,9 @@
 Ссылки:
 - GitHub: https://github.com/Habibianolabs/Landing-Kirov
 - Vercel direct deployment (актуальная локальная версия): https://g10-kirov-habibiano.vercel.app/
-- Публичный alias: https://g10-kirov.vercel.app/ → редиректит на внешний nginx-origin https://g10.kirov.restoved.ru/; этот origin пока отдаёт старую сборку
+- Публичный alias: https://g10-kirov.vercel.app/ → редиректит на https://g10.kirov.restoved.ru/
+- Публичный сайт: https://g10.kirov.restoved.ru/; сервер IHC `95.181.224.17`, web-сервер `nginx/1.20.2`
+- Доступ к файловому корню IHC подтверждён через FileZilla; URL панели управления заказа пока [UNKNOWN]
 - Vercel project: g10-kirov
 - Референс структуры: https://g10-5.restoved.ru/ekaterinburg
 
@@ -63,7 +65,7 @@ Frontend последней production-версии:
 
 Backend уже написан, но production-доставка заявок НЕ активна до настройки Resend sender/API key, Upstash Redis URL/token, Vercel env и успешной тестовой заявки. Honeypot работает; Turnstile optional и пока не включён; аналитика application_submitted загружается после consent.
 
-После каждого согласованного runtime-изменения сначала проверить локально, затем вручную синхронизировать production Vercel. Документы-only на Vercel не деплоить. Не хранить секреты в Git, frontend, Markdown или архиве.
+После каждого согласованного runtime-изменения сначала проверить локально, затем сверить GitHub, Vercel и IHC. На IHC не загружать `.env.local`, `.git` и `webstat`; `api/submit-application.js` не исполняется там автоматически, потому что это Vercel Function. Документы-only ни на Vercel, ни на IHC не деплоить. Не хранить секреты в Git, frontend, Markdown или архиве.
 
 Открытые решения: программа 5–7 октября, лимит 20/25, цена 29 августа–4 сентября, портрет Михаила Скрябина для третьей большой карточки, отзывы и права на media, получатели формы, постоянный домен, Envybox/Метрика/Turnstile. Портреты Андрея Несветаева и Владимира Шаклейна уже подключены в большие карточки.
 ```
