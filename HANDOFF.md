@@ -1,6 +1,6 @@
 # Handoff для нового чата
 
-Дата проверки: 17 августа 2026 года.
+Дата проверки: 19 августа 2026 года.
 
 ## Канонический проект
 
@@ -60,7 +60,7 @@
 
 [FACT] Backend-код уже опубликован, но production email delivery не активна: нужны подтверждённые Resend sender/recipients, `RESEND_API_KEY`, Upstash Redis URL/token, Vercel env и тестовая доставка. Honeypot работает в коде; Turnstile — optional и не включён в frontend; rate limiting в production требует Upstash.
 
-Аналитика: Vercel Analytics загружается после analytics consent, event `application_submitted` реализован. Яндекс Метрика и Envybox пока не подключены.
+Аналитика: Vercel Analytics и Яндекс Метрика загружаются только после analytics consent. [FACT] 18 августа создан счётчик `G10 Kirov` № `111727875` для `g10.kirov.restoved.ru`; локальный код фиксирует просмотры и время сайта, `application_open`, `tariff_selected`, `phone_click`, `partner_site_open`, `scroll_50`, `scroll_90`, `application_submitted`. Персональные данные в Метрику не передаются. Код ещё не опубликован на IHC. Envybox пока не подключён.
 
 ## Открытые решения
 
@@ -78,7 +78,7 @@
 - финальные отзывы и права на публикацию;
 - права на event-фото/Rutube;
 - постоянный домен заказчика;
-- Turnstile, Яндекс Метрика, Envybox.
+- Turnstile, Envybox, публикация и production-проверка Метрики.
 
 ## Проверки и безопасность
 

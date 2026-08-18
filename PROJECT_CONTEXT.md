@@ -1,6 +1,6 @@
 # Проектный контекст
 
-Дата обновления: 17 августа 2026 года.
+Дата обновления: 19 августа 2026 года.
 
 ## Назначение
 
@@ -14,7 +14,7 @@
 
 - `index.html` — семантическая разметка, секции, две формы, dialog-контейнеры и footer;
 - `styles.css` — design tokens, статичный голубой фон, blue-glass surfaces, layout, responsive и motion states;
-- `script.js` — навигация, active sections, disclosures, dialogs, lightbox, consent, форма и Vercel Analytics;
+- `script.js` — навигация, active sections, disclosures, dialogs, lightbox, consent, форма и аналитика Vercel/Яндекс Метрики;
 - `api/submit-application.js` — Vercel Function с серверной валидацией, honeypot, Upstash rate limiting, optional Turnstile и Resend;
 - `.env.example` — контракт production environment variables;
 - `assets/site/kirov/` — подключённые banner, логотипы, фотографии и event-assets;
@@ -40,7 +40,7 @@
 - четыре группы ключевых тем, 14 пунктов и номера `1`–`4` внутри групп;
 - тарифы, состав участия, галерея, lightbox, сразу открытый Rutube iframe, отзывы, cookie consent и footer;
 - inline-форма и modal-форма с общей схемой отправки на `/api/submit-application`;
-- событие аналитики `application_submitted` после успешного ответа API.
+- счётчик Яндекс Метрики `111727875` для `g10.kirov.restoved.ru`: загрузка только после analytics consent; события `application_open`, `tariff_selected`, `phone_click`, `partner_site_open`, `scroll_50`, `scroll_90` и `application_submitted` после успешного ответа API. Персональные данные в события не передаются.
 
 ## Production-синхронизация
 
@@ -69,7 +69,7 @@
 
 [FACT] Production-приём заявок пока не активирован: в Vercel не подтверждены реальные Resend/Upstash credentials и не выполнена тестовая доставка. Адреса в `.env.example` — текущий fallback из материалов, а не подтверждённый заказчиком финальный routing.
 
-Аналитика загружается только после analytics consent. Яндекс Метрика и Envybox не подключены.
+Аналитика загружается только после analytics consent. [FACT] 18 августа 2026 года создан счётчик Яндекс Метрики `G10 Kirov` № `111727875`; код добавлен локально, но ещё не опубликован на IHC. Envybox не подключён.
 
 ## Открытые решения
 
@@ -81,7 +81,7 @@
 - финальный список отзывов и разрешения;
 - права на фотографии карусели, три предоставленные event-фото и Rutube;
 - Resend sender/recipients и Upstash production env;
-- Turnstile, Яндекс Метрика, Envybox и постоянный домен заказчика;
+- Turnstile, Envybox и постоянный домен заказчика;
 - финальный accessibility/performance/content audit.
 
 ## Источники

@@ -1,10 +1,10 @@
 # План реализации лендинга G10 Киров
 
-Дата подготовки: 24 июля 2026 года. Текущая сверка: 17 августа 2026 года.
+Дата подготовки: 24 июля 2026 года. Текущая сверка: 19 августа 2026 года.
 
 ## Текущий статус реализации
 
-Дата статуса: 17 августа 2026 года.
+Дата статуса: 19 августа 2026 года.
 
 [FACT] Frontend-части этапов 2–11 и 14 закрыты в виде статического HTML/CSS/JavaScript проекта. Актуальная локальная версия опубликована в Vercel deployment `g10-kirov`; публичный домен `g10.kirov.restoved.ru` обслуживается отдельным IHC origin `95.181.224.17` с `nginx/1.20.2`.
 
@@ -18,7 +18,7 @@
 
 [FACT] В секциях от «Экспертов» до CTA сохранены section-kicker-названия блоков, а крупные H2 удалены по дизайн-решению; CTA-заголовок оставлен.
 
-[PARTIAL] Открыты content freeze, production credentials формы, постоянный домен, права на media, accessibility/performance QA, production analytics verification, Turnstile, EnvyBox и финальный release checklist. В EnvyBox запланированы чат поддержки, звонок и заказ обратного звонка.
+[PARTIAL] Открыты content freeze, production credentials формы, постоянный домен, права на media, accessibility/performance QA, production analytics verification, Turnstile, EnvyBox и финальный release checklist. [FACT] Счётчик Яндекс Метрики `G10 Kirov` № `111727875` создан 18 августа 2026 года, а consent-aware код добавлен локально; осталась публикация на IHC и проверка. В EnvyBox запланированы чат поддержки, звонок и заказ обратного звонка.
 
 [PARTIAL] Vercel Function формы создана и опубликована: validation, honeypot, rate limiting, optional Turnstile и Resend adapter готовы; production credentials и реальная тестовая доставка ещё не выполнены.
 
@@ -141,7 +141,7 @@
 - подтвердить набор и очередность ценовых периодов;
 - подтвердить, публикуется ли только placeholder программы;
 - получить недостающие логотипы, портреты и фото «Маминой кухни»;
-- получить analytics ID, Envybox-конфигурацию и подтвердить production-канал Resend/Upstash;
+- получить Envybox-конфигурацию, опубликовать и проверить созданный счётчик Метрики, подтвердить production-канал Resend/Upstash;
 - зафиксировать, какие удаленные assets Екатеринбурга разрешено перенести локально.
 
 **Компоненты:** не создаются.
@@ -372,7 +372,7 @@
 
 ### Этап 13. Cookies, метрики и EnvyBox
 
-**Статус на 6 августа 2026:** cookie consent и отложенная Vercel Analytics-загрузка реализованы; событие `application_submitted` добавлено. Production event QA, Яндекс Метрика и EnvyBox остаются открытыми.
+**Статус на 18 августа 2026:** cookie consent, отложенная Vercel Analytics-загрузка и Яндекс Метрика `111727875` реализованы локально. Метрика не передаёт персональные данные и фиксирует просмотр, глубину 50/90%, CTA и успешную заявку. Production event QA и EnvyBox остаются открытыми.
 
 **Что делается:**
 

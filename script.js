@@ -256,9 +256,65 @@ function loadVercelAnalytics() {
   document.head.appendChild(script);
 }
 
+const yandexMetrikaId = 111727875;
+let yandexMetrikaEnabled = false;
+
+function loadYandexMetrika() {
+  if (document.querySelector("script[data-yandex-metrika]")) return;
+  window.ym = window.ym || function yandexMetrikaQueue() {
+    (window.ym.a = window.ym.a || []).push(arguments);
+  };
+  window.ym.l = Date.now();
+  window.ym(yandexMetrikaId, "init", {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+    webvisor: true
+  });
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://mc.yandex.ru/metrika/tag.js?id=${yandexMetrikaId}`;
+  script.dataset.yandexMetrika = "true";
+  document.head.appendChild(script);
+  yandexMetrikaEnabled = true;
+}
+
 function trackEvent(name, data = {}) {
   if (typeof window.va === "function") window.va("event", { name, ...data });
+  if (yandexMetrikaEnabled && typeof window.ym === "function") window.ym(yandexMetrikaId, "reachGoal", name, data);
 }
+
+document.querySelectorAll("[data-open-application]").forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    trackEvent("application_open", {
+      plan: trigger.dataset.plan || "not_selected",
+      source: trigger.dataset.ctaSource || "unknown"
+    });
+    if (trigger.dataset.plan) trackEvent("tariff_selected", { plan: trigger.dataset.plan });
+  });
+});
+
+document.querySelectorAll("a[href^='tel:']").forEach((link) => {
+  link.addEventListener("click", () => trackEvent("phone_click", { location: "footer" }));
+});
+
+document.querySelectorAll(".logo-link[href]").forEach((link) => {
+  link.addEventListener("click", () => trackEvent("partner_site_open", { partner: link.getAttribute("aria-label") || "unknown" }));
+});
+
+const trackedScrollDepths = new Set();
+function trackScrollDepth() {
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (scrollableHeight <= 0) return;
+  const depth = ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) * 100;
+  [50, 90].forEach((threshold) => {
+    if (depth >= threshold && !trackedScrollDepths.has(threshold)) {
+      trackedScrollDepths.add(threshold);
+      trackEvent(`scroll_${threshold}`);
+    }
+  });
+}
+window.addEventListener("scroll", trackScrollDepth, { passive: true });
 
 function hasAnalyticsConsent() {
   try {
@@ -368,7 +424,11 @@ function setConsent(value) {
     savedValue = analyticsEnabled ? "analytics" : "necessary";
   }
   try { localStorage.setItem(consentStorageKey, savedValue); } catch (error) { /* private browsing can block storage */ }
-  if (savedValue === "all" || savedValue === "analytics") loadVercelAnalytics();
+  if (savedValue === "all" || savedValue === "analytics") {
+    loadVercelAnalytics();
+    loadYandexMetrika();
+    trackScrollDepth();
+  }
   if (cookieBanner) cookieBanner.hidden = true;
   closeConsentDialog();
 }
@@ -382,7 +442,11 @@ function closeConsentDialog() {
   lastConsentTrigger = null;
 }
 try { if (!localStorage.getItem(consentStorageKey) && cookieBanner) cookieBanner.hidden = false; } catch (error) { if (cookieBanner) cookieBanner.hidden = false; }
-if (hasAnalyticsConsent()) loadVercelAnalytics();
+if (hasAnalyticsConsent()) {
+  loadVercelAnalytics();
+  loadYandexMetrika();
+  trackScrollDepth();
+}
 document.querySelector("[data-cookie-accept]")?.addEventListener("click", () => setConsent("all"));
 document.querySelector("[data-cookie-reject]")?.addEventListener("click", () => setConsent("necessary"));
 document.querySelector("[data-cookie-settings]")?.addEventListener("click", openConsentSettings);
