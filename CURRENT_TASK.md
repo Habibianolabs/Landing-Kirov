@@ -72,7 +72,7 @@
 
 ## Проверенный production
 
-[FACT] 20 августа 2026 года коммит `8671ec7` опубликован в Vercel со статусом `READY`. Контрольные суммы `index.html`, `styles.css` и `script.js` совпадают между локальной папкой, GitHub и `g10-kirov.vercel.app`; этот alias отвечает напрямую от Vercel. `g10.kirov.restoved.ru` остаётся отдельным nginx-origin на IHC `95.181.224.17`.
+[FACT] 20 августа 2026 года коммит `f1823f9` опубликован в Vercel со статусом `READY`. Контрольные суммы `index.html`, `styles.css` и `script.js` совпадают между локальной папкой, GitHub и `g10-kirov.vercel.app`; этот alias отвечает напрямую от Vercel. `g10.kirov.restoved.ru` остаётся отдельным nginx-origin на IHC `95.181.224.17`.
 
 [FACT] Production smoke check подтвердил наличие Rutube iframe, отсутствие удалённого заголовка «Люди, которые строят систему изнутри» и нумерацию тем `1`–`4`; GET `/api/submit-application` по-прежнему отвечает HTTP 405 с `Allow: POST, OPTIONS`.
 

@@ -45,7 +45,7 @@
 
 ## Production-синхронизация
 
-[FACT] 20 августа 2026 года коммит `8671ec7` опубликован в Vercel production со статусом `READY`. Alias `g10-kirov.vercel.app` содержит те же `index.html`, `styles.css`, `script.js` и backend-функцию, что и актуальная ветка GitHub `main`.
+[FACT] 20 августа 2026 года коммит `f1823f9` опубликован в Vercel production со статусом `READY`. Alias `g10-kirov.vercel.app` содержит те же `index.html`, `styles.css`, `script.js` и backend-функцию, что и актуальная ветка GitHub `main`.
 
 [FACT] `g10-kirov.vercel.app` сейчас отвечает напрямую от Vercel (`200 OK`). Домен заказчика `g10.kirov.restoved.ru` остаётся отдельным IHC-origin: сервер `95.181.224.17`, `nginx/1.20.2`, HTTPS отвечает `200 OK`.
 

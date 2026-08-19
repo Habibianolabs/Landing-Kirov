@@ -49,7 +49,7 @@ Vercel определяет проект как framework `null`; install/build/
 - публичный домен: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/);
 - публичный Vercel alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) напрямую отдаёт актуальную Vercel-версию; домен заказчика [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/) по-прежнему обслуживается отдельным IHC-сервером.
 
-[FACT] 20 августа 2026 года коммит `8671ec7` опубликован в Vercel production со статусом `READY`: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/). Проверка подтвердила совпадение `index.html`, `styles.css` и `script.js` с GitHub `main`; EnvyBox загружается после полного согласия cookies, но его кабинет пока отвечает «Виджеты не включены».
+[FACT] 20 августа 2026 года коммит `f1823f9` опубликован в Vercel production со статусом `READY`: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/). Проверка подтвердила совпадение `index.html`, `styles.css` и `script.js` с GitHub `main`; EnvyBox загружается после полного согласия cookies, но его кабинет пока отвечает «Виджеты не включены».
 
 [FACT] Публичный домен обслуживается отдельным сервером IHC: `95.181.224.17`, web-сервер `nginx/1.20.2`. Проверка 17 августа 2026 года: HTTP-запрос к этому IP с именем домена перенаправляет на `https://g10.kirov.restoved.ru/`, а HTTPS-ответ домена — `200 OK` от `nginx/1.20.2`.
 

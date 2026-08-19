@@ -229,7 +229,7 @@
 
 ## 13. Hosting и URL
 
-[FACT] 20 августа 2026 года коммит `8671ec7` опубликован в Vercel production со статусом `READY` и доступен по URL `https://g10-kirov.vercel.app/`. Тот же alias отдаёт актуальные файлы из GitHub `main`. Домен `g10.kirov.restoved.ru` остаётся отдельным IHC-origin с `nginx/1.20.2` и пока не синхронизирован.
+[FACT] 20 августа 2026 года коммит `f1823f9` опубликован в Vercel production со статусом `READY` и доступен по URL `https://g10-kirov.vercel.app/`. Тот же alias отдаёт актуальные файлы из GitHub `main`. Домен `g10.kirov.restoved.ru` остаётся отдельным IHC-origin с `nginx/1.20.2` и пока не синхронизирован.
 
 **Остаётся определить:**
 
