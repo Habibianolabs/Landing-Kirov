@@ -3,3 +3,5 @@ node_modules
 dist
 .git
 .DS_Store
+.env*
+.playwright-cli
