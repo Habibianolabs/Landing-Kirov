@@ -28,7 +28,6 @@
         <nav class="site-nav" id="site-navigation" aria-label="Верхнее меню">
           <a href="#about" data-nav-section="about">О проекте</a>
           <a href="#schedule" data-nav-section="schedule">Программа</a>
-          <a href="#restaurateurs" data-nav-section="restaurateurs">Эксперты</a>
           <a href="#topics" data-nav-section="topics">Темы</a>
           <a href="#pricing" data-nav-section="pricing">Стоимость участия</a>
           <a class="nav-cta" href="#application" data-open-application>Оставить заявку</a>
@@ -48,6 +47,13 @@
           <p>5–7 октября 2026 года · Киров</p>
           <button class="button button--primary" type="button" data-open-application data-cta-source="hero">Оставить заявку <span class="cta-arrow" aria-hidden="true"></span></button>
         </div>
+      </section>
+
+      <section class="section-frame intro-quote-section" aria-label="Вступление">
+        <blockquote class="intro-quote">
+          <span class="intro-quote__mark" aria-hidden="true">“</span>
+          <p>В поисках лучших управленческих практик информационная группа «Ресторанные ведомости» изучает ведущие ресторанные компании страны. Одним из самых ярких открытий стали кировские компании «Культура гостеприимства» и «Мамина кухня».</p>
+        </blockquote>
       </section>
 
       <section class="section-frame section-frame--compact" id="program-partners" aria-label="Партнёры программы">
@@ -70,6 +76,7 @@
                 <img class="logo-image logo-image--mamina" src="assets/site/kirov/logos/mamina-kuhnya-program.png" alt="Мамина кухня">
               </div>
             </a>
+            <p class="logo-card__name">Группа компаний</p>
             <p class="logo-card__name">Мамина кухня</p>
             <p>Проекты Михаила Скрябина</p>
           </article>
@@ -105,41 +112,35 @@
       </section>
 
       <section class="section-frame about-section" id="about" aria-label="О проекте">
-        <div class="about-copy">
+        <div class="section-heading section-heading--label-only about-section__heading">
           <p class="section-kicker">О проекте</p>
+        </div>
+        <div class="about-copy">
           <p class="about-lead">Образовательный бизнес-проект «G10. Рестораторы России. Опыт лидеров» — это проект, в котором ведущие рестораторы страны делятся уникальным опытом ведения ресторанного бизнеса в своих городах. 3 дня полноценного погружения в операционную работу ведущих ресторанных компаний в составе закрытой группы — до 20 рестораторов.</p>
         </div>
         <div class="about-visual about-carousel" data-about-carousel role="region" aria-roledescription="carousel" aria-label="Фотографии проекта">
           <div class="about-carousel__viewport">
             <div class="about-carousel__track">
-              <div class="about-carousel__slide is-active" data-about-slide="0" role="group" aria-roledescription="slide" aria-label="Фото 1 из 5">
-                <img src="assets/site/kirov/photos/about-g10.jpg" alt="Участники образовательного проекта G10">
+              <div class="about-carousel__slide is-active" data-about-slide="0" role="group" aria-roledescription="slide" aria-label="Фото 1 из 3">
+                <img src="assets/site/kirov/photos/about/rbm03083.jpg" alt="Групповая фотография участников проекта G10 на площадке" loading="eager" decoding="async">
               </div>
-              <div class="about-carousel__slide" data-about-slide="1" role="group" aria-roledescription="slide" aria-label="Фото 2 из 5" aria-hidden="true">
-                <img src="assets/site/kirov/photos/about-g10-02.jpg" alt="Участники проекта G10 на ресторанной площадке">
+              <div class="about-carousel__slide" data-about-slide="1" role="group" aria-roledescription="slide" aria-label="Фото 2 из 3" aria-hidden="true">
+                <img src="assets/site/kirov/photos/about/d3c-6516.jpg" alt="Презентация для участников проекта G10 в ресторане" loading="lazy" decoding="async">
               </div>
-              <div class="about-carousel__slide" data-about-slide="2" role="group" aria-roledescription="slide" aria-label="Фото 3 из 5" aria-hidden="true">
-                <img src="assets/site/kirov/photos/about-g10-03.jpg" alt="Выступление участников проекта G10">
-              </div>
-              <div class="about-carousel__slide" data-about-slide="3" role="group" aria-roledescription="slide" aria-label="Фото 4 из 5" aria-hidden="true">
-                <img src="assets/site/kirov/photos/about-g10-04.jpg" alt="Участники проекта G10 знакомятся с ресторанной кухней">
-              </div>
-              <div class="about-carousel__slide" data-about-slide="4" role="group" aria-roledescription="slide" aria-label="Фото 5 из 5" aria-hidden="true">
-                <img src="assets/site/kirov/photos/about-g10-05.jpg" alt="Работа участников проекта G10 на ресторанной площадке">
+              <div class="about-carousel__slide" data-about-slide="2" role="group" aria-roledescription="slide" aria-label="Фото 3 из 3" aria-hidden="true">
+                <img src="assets/site/kirov/photos/about/dsc-6792-11.jpg" alt="Участники проекта G10 на встрече в ресторане" loading="lazy" decoding="async">
               </div>
             </div>
             <button class="about-carousel__hit-area about-carousel__hit-area--prev" type="button" data-about-prev aria-label="Предыдущее фото"><span class="about-carousel__arrow about-carousel__arrow--prev" aria-hidden="true"></span></button>
             <button class="about-carousel__hit-area about-carousel__hit-area--next" type="button" data-about-next aria-label="Следующее фото"><span class="about-carousel__arrow about-carousel__arrow--next" aria-hidden="true"></span></button>
           </div>
           <div class="about-carousel__controls">
-            <span class="about-carousel__counter" data-about-counter aria-live="polite">1 / 5</span>
+            <span class="about-carousel__counter" data-about-counter aria-live="polite">1 / 3</span>
           </div>
           <div class="about-carousel__dots" aria-label="Выбор фотографии">
-            <button class="about-carousel__dot is-active" type="button" data-about-dot="0" aria-label="Фото 1 из 5" aria-current="true"></button>
-            <button class="about-carousel__dot" type="button" data-about-dot="1" aria-label="Фото 2 из 5"></button>
-            <button class="about-carousel__dot" type="button" data-about-dot="2" aria-label="Фото 3 из 5"></button>
-            <button class="about-carousel__dot" type="button" data-about-dot="3" aria-label="Фото 4 из 5"></button>
-            <button class="about-carousel__dot" type="button" data-about-dot="4" aria-label="Фото 5 из 5"></button>
+            <button class="about-carousel__dot is-active" type="button" data-about-dot="0" aria-label="Фото 1 из 3" aria-current="true"></button>
+            <button class="about-carousel__dot" type="button" data-about-dot="1" aria-label="Фото 2 из 3"></button>
+            <button class="about-carousel__dot" type="button" data-about-dot="2" aria-label="Фото 3 из 3"></button>
           </div>
         </div>
       </section>
@@ -206,8 +207,8 @@
                 <span><strong>1,5 млрд ₽</strong>выручка</span>
               </div>
               <button class="text-button" type="button" data-open-partner="culture">Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button>
-              <button class="partner-speakers-trigger" type="button" aria-expanded="false" aria-controls="culture-speakers" data-disclosure-trigger>Эксперты альянса <span class="disclosure-plus" aria-hidden="true">+</span></button>
-              <div class="partner-speakers disclosure-panel" id="culture-speakers" hidden>
+              <div class="partner-speakers" id="culture-speakers" aria-labelledby="culture-speakers-title">
+                <h4 class="partner-speakers-title" id="culture-speakers-title">Эксперты альянса</h4>
                 <ul>
                   <li><img class="partner-speaker__avatar" src="assets/site/kirov/experts/andrey-nesvetaev.png" alt="Портрет Андрея Несветаева" loading="lazy"><span class="partner-speaker__copy"><strong>Андрей Несветаев</strong> — со-основатель, CEO</span></li>
                   <li><img class="partner-speaker__avatar" src="assets/site/kirov/experts/ulyana-nesvetaeva.jpg" alt="Портрет Ульяны Несветаевой" loading="lazy"><span class="partner-speaker__copy"><strong>Ульяна Несветаева</strong> — директор по сервису</span></li>
@@ -240,11 +241,11 @@
             <div class="project-partner-card partner-showcase__overview">
             <div class="partner-visual partner-visual--image">
               <img src="assets/site/kirov/concepts/tsarskoe-selo.jpg" alt="Интерьер ресторации «Царское село»" loading="lazy">
-              <span class="image-caption">Ресторанная группа «Мамина кухня»</span>
+              <span class="image-caption">Группа компаний «Мамина кухня»</span>
             </div>
             <div class="partner-card__body">
               <h3 id="mamina-showcase-title">Мамина кухня</h3>
-              <p>Ресторанная группа · основатель Михаил Скрябин</p>
+              <p>Группа компаний · основатель Михаил Скрябин</p>
               <div class="partner-stats" aria-label="Факты о компании">
                 <span><strong>10</strong>проектов</span>
                 <span><strong>1902</strong>историческое здание</span>
@@ -256,9 +257,9 @@
             <div class="partner-showcase__concepts" aria-labelledby="mamina-concepts-title">
               <h4 class="partner-showcase__concepts-title" id="mamina-concepts-title">Концепции</h4>
               <div class="concepts-grid">
-                <article class="concept-card"><img src="assets/site/kirov/concepts/rebernaya.jpg" alt="Интерьер ресторана «Реберная. Еда на огне»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Мясной ресторан</p><h3>Реберная</h3><dl><div><dt>Посадочных мест</dt><dd>72 + 26 веранда</dd></div><div><dt>Средний чек</dt><dd>1 500 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-rebernaya" data-disclosure-trigger>Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button><div class="concept-card__details disclosure-panel" id="concept-rebernaya" hidden><p>Мясной ресторан в формате брискет-маркета с акцентом на приготовление на открытом огне.</p></div></div></article>
-                <article class="concept-card"><img src="assets/site/kirov/concepts/tsarskoe-selo.jpg" alt="Интерьер ресторации «Царское село»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Ресторация русской кухни</p><h3>Царское село</h3><dl><div><dt>Посадочных мест</dt><dd>до 150</dd></div><div><dt>Средний чек</dt><dd>1 500 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-tsarskoe-selo" data-disclosure-trigger>Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button><div class="concept-card__details disclosure-panel" id="concept-tsarskoe-selo" hidden><p>«Визитная карточка» города Киров — ресторация русской кухни в историческом особняке. Здесь проводят торжественные и деловые мероприятия любого формата в нескольких банкетных залах.</p></div></div></article>
-                <article class="concept-card"><img src="assets/site/kirov/concepts/traktir-koleso.jpg" alt="Интерьер трактира «Колесо»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Трактир</p><h3>Трактир Колесо</h3><dl><div><dt>Средний чек</dt><dd>1 000–1 200 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-traktir-koleso" data-disclosure-trigger>Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button><div class="concept-card__details disclosure-panel" id="concept-traktir-koleso" hidden><p>Трактир с концепцией русской и европейской кухни. Пространство с летней верандой ориентировано на повседневный трафик и семейные обеды.</p></div></div></article>
+                <article class="concept-card"><img src="assets/site/kirov/concepts/illustrations/mamina-uyut.png" alt="Графическая иллюстрация концепции «Реберная. Еда на огне»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Мясной ресторан</p><h3>Реберная</h3><dl><div><dt>Посадочных мест</dt><dd>72 + 26 веранда</dd></div><div><dt>Средний чек</dt><dd>1 500 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-rebernaya" data-disclosure-trigger>Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button><div class="concept-card__details disclosure-panel" id="concept-rebernaya" hidden><p>Мясной ресторан в формате брискет-маркета с акцентом на приготовление на открытом огне.</p></div></div></article>
+                <article class="concept-card"><img src="assets/site/kirov/concepts/illustrations/mamina-kultura.png" alt="Графическая иллюстрация концепции «Царское село»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Ресторация русской кухни</p><h3>Царское село</h3><dl><div><dt>Посадочных мест</dt><dd>до 150</dd></div><div><dt>Средний чек</dt><dd>1 500 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-tsarskoe-selo" data-disclosure-trigger>Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button><div class="concept-card__details disclosure-panel" id="concept-tsarskoe-selo" hidden><p>«Визитная карточка» города Киров — ресторация русской кухни в историческом особняке. Здесь проводят торжественные и деловые мероприятия любого формата в нескольких банкетных залах.</p></div></div></article>
+                <article class="concept-card"><img src="assets/site/kirov/concepts/illustrations/mamina-kachestvo.png" alt="Графическая иллюстрация концепции «Колесо»" loading="lazy"><div class="concept-card__body"><p class="concept-card__type">Трактир</p><h3>Трактир Колесо</h3><dl><div><dt>Средний чек</dt><dd>1 000–1 200 ₽</dd></div></dl><button class="text-button" type="button" aria-expanded="false" aria-controls="concept-traktir-koleso" data-disclosure-trigger>Подробнее <span class="text-button__arrow" aria-hidden="true"></span></button><div class="concept-card__details disclosure-panel" id="concept-traktir-koleso" hidden><p>Трактир с концепцией русской и европейской кухни. Пространство с летней верандой ориентировано на повседневный трафик и семейные обеды.</p></div></div></article>
               </div>
             </div>
           </article>
@@ -281,26 +282,6 @@
         <div class="inline-cta">
           <div><p class="section-kicker">Закрытая группа</p><h3>Станьте самым эффективным операционистом собственного бизнеса</h3></div>
           <button class="button button--primary" type="button" data-open-application data-cta-source="schedule">Принять участие <span class="cta-arrow" aria-hidden="true"></span></button>
-        </div>
-      </section>
-
-      <section class="section-frame" id="restaurateurs" aria-label="Эксперты">
-        <div class="section-heading section-heading--label-only">
-          <p class="section-kicker">Эксперты</p>
-        </div>
-        <div class="people-grid">
-          <article class="person-card">
-            <div class="person-photo person-photo--contain"><img src="assets/site/kirov/experts/andrey-nesvetaev-card.jpg" alt="Портрет Андрея Несветаева" loading="lazy"></div>
-            <h3>Андрей Несветаев</h3><p>Со-основатель альянса «Культура Гостеприимства»</p>
-          </article>
-          <article class="person-card">
-            <div class="person-photo"><img src="assets/site/kirov/experts/vladimir-shaklein.jpg" alt="Портрет Владимира Шаклеина" loading="lazy"></div>
-            <h3>Владимир Шаклеин</h3><p>Со-основатель альянса «Культура Гостеприимства»</p>
-          </article>
-          <article class="person-card">
-            <div class="person-photo person-photo--silhouette" role="img" aria-label="Нейтральный силуэт Михаила Скрябина"></div>
-            <h3>Михаил Скрябин</h3><p>Основатель сети «Мамина кухня»</p>
-          </article>
         </div>
       </section>
 
@@ -437,7 +418,7 @@
     <footer class="site-footer">
       <div class="site-footer__inner">
         <div><img class="footer-logo" src="assets/site/kirov/logos/restorannye-vedomosti.svg" alt="Ресторанные ведомости"><p>© 2026 Ресторанные ведомости</p></div>
-        <nav class="footer-nav" aria-label="Навигация в подвале"><a href="#about">О проекте</a><a href="#schedule">Программа</a><a href="#restaurateurs">Эксперты</a><a href="#topics">Темы</a><a href="#pricing">Стоимость участия</a></nav>
+        <nav class="footer-nav" aria-label="Навигация в подвале"><a href="#about">О проекте</a><a href="#schedule">Программа</a><a href="#topics">Темы</a><a href="#pricing">Стоимость участия</a></nav>
         <div class="footer-contacts"><a href="tel:+78007757853">+7 800 775 78 53</a><a href="tel:+74959213625">+7 (495) 921-36-25</a><a href="mailto:event@restoranoff.ru">event@restoranoff.ru</a><a href="https://restoved.ru/" target="_blank" rel="noreferrer">restoved.ru</a></div>
       </div>
       <div class="site-footer__legal"><a href="https://restoved.ru/privacy-notice" target="_blank" rel="noreferrer">Уведомление о конфиденциальности</a><a href="https://restoved.ru/upload/terms.pdf" target="_blank" rel="noreferrer">Пользовательское соглашение</a><button type="button" class="text-button" data-open-consent>Настройки cookies</button></div>
