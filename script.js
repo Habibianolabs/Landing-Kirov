@@ -279,6 +279,26 @@ function loadYandexMetrika() {
   yandexMetrikaEnabled = true;
 }
 
+const envyboxWidgetCode = "ee05fa5169f41973b6a9afcb4d70620f";
+
+function loadEnvybox() {
+  if (document.querySelector("script[data-envybox-widget]")) return;
+
+  const stylesheet = document.createElement("link");
+  stylesheet.rel = "stylesheet";
+  stylesheet.href = "https://cdn.envybox.io/widget/cbk.css";
+  stylesheet.dataset.envyboxWidget = "true";
+  document.head.appendChild(stylesheet);
+
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = `https://cdn.envybox.io/widget/cbk.js?wcb_code=${envyboxWidgetCode}`;
+  script.charset = "UTF-8";
+  script.async = true;
+  script.dataset.envyboxWidget = "true";
+  document.body.appendChild(script);
+}
+
 function trackEvent(name, data = {}) {
   if (typeof window.va === "function") window.va("event", { name, ...data });
   if (yandexMetrikaEnabled && typeof window.ym === "function") window.ym(yandexMetrikaId, "reachGoal", name, data);
@@ -321,6 +341,11 @@ function hasAnalyticsConsent() {
     const consent = localStorage.getItem(consentStorageKey);
     return consent === "all" || consent === "analytics";
   } catch (error) { return false; }
+}
+
+function hasFullConsent() {
+  try { return localStorage.getItem(consentStorageKey) === "all"; }
+  catch (error) { return false; }
 }
 
 document.querySelectorAll("[data-application-form]").forEach((form, index) => {
@@ -429,6 +454,7 @@ function setConsent(value) {
     loadYandexMetrika();
     trackScrollDepth();
   }
+  if (savedValue === "all") loadEnvybox();
   if (cookieBanner) cookieBanner.hidden = true;
   closeConsentDialog();
 }
@@ -447,6 +473,7 @@ if (hasAnalyticsConsent()) {
   loadYandexMetrika();
   trackScrollDepth();
 }
+if (hasFullConsent()) loadEnvybox();
 document.querySelector("[data-cookie-accept]")?.addEventListener("click", () => setConsent("all"));
 document.querySelector("[data-cookie-reject]")?.addEventListener("click", () => setConsent("necessary"));
 document.querySelector("[data-cookie-settings]")?.addEventListener("click", openConsentSettings);
