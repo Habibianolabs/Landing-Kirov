@@ -31,7 +31,7 @@
 
 Ссылки:
 - GitHub: https://github.com/Habibianolabs/Landing-Kirov
-- Vercel production alias (актуальная версия, 19 августа 2026): https://g10-kirov.vercel.app/
+- Vercel production alias (актуальная версия, 20 августа 2026): https://g10-kirov.vercel.app/
 - Публичный Vercel alias: https://g10-kirov.vercel.app/ → отдаёт эту же версию напрямую; домен заказчика https://g10.kirov.restoved.ru/ остаётся на IHC
 - Публичный сайт: https://g10.kirov.restoved.ru/; сервер IHC `95.181.224.17`, web-сервер `nginx/1.20.2`
 - Доступ к файловому корню IHC подтверждён через FileZilla; URL панели управления заказа пока [UNKNOWN]

@@ -1,6 +1,6 @@
 # PROJECT — G10 Киров
 
-Дата актуализации: 19 августа 2026 года.
+Дата актуализации: 20 августа 2026 года.
 
 ## Назначение
 
@@ -45,11 +45,11 @@ Vercel определяет проект как framework `null`; install/build/
 - Git remote: `git@github.com:Habibianolabs/Landing-Kirov.git`;
 - ветка: `main`;
 - Vercel project: `g10-kirov`;
-- прямой Vercel deployment с актуальной сборкой: [g10-kirov-habibiano.vercel.app](https://g10-kirov-habibiano.vercel.app/);
+- актуальный публичный Vercel alias: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/);
 - публичный домен: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/);
 - публичный Vercel alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) напрямую отдаёт актуальную Vercel-версию; домен заказчика [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/) по-прежнему обслуживается отдельным IHC-сервером.
 
-[FACT] 19 августа 2026 года актуальная версия опубликована в Vercel production со статусом `READY`: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/). Этот alias проверен и отдаёт ту же версию, что лежит в GitHub `main`.
+[FACT] 20 августа 2026 года коммит `8671ec7` опубликован в Vercel production со статусом `READY`: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/). Проверка подтвердила совпадение `index.html`, `styles.css` и `script.js` с GitHub `main`; EnvyBox загружается после полного согласия cookies, но его кабинет пока отвечает «Виджеты не включены».
 
 [FACT] Публичный домен обслуживается отдельным сервером IHC: `95.181.224.17`, web-сервер `nginx/1.20.2`. Проверка 17 августа 2026 года: HTTP-запрос к этому IP с именем домена перенаправляет на `https://g10.kirov.restoved.ru/`, а HTTPS-ответ домена — `200 OK` от `nginx/1.20.2`.
 

@@ -9,7 +9,7 @@
 - GitHub: [Habibianolabs/Landing-Kirov](https://github.com/Habibianolabs/Landing-Kirov)
 - Git remote: `git@github.com:Habibianolabs/Landing-Kirov.git`
 - Ветка: `main`
-- Vercel project: `g10-kirov`; прямой актуальный deployment: [g10-kirov-habibiano.vercel.app](https://g10-kirov-habibiano.vercel.app/)
+- Vercel project: `g10-kirov`; актуальный публичный alias: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/)
 - Публичный сайт: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/)
 - Публичный сервер: IHC, `95.181.224.17`, `nginx/1.20.2`
 - Функциональный референс: [https://g10-5.restoved.ru/ekaterinburg](https://g10-5.restoved.ru/ekaterinburg)
