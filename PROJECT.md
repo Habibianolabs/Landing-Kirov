@@ -49,7 +49,7 @@ Vercel определяет проект как framework `null`; install/build/
 - публичный домен: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/);
 - публичный Vercel alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) напрямую отдаёт актуальную Vercel-версию; домен заказчика [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/) по-прежнему обслуживается отдельным IHC-сервером.
 
-[FACT] 19 августа 2026 года актуальная версия опубликована в Vercel production deployment `dpl_2azSzQvH43xdZ92xRJCRc6MpfT1N` со статусом `READY`: [g10-kirov-414mg0b2q-habibiano.vercel.app](https://g10-kirov-414mg0b2q-habibiano.vercel.app/). Alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) отдаёт эту же версию.
+[FACT] 19 августа 2026 года актуальная версия опубликована в Vercel production со статусом `READY`: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/). Этот alias проверен и отдаёт ту же версию, что лежит в GitHub `main`.
 
 [FACT] Публичный домен обслуживается отдельным сервером IHC: `95.181.224.17`, web-сервер `nginx/1.20.2`. Проверка 17 августа 2026 года: HTTP-запрос к этому IP с именем домена перенаправляет на `https://g10.kirov.restoved.ru/`, а HTTPS-ответ домена — `200 OK` от `nginx/1.20.2`.
 
@@ -59,7 +59,7 @@ Vercel определяет проект как framework `null`; install/build/
 
 [FACT] Vercel Function `api/submit-application.js` не исполняется на IHC автоматически при простой FTP-загрузке: для формы на IHC нужна отдельная серверная настройка или проксирование в Vercel. До её подтверждения нельзя считать форму рабочего сайта на IHC активной.
 
-[FACT] Локальная папка и открытый GitHub-репозиторий синхронизированы на коммите `7d574f3` после последних frontend- и документационных изменений. На IHC последняя версия пока не загружена; `.env.local`, `.git` и `webstat` в синхронизацию не входят.
+[FACT] Локальная папка и открытый GitHub-репозиторий синхронизированы с актуальной веткой `main` после последних frontend- и документационных изменений. На IHC последняя версия пока не загружена; `.env.local`, `.git` и `webstat` в синхронизацию не входят.
 
 ## Текущее состояние frontend
 

@@ -45,7 +45,7 @@
 
 ## Production-синхронизация
 
-[FACT] 19 августа 2026 года актуальная runtime-версия опубликована в Vercel production deployment `dpl_2azSzQvH43xdZ92xRJCRc6MpfT1N` со статусом `READY`. Прямой deployment URL и alias `g10-kirov.vercel.app` содержат те же `index.html`, `styles.css`, `script.js` и backend-функцию.
+[FACT] 19 августа 2026 года актуальная runtime-версия опубликована в Vercel production со статусом `READY`. Alias `g10-kirov.vercel.app` содержит те же `index.html`, `styles.css`, `script.js` и backend-функцию, что и актуальная ветка GitHub `main`.
 
 [FACT] `g10-kirov.vercel.app` сейчас отвечает напрямую от Vercel (`200 OK`). Домен заказчика `g10.kirov.restoved.ru` остаётся отдельным IHC-origin: сервер `95.181.224.17`, `nginx/1.20.2`, HTTPS отвечает `200 OK`.
 
@@ -55,7 +55,7 @@
 
 [FACT] Прямая загрузка статических файлов на IHC не переносит Vercel Function. Маршрут формы `/api/submit-application` на публичном сервере нужно отдельно проверить и настроить до объявления формы рабочей.
 
-[FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Локальная версия и открытый GitHub-репозиторий синхронизированы на коммите `7d574f3`; рабочая папка чистая.
+[FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Локальная версия и открытый GitHub-репозиторий синхронизированы; рабочая папка чистая.
 
 ## Backend и ограничения production
 
