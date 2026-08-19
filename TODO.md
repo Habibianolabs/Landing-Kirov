@@ -13,7 +13,7 @@
 - [x] Подтвердить публичный origin: `g10.kirov.restoved.ru` обслуживается на IHC сервером `95.181.224.17` и `nginx/1.20.2`; файловый доступ через FileZilla получен.
 - [~] Сверить и синхронизировать runtime-файлы публичного IHC origin с локальной/GitHub-версией `7d574f3`; Vercel и GitHub уже совпадают, `.env.local`, `.git` и `webstat` не менять.
 - [ ] Подтвердить URL панели управления IHC и зафиксировать способ безопасного доступа без паролей в документации.
-- [ ] Настроить или подтвердить серверный маршрут формы на IHC: Vercel Function не запускается там автоматически.
+- [~] Загрузить и проверить PHP-маршрут формы на IHC; JavaScript-файл там не запускается.
 - [x] Обновить проектную документацию и сообщение для нового чата после последней runtime-сверки.
 - [x] Создать и отправить актуальную версию в открытый GitHub.
 - [x] Подтвердить публичный домен заказчика `g10.kirov.restoved.ru`; он обслуживается IHC отдельно от Vercel alias `g10-kirov.vercel.app`.
@@ -46,19 +46,18 @@
 
 ## 3. Backend формы — обязательное до рабочего запуска
 
-- [x] Создать Vercel Function `/api/submit-application`.
+- [x] Создать PHP-обработчик `/api/submit-application.php` для IHC.
+- [x] Переключить frontend forms на `/api/submit-application.php`.
 - [x] Server-side validation и нормализация.
 - [x] Honeypot `website`.
-- [~] Rate limiting через Upstash предусмотрен для production; credentials ещё не добавлены, memory fallback используется только локально.
-- [x] Resend adapter и `Reply-To` заявителя.
+- [x] Rate limiting по IP и защита от повторяющейся заявки через временные файлы сервера.
+- [x] Проверка минимального времени заполнения, размера запроса и источника запроса.
+- [x] PHP `mail()` и `Reply-To` заявителя.
 - [x] Loading/success/error states на клиенте.
-- [~] Cloudflare Turnstile: server adapter готов, frontend widget не включён.
-- [ ] Подтвердить финальные адреса получателей и sender.
-- [ ] Создать Resend API key и verified sender/domain.
-- [ ] Создать Upstash Redis.
-- [ ] Добавить production env в Vercel из `.env.example`.
-- [ ] Deploy после настройки env.
-- [ ] Безопасный smoke test формы и проверка доставки.
+- [x] Зафиксировать четыре адреса получателей и `event@restoranoff.ru` как отправителя в серверном PHP-файле.
+- [ ] Загрузить `api/submit-application.php`, `index.html` и `script.js` на IHC.
+- [ ] Подтвердить, что PHP включён для домена и `/api/submit-application.php` не отдаёт исходный код.
+- [ ] Безопасный smoke test формы и проверка доставки после отдельного разрешения пользователя.
 
 ## 4. Аналитика, cookies и интеграции
 

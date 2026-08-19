@@ -15,8 +15,9 @@
 - `index.html` — семантическая разметка, секции, две формы, dialog-контейнеры и footer;
 - `styles.css` — design tokens, статичный голубой фон, blue-glass surfaces, layout, responsive и motion states;
 - `script.js` — навигация, active sections, disclosures, dialogs, lightbox, consent, форма и аналитика Vercel/Яндекс Метрики;
-- `api/submit-application.js` — Vercel Function с серверной валидацией, honeypot, Upstash rate limiting, optional Turnstile и Resend;
-- `.env.example` — контракт production environment variables;
+- `api/submit-application.php` — production-обработчик для IHC с серверной валидацией, honeypot, файловым rate limiting и PHP `mail()`;
+- `api/submit-application.js` — legacy-обработчик отдельной демонстрационной версии, не используемый доменом заказчика;
+- `.env.example` — безопасная памятка по маршруту почты, без секретов;
 - `assets/site/kirov/` — подключённые banner, логотипы, фотографии и event-assets;
 - `assets/source-materials/` — канонический бриф;
 - `vercel.json` — `cleanUrls: true`, `trailingSlash: false`;
@@ -40,7 +41,7 @@
 - в секциях после блока партнёров до CTA сохранены только названия блоков без крупных H2; CTA-заголовок следующего блока сохранён;
 - четыре группы ключевых тем, 14 пунктов и номера `1`–`4` внутри групп;
 - тарифы, состав участия, галерея, lightbox, сразу открытый Rutube iframe, отзывы, cookie consent и footer;
-- inline-форма и modal-форма с общей схемой отправки на `/api/submit-application`;
+- inline-форма и modal-форма с общей схемой отправки на `/api/submit-application.php`;
 - счётчик Яндекс Метрики `111727875` для `g10.kirov.restoved.ru`: загрузка только после analytics consent; события `application_open`, `tariff_selected`, `phone_click`, `partner_site_open`, `scroll_50`, `scroll_90` и `application_submitted` после успешного ответа API. Персональные данные в события не передаются.
 
 ## Production-синхронизация
@@ -53,22 +54,22 @@
 
 [UNKNOWN] Адрес панели управления конкретным заказом IHC не установлен. `ihc.ru` известен как сайт провайдера, но нельзя выдавать его за подтверждённую панель управления. Пароли, логин FTP и значения `.env.local` не хранятся в проекте.
 
-[FACT] Прямая загрузка статических файлов на IHC не переносит Vercel Function. Маршрут формы `/api/submit-application` на публичном сервере нужно отдельно проверить и настроить до объявления формы рабочей.
+[FACT] Прямая загрузка JavaScript-файла не запускает серверный код на IHC. Для публичного домена добавлен отдельный PHP-маршрут `/api/submit-application.php`; его загрузка и проверка на IHC ещё не завершены.
 
 [FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Локальная версия и открытый GitHub-репозиторий синхронизированы; рабочая папка чистая после коммита `8671ec7`.
 
 ## Backend и ограничения production
 
-Код backend готов локально и развернут как Vercel Function. Он включает:
+Production backend для IHC готов локально в `api/submit-application.php`. Он включает:
 
 - server-side нормализацию и валидацию;
 - honeypot-поле `website`;
-- Upstash rate limiting в production и memory fallback только вне production;
-- optional server-side Cloudflare Turnstile;
-- отправку заявок через Resend с `Reply-To` заявителя;
+- ограничение частоты по IP и повторяющейся заявке через временные файлы сервера;
+- honeypot, минимальное время заполнения, проверку источника запроса и ограничение размера запроса;
+- отправку заявок через PHP `mail()` с `Reply-To` заявителя;
 - 405 для неподдерживаемых методов и 429/503 для соответствующих ошибок.
 
-[FACT] Production-приём заявок пока не активирован: в Vercel не подтверждены реальные Resend/Upstash credentials и не выполнена тестовая доставка. Адреса в `.env.example` — текущий fallback из материалов, а не подтверждённый заказчиком финальный routing.
+[FACT] Production-приём заявок пока не активирован: PHP-файл ещё нужно загрузить на IHC и проверить работу почтовой функции. Получатели и адрес отправителя зафиксированы в серверном файле; тестовую заявку на текущем шаге не отправляем.
 
 Аналитика загружается только после analytics consent. [FACT] 18 августа 2026 года создан счётчик Яндекс Метрики `G10 Kirov` № `111727875`; код опубликован в Vercel-версии, но ещё не опубликован на отдельной IHC-копии. [FACT] 20 августа получен код EnvyBox и добавлен consent-aware loader в `script.js`; он опубликован в Vercel-версии и при проверке загружается после согласия, но настройки сервиса вернули «Виджеты не включены». Активация трёх модулей и IHC-публикация остаются открытыми.
 
@@ -81,7 +82,7 @@
 - отдельный портрет Михаила Скрябина для удалённой секции «Эксперты» больше не требуется; 10 портретов экспертов альянса используются в постоянно видимом списке карточки «Культура Гостеприимства»;
 - финальный список отзывов и разрешения;
 - права на фотографии карусели, три предоставленные event-фото и Rutube;
-- Resend sender/recipients и Upstash production env;
+- загрузка PHP-обработчика и подтверждение поддержки PHP/mail на IHC;
 - Turnstile, Envybox и постоянный домен заказчика;
 - финальный accessibility/performance/content audit.
 

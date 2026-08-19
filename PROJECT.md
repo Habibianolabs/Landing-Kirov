@@ -13,11 +13,12 @@
 - HTML5: `index.html`;
 - CSS: `styles.css`;
 - vanilla JavaScript: `script.js`;
-- Vercel Serverless Function: `api/submit-application.js`;
+- PHP endpoint for the customer server: `api/submit-application.php`;
+- legacy Node endpoint for the separate frontend preview: `api/submit-application.js`;
 - Vercel deployment config: `vercel.json`;
 - package metadata без runtime-зависимостей: `package.json`.
 
-Vercel определяет проект как framework `null`; install/build/dev-команды не заданы. Статика раздаётся из корня репозитория, а `/api/*` обрабатывается функцией.
+Проект не использует сборщик. На сервере заказчика IHC статика раздаётся из корня сайта, а PHP-обработчик запускается как `/api/submit-application.php`.
 
 ## Структура проекта
 
@@ -27,7 +28,8 @@ Vercel определяет проект как framework `null`; install/build/
 ├── styles.css
 ├── script.js
 ├── api/
-│   └── submit-application.js
+│   ├── submit-application.php
+│   └── submit-application.js       # legacy preview adapter
 ├── assets/
 │   ├── site/kirov/              # подключённые production-assets
 │   └── source-materials/        # канонический бриф и исходники
@@ -57,7 +59,7 @@ Vercel определяет проект как framework `null`; install/build/
 
 [UNKNOWN] URL панели управления IHC и способ входа в неё не подтверждены. Известен сайт провайдера `ihc.ru`, но это не является подтверждением адреса панели конкретного заказа. Учётные данные, пароли и содержимое `.env.local` в документации не фиксируются.
 
-[FACT] Vercel Function `api/submit-application.js` не исполняется на IHC автоматически при простой FTP-загрузке: для формы на IHC нужна отдельная серверная настройка или проксирование в Vercel. До её подтверждения нельзя считать форму рабочего сайта на IHC активной.
+[FACT] Простая загрузка `api/submit-application.js` на IHC только раздавала исходный JavaScript как файл и не запускала серверный обработчик. Для домена заказчика добавлен совместимый PHP-маршрут `api/submit-application.php`; его нужно загрузить на IHC и проверить на самом сервере.
 
 [FACT] Локальная папка и открытый GitHub-репозиторий синхронизированы с актуальной веткой `main` после последних frontend- и документационных изменений. На IHC последняя версия пока не загружена; `.env.local`, `.git` и `webstat` в синхронизацию не входят.
 
@@ -83,28 +85,26 @@ Vercel определяет проект как framework `null`; install/build/
 
 ## Backend формы
 
-`api/submit-application.js` уже содержит:
+`api/submit-application.php` содержит production-обработчик для IHC:
 
 - POST/OPTIONS endpoint;
 - server-side нормализацию и валидацию;
 - honeypot `website`;
-- rate limiting через Upstash Redis в production и memory fallback только локально;
-- optional Cloudflare Turnstile server verification;
-- отправку через Resend с `Reply-To` заявителя;
+- rate limiting по IP и повторяющейся заявке через временные файлы сервера;
+- honeypot, минимальное время заполнения, проверку источника запроса и ограничение размера тела;
+- отправку через встроенную PHP-функцию `mail()` с `Reply-To` заявителя;
 - обработку loading/success/error на клиенте.
 
-[FACT] Production-доставка не активна до добавления в Vercel Environment Variables реальных `RESEND_API_KEY`, подтверждённого `RESEND_FROM_EMAIL`, `UPSTASH_REDIS_REST_URL` и `UPSTASH_REDIS_REST_TOKEN`. Четыре адреса в `.env.example` являются текущим fallback из материалов проекта и не заменяют подтверждение финального адреса заказчиком.
+[FACT] Получатели заявок зашиты только в серверный PHP-файл: `lp@restoranoff.ru`, `rv@restoranoff.ru`, `event@restoranoff.ru`, `p.spiridonova@restoranoff.ru`. Адрес отправителя выбран как опубликованный на сайте `event@restoranoff.ru`. Доставка не считается активной, пока PHP-файл не загружен на IHC и не выполнена согласованная проверка письма.
 
 ## Что осталось сделать
 
 Обязательное для рабочего запуска:
 
-1. Подтвердить финальный адрес/адреса получателей и отправителя.
-2. Создать Resend API key и подтвердить домен или адрес отправителя.
-3. Создать Upstash Redis и добавить production-переменные в Vercel.
-4. Выполнить production deploy и безопасный smoke test формы с согласованным тестовым адресом.
-5. Подключить домен заказчика и проверить DNS/SSL.
-6. Закрыть финальную content/accessibility/performance-приёмку.
+1. Загрузить `api/submit-application.php` и обновлённые `index.html`/`script.js` на IHC.
+2. Проверить, что PHP включён для домена и сервер принимает `POST` на `/api/submit-application.php`.
+3. Позже выполнить согласованную проверку письма на реальном тестовом адресе.
+4. Закрыть финальную content/accessibility/performance-приёмку.
 
 Опционально после запуска: Turnstile widget, Envybox/CRM/Telegram.
 

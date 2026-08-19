@@ -18,9 +18,9 @@
 
 [FACT] Баннер — готовое изображение. Его текст, композиция, цвета, шрифты и элементы не редактируются и не перекрываются элементами сайта.
 
-[FACT] Реализация остаётся статической: HTML, CSS и vanilla JavaScript без React, Next.js, Vite и сборщика. Серверная часть — одна Vercel Function в `api/submit-application.js`.
+[FACT] Реализация остаётся статической: HTML, CSS и vanilla JavaScript без React, Next.js, Vite и сборщика. Production-серверная часть для IHC — PHP-обработчик `api/submit-application.php`; legacy-файл `api/submit-application.js` не используется доменом заказчика.
 
-[FACT] Публичный домен `g10.kirov.restoved.ru` обслуживается IHC сервером `95.181.224.17`; этот сервер раздаёт статические файлы, но Vercel Function не начинает исполняться на нём только от загрузки папки `api/`. Статус формы на IHC ведётся в `MISSING_MATERIALS.md`.
+[FACT] Публичный домен `g10.kirov.restoved.ru` обслуживается IHC сервером `95.181.224.17`; этот сервер раздаёт статические файлы и может запускать PHP. Маршрут формы использует `api/submit-application.php`; его загрузка на IHC и проверка ведутся в `MISSING_MATERIALS.md`.
 
 ## Глобальная визуальная система
 

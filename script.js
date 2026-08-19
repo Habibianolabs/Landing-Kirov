@@ -351,6 +351,8 @@ function hasFullConsent() {
 document.querySelectorAll("[data-application-form]").forEach((form, index) => {
   const status = form.querySelector("[data-form-status]");
   const errorId = `application-form-errors-${index + 1}`;
+  const formStartedAt = form.querySelector("[name='form_started_at']");
+  if (formStartedAt) formStartedAt.value = String(Math.floor(Date.now() / 1000));
   if (status) status.id = errorId;
 
   const fields = [...form.querySelectorAll("input:not([type='hidden'])")];
@@ -390,7 +392,7 @@ document.querySelectorAll("[data-application-form]").forEach((form, index) => {
     showFormStatus("Отправляем заявку…");
 
     try {
-      const response = await fetch("/api/submit-application", {
+      const response = await fetch("/api/submit-application.php", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(formData)
@@ -400,6 +402,7 @@ document.querySelectorAll("[data-application-form]").forEach((form, index) => {
       showFormStatus("Заявка отправлена. Мы свяжемся с вами в ближайшее время.");
       trackEvent("application_submitted", { plan: formData.plan || "not_selected", source: formData.source || "unknown" });
       form.reset();
+      if (formStartedAt) formStartedAt.value = String(Math.floor(Date.now() / 1000));
     } catch (error) {
       showFormStatus(error.message || "Не удалось отправить заявку. Попробуйте ещё раз.", { isError: true });
     } finally {
