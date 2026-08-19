@@ -24,7 +24,7 @@
 
 [FACT] Подтверждён доступ к серверу публичного сайта: IHC, `95.181.224.17`, публичный домен `g10.kirov.restoved.ru`, web-сервер `nginx/1.20.2`. В FileZilla открыт корень сайта с `index.html`, `assets/`, `api/`, Markdown-документацией и `webstat`. Сервер периодически обрывает защищённое соединение после чтения списка файлов, но успешное чтение корня выполнено.
 
-[FACT] Локальная папка и GitHub `main` совпадают на коммите `9ddc7b3` до текущей frontend-правки. Текущие изменения `index.html` и `styles.css` ещё не опубликованы на IHC; `.env.local`, `.git` и `webstat` не входят в синхронизацию.
+[FACT] Локальная папка и открытый GitHub `main` совпадают на коммите `7d574f3`; последние frontend- и документационные изменения опубликованы в Vercel. На отдельный IHC-origin они ещё не загружены; `.env.local`, `.git` и `webstat` не входят в синхронизацию.
 
 [UNKNOWN] URL панели управления IHC для этого заказа и состояние маршрута `/api/submit-application` на IHC пока не подтверждены. Простая загрузка папки `api/` не запускает Vercel Function.
 
@@ -70,7 +70,7 @@
 
 ## Проверенный production
 
-[FACT] 14 августа 2026 года локальная версия опубликована в Vercel deployment `dpl_AGSRivJHXqb7Sh6hoh36RFdYrZ5v` со статусом `READY`. Прямой deployment совпадает с локальным HTML/CSS, но `g10-kirov.vercel.app` редиректит на внешний nginx-origin `g10.kirov.restoved.ru` на сервере IHC `95.181.224.17`.
+[FACT] 19 августа 2026 года актуальная версия опубликована в Vercel deployment `dpl_2azSzQvH43xdZ92xRJCRc6MpfT1N` со статусом `READY`. Контрольные суммы `index.html`, `styles.css` и `script.js` совпадают между локальной папкой, GitHub и `g10-kirov.vercel.app`; этот alias отвечает напрямую от Vercel. `g10.kirov.restoved.ru` остаётся отдельным nginx-origin на IHC `95.181.224.17`.
 
 [FACT] Production smoke check подтвердил наличие Rutube iframe, отсутствие удалённого заголовка «Люди, которые строят систему изнутри» и нумерацию тем `1`–`4`; GET `/api/submit-application` по-прежнему отвечает HTTP 405 с `Allow: POST, OPTIONS`.
 

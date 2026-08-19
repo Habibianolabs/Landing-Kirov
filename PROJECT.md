@@ -47,9 +47,9 @@ Vercel определяет проект как framework `null`; install/build/
 - Vercel project: `g10-kirov`;
 - прямой Vercel deployment с актуальной сборкой: [g10-kirov-habibiano.vercel.app](https://g10-kirov-habibiano.vercel.app/);
 - публичный домен: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/);
-- Vercel alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) перенаправляет на публичный домен.
+- публичный Vercel alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) напрямую отдаёт актуальную Vercel-версию; домен заказчика [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/) по-прежнему обслуживается отдельным IHC-сервером.
 
-[FACT] 14 августа 2026 года локальная версия опубликована в новом Vercel production deployment `dpl_AGSRivJHXqb7Sh6hoh36RFdYrZ5v` со статусом `READY`: [g10-kirov-habibiano.vercel.app](https://g10-kirov-habibiano.vercel.app/). В deployment присутствуют актуальные заголовки секций и шесть графических иллюстраций концепций.
+[FACT] 19 августа 2026 года актуальная версия опубликована в Vercel production deployment `dpl_2azSzQvH43xdZ92xRJCRc6MpfT1N` со статусом `READY`: [g10-kirov-414mg0b2q-habibiano.vercel.app](https://g10-kirov-414mg0b2q-habibiano.vercel.app/). Alias [g10-kirov.vercel.app](https://g10-kirov.vercel.app/) отдаёт эту же версию.
 
 [FACT] Публичный домен обслуживается отдельным сервером IHC: `95.181.224.17`, web-сервер `nginx/1.20.2`. Проверка 17 августа 2026 года: HTTP-запрос к этому IP с именем домена перенаправляет на `https://g10.kirov.restoved.ru/`, а HTTPS-ответ домена — `200 OK` от `nginx/1.20.2`.
 
@@ -59,7 +59,7 @@ Vercel определяет проект как framework `null`; install/build/
 
 [FACT] Vercel Function `api/submit-application.js` не исполняется на IHC автоматически при простой FTP-загрузке: для формы на IHC нужна отдельная серверная настройка или проксирование в Vercel. До её подтверждения нельзя считать форму рабочего сайта на IHC активной.
 
-[FACT] GitHub и локальная папка синхронизированы на коммите `9ddc7b3` до текущей frontend-правки. Изменения списка экспертов в `index.html` и `styles.css` пока локальные и не публиковались на IHC; документация также обновляется локально до отдельной сверки файлов.
+[FACT] Локальная папка и открытый GitHub-репозиторий синхронизированы на коммите `7d574f3` после последних frontend- и документационных изменений. На IHC последняя версия пока не загружена; `.env.local`, `.git` и `webstat` в синхронизацию не входят.
 
 ## Текущее состояние frontend
 
@@ -79,7 +79,7 @@ Vercel определяет проект как framework `null`; install/build/
 - после секции «Партнёры проекта и их концепции» крупные заголовки до CTA-блока удалены; названия существующих блоков сохранены, CTA-заголовок «Станьте самым эффективным операционистом собственного бизнеса» оставлен;
 - блок «Ключевые темы проекта» содержит 14 пунктов с нумерацией `1`–`4` внутри четырёх групп;
 - обе формы имеют client-side validation, consent и honeypot-поле;
-- consent banner и отложенная загрузка аналитики реализованы; Яндекс Метрика подключена локально и ожидает публикации на IHC.
+- consent banner и отложенная загрузка аналитики реализованы; Яндекс Метрика подключена в Vercel-версии. На отдельной IHC-копии код Метрики пока не опубликован.
 
 ## Backend формы
 

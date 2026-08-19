@@ -45,9 +45,9 @@
 
 ## Production-синхронизация
 
-[FACT] 14 августа 2026 года локальная runtime-версия опубликована в Vercel deployment `dpl_AGSRivJHXqb7Sh6hoh36RFdYrZ5v` со статусом `READY`. Прямой deployment URL содержит актуальные section-heading-плашки и шесть графических иллюстраций концепций.
+[FACT] 19 августа 2026 года актуальная runtime-версия опубликована в Vercel production deployment `dpl_2azSzQvH43xdZ92xRJCRc6MpfT1N` со статусом `READY`. Прямой deployment URL и alias `g10-kirov.vercel.app` содержат те же `index.html`, `styles.css`, `script.js` и backend-функцию.
 
-[FACT] `g10-kirov.vercel.app` редиректит на `g10.kirov.restoved.ru`; последний отвечает через `nginx/1.20.2`. 17 августа 2026 года подтверждён сервер этого публичного сайта: IHC, IP `95.181.224.17`. HTTP-запрос к IP с именем публичного домена перенаправляется на `https://g10.kirov.restoved.ru/`; HTTPS домена возвращает `200 OK` от этого nginx.
+[FACT] `g10-kirov.vercel.app` сейчас отвечает напрямую от Vercel (`200 OK`). Домен заказчика `g10.kirov.restoved.ru` остаётся отдельным IHC-origin: сервер `95.181.224.17`, `nginx/1.20.2`, HTTPS отвечает `200 OK`.
 
 [FACT] Через FileZilla подтверждён доступ к корню сайта на IHC по защищённому FTP. В корне лежат `index.html`, `assets/`, `api/`, документация и служебная папка `webstat`. Соединение периодически обрывается сервером после операций со списком файлов; это не ошибка пароля, потому что вход на сервер завершается успешно.
 
@@ -55,7 +55,7 @@
 
 [FACT] Прямая загрузка статических файлов на IHC не переносит Vercel Function. Маршрут формы `/api/submit-application` на публичном сервере нужно отдельно проверить и настроить до объявления формы рабочей.
 
-[FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Локальная версия и GitHub синхронизированы на коммите `9ddc7b3` до текущей frontend-правки; сейчас локально изменены `index.html` и `styles.css`, а также документы проекта.
+[FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Локальная версия и открытый GitHub-репозиторий синхронизированы на коммите `7d574f3`; рабочая папка чистая.
 
 ## Backend и ограничения production
 
@@ -70,7 +70,7 @@
 
 [FACT] Production-приём заявок пока не активирован: в Vercel не подтверждены реальные Resend/Upstash credentials и не выполнена тестовая доставка. Адреса в `.env.example` — текущий fallback из материалов, а не подтверждённый заказчиком финальный routing.
 
-Аналитика загружается только после analytics consent. [FACT] 18 августа 2026 года создан счётчик Яндекс Метрики `G10 Kirov` № `111727875`; код добавлен локально, но ещё не опубликован на IHC. Envybox не подключён.
+Аналитика загружается только после analytics consent. [FACT] 18 августа 2026 года создан счётчик Яндекс Метрики `G10 Kirov` № `111727875`; код опубликован в Vercel-версии, но ещё не опубликован на отдельной IHC-копии. Envybox не подключён.
 
 ## Открытые решения
 
