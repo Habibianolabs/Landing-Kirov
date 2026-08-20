@@ -636,6 +636,10 @@ h2 {
 .concept-card .concept-card__details { padding: 14px 0 0; }
 .concept-card__details p { margin: 0; }
 
+@media (min-width: 761px) {
+  .partner-showcase__overview .partner-visual--image img { object-fit: contain; object-position: center; }
+}
+
 button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
 
 @media (hover: hover) {
