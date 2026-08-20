@@ -503,12 +503,12 @@ h2 {
 .program-partner-card__brand-logo--culture { max-width: 228px; }
 .program-partner-card__brand-logo--mamina { width: min(100%, 228px); max-height: 82px; mix-blend-mode: multiply; }
 .program-partner-card__closing { flex: 1; padding: 20px 24px 22px; }
-.program-partner-card__closing-text { position: relative; max-height: 4.8em; overflow: hidden; transition: max-height .28s ease; }
-.program-partner-card__closing-text::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3.8em; content: ""; background: linear-gradient(to bottom, transparent, var(--partner-card-fade, rgba(238, 244, 253, .97)) 88%); pointer-events: none; transition: opacity .22s ease; }
+.program-partner-card__closing-text { max-height: 4.8em; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%); transition: max-height .28s ease; }
+.program-partner-card__closing-text::after { display: none; }
 .program-partner-card__closing p { margin: 0; color: var(--ink); font-size: 13px; line-height: 1.55; }
 .program-partner-card__closing strong { color: var(--accent-deep); }
 .program-partner-card__closing.is-expanded .program-partner-card__closing-text { max-height: 80em; }
-.program-partner-card__closing.is-expanded .program-partner-card__closing-text::after { opacity: 0; }
+.program-partner-card__closing.is-expanded .program-partner-card__closing-text { -webkit-mask-image: none; mask-image: none; }
 .program-partner-card__toggle { margin-top: 15px; }
 
 .benefits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
