@@ -7,6 +7,7 @@
     <title>G10 — Рестораторы и опердиры России. Перезагрузка | Киров</title>
     <meta name="description" content="G10. Рестораторы и опердиры России. Перезагрузка. Образовательный бизнес-проект в Кирове, 5–7 октября 2026 года.">
     <link rel="icon" href="data:,">
+    <link rel="preload" as="image" href="assets/site/kirov/banner/g10-kirov-banner-1600.jpg" type="image/jpeg" fetchpriority="high">
     <link rel="stylesheet" href="styles.css">
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -41,7 +42,10 @@
       <section class="hero section-frame" id="hero" aria-labelledby="hero-title">
         <h1 class="visually-hidden" id="hero-title">G10. Рестораторы и опердиры России. Перезагрузка</h1>
         <div class="hero__media">
-          <img class="hero__image" src="assets/site/kirov/banner/g10-kirov-banner.jpg" alt="G10. Рестораторы и опердиры России. Перезагрузка. Киров, 5–7 октября 2026 года.">
+          <picture>
+            <source srcset="assets/site/kirov/banner/g10-kirov-banner-1600.jpg" type="image/jpeg">
+            <img class="hero__image" src="assets/site/kirov/banner/g10-kirov-banner.jpg" alt="G10. Рестораторы и опердиры России. Перезагрузка. Киров, 5–7 октября 2026 года." width="1920" height="1080" loading="eager" fetchpriority="high" decoding="async">
+          </picture>
         </div>
         <div class="hero__footer">
           <p>5–7 октября 2026 года · Киров</p>
@@ -75,7 +79,6 @@
                 <div class="program-partner-card__brand-mark">
                   <img class="program-partner-card__brand-logo program-partner-card__brand-logo--culture" src="assets/site/kirov/logos/kultura-gostepriimstva.png" alt="Логотип «Культура гостеприимства»" loading="lazy">
                 </div>
-                <p class="program-partner-card__brand-name">Ресторанный альянс «Культура гостеприимства»</p>
               </div>
             </div>
             <div class="program-partner-card__closing" data-program-spoiler>
@@ -97,9 +100,8 @@
               </div>
               <div class="program-partner-card__brand-plate" aria-label="Логотип и название группы компаний">
                 <div class="program-partner-card__brand-mark program-partner-card__brand-mark--mamina">
-                  <img class="program-partner-card__brand-logo program-partner-card__brand-logo--mamina" src="assets/site/kirov/logos/mamina-kuhnya.png" alt="Логотип «Мамина кухня»" loading="lazy">
+                  <img class="program-partner-card__brand-logo program-partner-card__brand-logo--mamina" src="assets/site/kirov/logos/mamina-kuhnya-attached.jpg" alt="Логотип «Мамина кухня»" loading="lazy">
                 </div>
-                <p class="program-partner-card__brand-name">Группа компаний «Мамина кухня»</p>
               </div>
             </div>
             <div class="program-partner-card__closing" data-program-spoiler>
@@ -123,13 +125,13 @@
           <div class="about-carousel__viewport">
             <div class="about-carousel__track">
               <div class="about-carousel__slide is-active" data-about-slide="0" role="group" aria-roledescription="slide" aria-label="Фото 1 из 3">
-                <img src="assets/site/kirov/photos/about/rbm03083-clean.png" alt="Групповая фотография участников проекта G10 на площадке" loading="eager" decoding="async">
+                <img src="assets/site/kirov/photos/about/rbm03083-clean.png" alt="Групповая фотография участников проекта G10 на площадке" loading="lazy" decoding="async">
               </div>
               <div class="about-carousel__slide" data-about-slide="1" role="group" aria-roledescription="slide" aria-label="Фото 2 из 3" aria-hidden="true">
-                <img src="assets/site/kirov/photos/about/d3c-6516-clean.png" alt="Презентация для участников проекта G10 в ресторане" loading="lazy" decoding="async">
+                <img data-src="assets/site/kirov/photos/about/d3c-6516-clean.png" alt="Презентация для участников проекта G10 в ресторане" loading="lazy" decoding="async">
               </div>
               <div class="about-carousel__slide" data-about-slide="2" role="group" aria-roledescription="slide" aria-label="Фото 3 из 3" aria-hidden="true">
-                <img src="assets/site/kirov/photos/about/dsc-6792-11-clean.png" alt="Участники проекта G10 на встрече в ресторане" loading="lazy" decoding="async">
+                <img data-src="assets/site/kirov/photos/about/dsc-6792-11-clean.png" alt="Участники проекта G10 на встрече в ресторане" loading="lazy" decoding="async">
               </div>
             </div>
             <button class="about-carousel__hit-area about-carousel__hit-area--prev" type="button" data-about-prev aria-label="Предыдущее фото"><span class="about-carousel__arrow about-carousel__arrow--prev" aria-hidden="true"></span></button>
@@ -326,7 +328,7 @@
         </div>
         <div class="video-embed">
           <div class="video-embed__frame">
-            <iframe src="https://rutube.ru/play/embed/dc621ce5a8fb34045e28d2cefa492e71/" title="Видео с мероприятий G10" loading="eager" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe src="https://rutube.ru/play/embed/dc621ce5a8fb34045e28d2cefa492e71/" title="Видео с мероприятий G10" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <div class="video-embed__meta">
             <div><strong>Видео с мероприятий</strong><p>Воспроизведение открыто прямо на странице.</p></div>
@@ -376,7 +378,7 @@
     <dialog class="gallery-dialog" id="galleryDialog" aria-label="Просмотр фотографии">
       <button class="dialog__close" type="button" data-close-gallery aria-label="Закрыть просмотр">×</button>
       <button class="gallery-dialog__nav gallery-dialog__nav--prev" type="button" data-gallery-prev aria-label="Предыдущая фотография">‹</button>
-      <figure><img data-gallery-image src="assets/site/kirov/events/suluguni.jpg" alt=""><figcaption data-gallery-caption></figcaption></figure>
+      <figure><img data-gallery-image alt=""><figcaption data-gallery-caption></figcaption></figure>
       <button class="gallery-dialog__nav gallery-dialog__nav--next" type="button" data-gallery-next aria-label="Следующая фотография">›</button>
     </dialog>
 

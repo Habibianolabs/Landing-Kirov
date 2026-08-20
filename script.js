@@ -71,8 +71,16 @@ function setupAboutCarousel() {
   let currentIndex = 0;
   let pointerStartX = null;
 
+  function loadAboutSlideImage(slide) {
+    const image = slide.querySelector("img[data-src]");
+    if (!image) return;
+    image.src = image.dataset.src;
+    image.removeAttribute("data-src");
+  }
+
   function renderAboutSlide(nextIndex) {
     currentIndex = (nextIndex + slides.length) % slides.length;
+    loadAboutSlideImage(slides[currentIndex]);
     track.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
     slides.forEach((slide, index) => {
       const isCurrent = index === currentIndex;
@@ -283,7 +291,7 @@ function loadYandexMetrika() {
   yandexMetrikaEnabled = true;
 }
 
-const envyboxWidgetCode = "ee05fa5169f41973b6a9afcb4d70620f";
+const envyboxWidgetCode = "28c890d5bde2398ab07faf542b1c5b46";
 
 function loadEnvybox() {
   if (document.querySelector("script[data-envybox-widget]")) return;
