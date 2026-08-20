@@ -19,9 +19,9 @@ function setupScrollReveal() {
   const revealGroups = [
     { selector: ".hero", direction: "up" },
     { selector: ".section-heading", direction: "up" },
-    { selector: ".logo-card", direction: "up", stagger: 90 },
+    { selector: ".program-partner-card", direction: "up", stagger: 90 },
     { selector: ".benefit-card", direction: "up", stagger: 70 },
-    { selector: ".culture-story, .about-copy", direction: "left" },
+    { selector: ".about-copy", direction: "left" },
     { selector: ".about-visual", direction: "right" },
     { selector: ".project-partner-card, .concept-card, .price-card, .included-card, .testimonial-card", direction: "up", stagger: 70 },
     { selector: ".schedule-placeholder, .schedule-day, .topic-group, .gallery-item", direction: "up", stagger: 60 },
@@ -211,6 +211,18 @@ document.querySelectorAll("[data-open-partner]").forEach((trigger) => {
   });
 });
 
+document.querySelectorAll("[data-program-spoiler-toggle]").forEach((trigger) => {
+  const panel = document.getElementById(trigger.getAttribute("aria-controls"));
+  const wrapper = trigger.closest("[data-program-spoiler]");
+  if (!panel || !wrapper) return;
+
+  trigger.addEventListener("click", () => {
+    const expanded = trigger.getAttribute("aria-expanded") === "true";
+    trigger.setAttribute("aria-expanded", String(!expanded));
+    wrapper.classList.toggle("is-expanded", !expanded);
+  });
+});
+
 document.querySelector("[data-close-partner]")?.addEventListener("click", () => { closeDialog(partnerDialog); restorePartnerFocus(); });
 partnerDialog?.addEventListener("click", (event) => { if (event.target === partnerDialog) { closeDialog(partnerDialog); restorePartnerFocus(); } });
 partnerDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeDialog(partnerDialog); restorePartnerFocus(); });
@@ -318,7 +330,7 @@ document.querySelectorAll("a[href^='tel:']").forEach((link) => {
   link.addEventListener("click", () => trackEvent("phone_click", { location: "footer" }));
 });
 
-document.querySelectorAll(".logo-link[href]").forEach((link) => {
+document.querySelectorAll(".program-partner-card__title-link[href]").forEach((link) => {
   link.addEventListener("click", () => trackEvent("partner_site_open", { partner: link.getAttribute("aria-label") || "unknown" }));
 });
 
