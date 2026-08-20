@@ -525,7 +525,7 @@ h2 {
   padding: 20px;
 }
 
-.benefit-card p { margin: 1px 0 0; font-size: 14px; font-weight: 700; line-height: 1.35; }
+.benefit-card p { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.14; }
 
 .index-mark {
   display: inline-block;
@@ -695,7 +695,7 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .concepts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefit-card { grid-template-columns: 1fr; gap: 12px; min-height: 0; padding: 16px; }
-  .benefit-card p { font-size: 13px; }
+  .benefit-card p { font-size: 15px; }
   .about-copy h2 { max-width: none; }
   .about-carousel__viewport { min-height: 240px; }
   .image-caption { width: auto; max-width: none; }
@@ -760,6 +760,7 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
 .inline-cta--light .button--primary { color: #fff !important; background: var(--accent-deep); border-color: var(--accent-deep); }
 .topics-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .topic-group,
+.benefit-card,
 .price-card,
 .included-card {
   position: relative;
@@ -775,6 +776,7 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
 }
 
 .topic-group::before,
+.benefit-card::before,
 .price-card::before,
 .included-card::before {
   position: absolute;
@@ -876,6 +878,7 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .section-frame,
   .program-partner-card,
   .topic-group,
+  .benefit-card,
   .price-card,
   .included-card {
     background: var(--surface-muted);
