@@ -105,14 +105,28 @@ function request_origin_is_allowed()
     ], true);
 }
 
-function rate_limit_file($key)
+function rate_limit_directory()
 {
-    $directory = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'g10-kirov-application-rate';
-    if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
-        throw new RuntimeException('Rate-limit storage is unavailable');
+    $directories = [
+        rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'g10-kirov-application-rate',
+        dirname(__DIR__) . DIRECTORY_SEPARATOR . '.g10-kirov-application-rate',
+    ];
+
+    foreach ($directories as $directory) {
+        if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
+            continue;
+        }
+        if (is_writable($directory)) {
+            return $directory;
+        }
     }
 
-    return $directory . DIRECTORY_SEPARATOR . hash('sha256', $key) . '.json';
+    throw new RuntimeException('Rate-limit storage is unavailable');
+}
+
+function rate_limit_file($key)
+{
+    return rate_limit_directory() . DIRECTORY_SEPARATOR . hash('sha256', $key) . '.json';
 }
 
 function check_rate_limit($key, $max, $windowSeconds)
@@ -251,7 +265,11 @@ try {
     $duplicateLimit = check_rate_limit('application|' . $applicationKey, DUPLICATE_LIMIT_MAX, DUPLICATE_LIMIT_WINDOW_SECONDS);
 } catch (Exception $error) {
     error_log('G10 Kirov application rate limiter is unavailable.');
-    response_json(503, ['ok' => false, 'message' => 'Сервис временно недоступен. Попробуйте ещё раз позже.']);
+    // Do not lose a legitimate application because a shared host denies access
+    // to its temporary directory. Honeypot, validation, origin and time checks
+    // still run; the host should be fixed so persistent rate limiting resumes.
+    $ipLimit = ['allowed' => true, 'retry_after' => 0];
+    $duplicateLimit = ['allowed' => true, 'retry_after' => 0];
 }
 
 if (!$ipLimit['allowed'] || !$duplicateLimit['allowed']) {

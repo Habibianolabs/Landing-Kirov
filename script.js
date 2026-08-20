@@ -259,17 +259,9 @@ document.querySelector("[data-close-application]")?.addEventListener("click", cl
 applicationDialog?.addEventListener("click", (event) => { if (event.target === applicationDialog) closeApplicationDialog(); });
 applicationDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeApplicationDialog(); });
 
-function loadVercelAnalytics() {
-  if (document.querySelector("script[data-vercel-analytics]")) return;
-  const script = document.createElement("script");
-  script.defer = true;
-  script.src = "/_vercel/insights/script.js";
-  script.dataset.vercelAnalytics = "true";
-  document.head.appendChild(script);
-}
-
 const yandexMetrikaId = 111727875;
 let yandexMetrikaEnabled = false;
+const isVercelDemo = window.location.hostname.endsWith(".vercel.app");
 
 function loadYandexMetrika() {
   if (document.querySelector("script[data-yandex-metrika]")) return;
@@ -398,6 +390,10 @@ document.querySelectorAll("[data-application-form]").forEach((form, index) => {
       firstInvalid?.focus();
       return;
     }
+    if (isVercelDemo) {
+      showFormStatus("Это демонстрационная версия. Заявки принимаются на сайте организатора: g10.kirov.restoved.ru.", { isError: true });
+      return;
+    }
     const submitButton = form.querySelector("[type='submit']");
     const formData = Object.fromEntries(new FormData(form).entries());
     if (submitButton) submitButton.disabled = true;
@@ -465,7 +461,6 @@ function setConsent(value) {
   }
   try { localStorage.setItem(consentStorageKey, savedValue); } catch (error) { /* private browsing can block storage */ }
   if (savedValue === "all" || savedValue === "analytics") {
-    loadVercelAnalytics();
     loadYandexMetrika();
     trackScrollDepth();
   }
@@ -484,7 +479,6 @@ function closeConsentDialog() {
 }
 try { if (!localStorage.getItem(consentStorageKey) && cookieBanner) cookieBanner.hidden = false; } catch (error) { if (cookieBanner) cookieBanner.hidden = false; }
 if (hasAnalyticsConsent()) {
-  loadVercelAnalytics();
   loadYandexMetrika();
   trackScrollDepth();
 }
