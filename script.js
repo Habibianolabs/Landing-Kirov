@@ -78,9 +78,9 @@ function setupAboutCarousel() {
     image.removeAttribute("data-src");
   }
 
-  function renderAboutSlide(nextIndex) {
+  function renderAboutSlide(nextIndex, { loadImage = true } = {}) {
     currentIndex = (nextIndex + slides.length) % slides.length;
-    loadAboutSlideImage(slides[currentIndex]);
+    if (loadImage) loadAboutSlideImage(slides[currentIndex]);
     track.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
     slides.forEach((slide, index) => {
       const isCurrent = index === currentIndex;
@@ -112,7 +112,17 @@ function setupAboutCarousel() {
   });
   viewport.addEventListener("pointercancel", () => { pointerStartX = null; });
 
-  renderAboutSlide(0);
+  renderAboutSlide(0, { loadImage: false });
+  if ("IntersectionObserver" in window) {
+    const aboutImageObserver = new IntersectionObserver((entries, observer) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      loadAboutSlideImage(slides[currentIndex]);
+      observer.disconnect();
+    }, { rootMargin: "0px 0px 500px 0px" });
+    aboutImageObserver.observe(carousel);
+  } else {
+    loadAboutSlideImage(slides[currentIndex]);
+  }
 }
 
 setupAboutCarousel();

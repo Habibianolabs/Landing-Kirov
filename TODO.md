@@ -11,10 +11,11 @@
 - [x] Опубликовать демонстрационный frontend в Vercel project `g10-kirov`.
 - [x] Проверить демонстрационный alias `g10-kirov.vercel.app`; он не считается production-сервером заявок.
 - [x] Подтвердить публичный origin: `g10.kirov.restoved.ru` обслуживается на IHC сервером `95.181.224.17` и `nginx/1.20.2`; файловый доступ через FileZilla получен.
-- [~] Предыдущая версия runtime-файлов синхронизирована с IHC; загрузить новый hotfix `script.js` и `api/submit-application.php` из GitHub, не меняя `.env.local`, `.git` и `webstat`.
+- [~] Предыдущая runtime-версия синхронизирована с IHC. Локально появились незакоммиченные `index.html`, `styles.css`, `script.js`, `assets/site/kirov/banner/g10-kirov-banner-1600.jpg` и `assets/site/kirov/logos/mamina-kuhnya-attached.jpg`; текущая frontend-версия опубликована в Vercel, но перед IHC нужно решить состав релиза и передать подтверждённые runtime-файлы сисадмину.
 - [ ] Подтвердить URL панели управления IHC и зафиксировать способ безопасного доступа без паролей в документации.
-- [~] PHP-маршрут формы на IHC подтверждён (`OPTIONS` — `204`, PHP 7.3.33); загрузить hotfix rate limit и повторить тест письма.
+- [~] PHP-маршрут формы на IHC подтверждён (`OPTIONS` — `204`, PHP 7.3.33); загрузить подтверждённую текущую версию и повторить тест письма.
 - [x] Обновить проектную документацию и сводный статус после последней runtime-сверки.
+- [x] Создать отдельную backend-сводку `BACKEND_CHAT_CONTEXT.md` для нового чата.
 - [x] Создать `PROJECT_STATUS.md` с готовностью функций и очередностью оставшихся задач.
 - [x] Создать и отправить актуальную версию в открытый GitHub.
 - [x] Подтвердить публичный домен заказчика `g10.kirov.restoved.ru`; он обслуживается IHC отдельно от Vercel alias `g10-kirov.vercel.app`.
@@ -56,9 +57,9 @@
 - [x] PHP `mail()` и `Reply-To` заявителя.
 - [x] Loading/success/error states на клиенте.
 - [x] Зафиксировать четыре адреса получателей и `event@restoranoff.ru` как отправителя в серверном PHP-файле.
-- [ ] Передать сисадмину hotfix `api/submit-application.php` и `script.js` через GitHub для загрузки на IHC.
+- [ ] Передать сисадмину подтверждённые версии `api/submit-application.php` и `script.js` через GitHub для загрузки на IHC.
 - [x] Подтвердить, что PHP включён для домена и `/api/submit-application.php` не отдаёт исходный код.
-- [ ] После hotfix повторить техническую проверку формы и подтвердить доставку на четыре адреса.
+- [ ] После загрузки подтверждённой версии повторить техническую проверку формы и подтвердить доставку на четыре адреса.
 
 ## 4. Аналитика, cookies и интеграции
 
@@ -67,19 +68,21 @@
 - [x] Событие `application_submitted` после успешной заявки.
 - [ ] Проверить событие в production после реальной тестовой заявки.
 - [x] Создать счётчик Яндекс Метрики `G10 Kirov` № `111727875` для `g10.kirov.restoved.ru` и добавить consent-aware код локально.
-- [ ] Опубликовать код Метрики на IHC и проверить в интерфейсе Метрики просмотр страницы, время на сайте и события `application_open`, `tariff_selected`, `phone_click`, `partner_site_open`, `scroll_50`, `scroll_90`, `application_submitted`.
-- [x] Получить EnvyBox code/ID и добавить consent-aware loader локально.
-- [ ] Включить в кабинете EnvyBox окно чата поддержки.
-- [ ] Включить в кабинете EnvyBox кнопку звонка и заказ обратного звонка.
+- [x] Подключить счётчик `G10 Kirov` № `111727875` в аккаунте Яндекс Директа `e-16563934` и сохранить автоматическую цель «заполнил контактные данные».
+- [ ] Создать в Метрике JavaScript-цели `application_open`, `tariff_selected`, `phone_click`, `partner_site_open` и `application_submitted`; при проверке интерфейс Метрики вернул временную ошибку `503`.
+- [ ] Опубликовать подтверждённый код Метрики на IHC и проверить в интерфейсе Метрики просмотр страницы, время на сайте и события `application_open`, `tariff_selected`, `phone_click`, `partner_site_open`, `scroll_50`, `scroll_90`, `application_submitted`.
+- [x] Получить новый EnvyBox code/ID и заменить consent-aware loader локально.
+- [x] Подтвердить локальное отображение чата и кнопки обратного звонка после полного согласия cookies.
+- [ ] Загрузить новую версию EnvyBox на IHC и проверить её на production-домене.
 - [ ] Получить/подтвердить настройки EnvyBox: номер телефона, часы работы, текст приветствия, правила показа и mobile offset.
 - [ ] Проверить safe area/mobile conflicts и production-загрузку EnvyBox.
-- [x] Показать Rutube iframe сразу в блоке «Как проходят наши мероприятия» без autoplay.
+- [x] Сохранить Rutube iframe в блоке «Как проходят наши мероприятия» без autoplay и загружать его после прокрутки к видеоблоку.
 - [x] Подключить три предоставленные фотографии в блок «Как проходят наши мероприятия».
 
 ## 5. Финальная приёмка
 
 - [~] Accessibility-аудит: keyboard-only, VoiceOver/NVDA, contrast и 200% zoom.
 - [ ] Responsive QA: 320×568, 360×800, 393×844, 768×1024, 1024×768, 1366×768, 1440×900, 1920×1080.
-- [ ] Performance QA: LCP, CLS, INP, lazy loading, cache headers и broken links.
+- [~] Performance QA: главный баннер, начальный сетевой набор, отложенная загрузка, desktop/mobile overflow и Vercel-публикация проверены; отдельно остаются LCP/CLS/INP, cache headers и broken links.
 - [ ] Content/legal QA после закрытия открытых решений.
 - [x] Smoke test демонстрационного frontend после последних визуальных изменений; IHC production smoke test ещё не выполнялся.

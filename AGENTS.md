@@ -29,6 +29,7 @@
 - `TODO.md` — чек-лист;
 - `HANDOFF.md` и `NEW_CHAT_CONTEXT.md` — передача в новый чат;
 - `PROJECT_STATUS.md` — короткий единый статус готовности функций и оставшихся задач;
+- `BACKEND_CHAT_CONTEXT.md` — оперативная передача backend-задач, ошибок и порядка production-проверки;
 - `CONTENT_MAP.md`, `MATERIALS_INDEX.md`, `MISSING_MATERIALS.md`, `IMPLEMENTATION_PLAN.md` — требования, материалы, риски и план.
 
 В документах указывать дату актуализации и различать `[FACT]`, `[INFERENCE]`, `[ASSUMPTION]` и `[UNKNOWN]`, если статус не подтверждён.
