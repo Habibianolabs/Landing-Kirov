@@ -6,7 +6,7 @@
 
 Этот файл сохраняет карту требований и исходных материалов. Короткий статус готовности функций ведётся в [`PROJECT_STATUS.md`](PROJECT_STATUS.md), а подробный статус runtime, production-синхронизации и незакрытых решений — в `PROJECT.md`, `PROJECT_CONTEXT.md`, `CURRENT_TASK.md`, `MISSING_MATERIALS.md` и `TODO.md` по состоянию на 20 августа 2026 года.
 
-Оперативная сводка backend для нового чата — [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md). Последний общий коммит локальной ветки и GitHub `main` — `8dede29`; локальные изменения `index.html`, `styles.css`, `script.js` и новые assets пока не сохранены в GitHub, но текущий frontend уже опубликован в Vercel.
+Оперативная сводка backend для нового чата — [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md). Последний общий runtime-коммит локальной ветки и GitHub `main` — `97a43ce`; рабочее дерево чистое, текущий frontend опубликован в Vercel.
 
 [FACT] В текущей композиции названия блоков остаются видимыми как section-kicker. Крупные заголовки секций от «Экспертов» до CTA-блока удалены; сам CTA-заголовок следующего блока сохранён.
 

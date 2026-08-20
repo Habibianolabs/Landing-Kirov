@@ -54,7 +54,7 @@
 
 ## Production-синхронизация
 
-[FACT] Последний общий коммит локальной ветки и GitHub `main` — `8dede29`. Рабочая папка сейчас не чистая: локально изменены `index.html`, `styles.css`, `script.js` и добавлены `assets/site/kirov/banner/g10-kirov-banner-1600.jpg` и `assets/site/kirov/logos/mamina-kuhnya-attached.jpg`; эти изменения ещё не опубликованы в GitHub. Текущая локальная frontend-версия опубликована в Vercel-деплое `dpl_65z5q9bCz1MeURrPnPeL2tGF7BaQ` со статусом `READY`; это не подтверждение работы PHP и почты на IHC.
+[FACT] Последний общий runtime-коммит локальной ветки и GitHub `main` — `97a43ce`. Рабочее дерево чистое, текущая frontend-версия опубликована в Vercel; это не подтверждение работы PHP и почты на IHC.
 
 [FACT] `g10-kirov.vercel.app` сейчас отвечает напрямую от Vercel (`200 OK`). Домен заказчика `g10.kirov.restoved.ru` остаётся отдельным IHC-origin: сервер `95.181.224.17`, `nginx/1.20.2`, HTTPS отвечает `200 OK`.
 
@@ -64,7 +64,7 @@
 
 [FACT] Прямая загрузка JavaScript-файла не запускает серверный код на IHC. Для публичного домена добавлен отдельный PHP-маршрут `/api/submit-application.php`; 20 августа `OPTIONS` подтвердил его исполнение PHP 7.3.33. Подтверждённую версию PHP нужно загрузить на IHC и затем повторить проверку письма.
 
-[FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Коммит локальной ветки совпадает с открытым GitHub-репозиторием; рабочая папка содержит незакоммиченные frontend-изменения, перечисленные выше.
+[FACT] Текущая ветка Git — `main`, remote — `git@github.com:Habibianolabs/Landing-Kirov.git`. Коммит локальной ветки `97a43ce` совпадает с открытым GitHub-репозиторием; рабочее дерево чистое.
 
 ## Backend и ограничения production
 

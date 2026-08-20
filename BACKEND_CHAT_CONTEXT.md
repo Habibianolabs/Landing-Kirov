@@ -18,8 +18,8 @@
 
 - Рабочая папка: `/Users/lilcheecha/Documents/Landings`.
 - GitHub: `https://github.com/Habibianolabs/Landing-Kirov`, репозиторий открыт, ветка `main`.
-- Последний общий коммит локальной ветки и `origin/main`: `8dede29` (`fix: update pricing periods`).
-- [FACT] Локальная папка и GitHub совпадают по последнему коммиту `8dede29`, но рабочая папка сейчас не чистая: локально изменены `index.html`, `styles.css`, `script.js`, добавлены `assets/site/kirov/banner/g10-kirov-banner-1600.jpg` и `assets/site/kirov/logos/mamina-kuhnya-attached.jpg`. Эти изменения пока не входят в GitHub; текущая локальная frontend-версия уже опубликована в Vercel.
+- Последний общий runtime-коммит локальной ветки и `origin/main`: `97a43ce` (`content: split partner showcase sections`).
+- [FACT] Локальная папка и GitHub совпадают по коммиту `97a43ce`; рабочее дерево чистое, а текущая frontend-версия опубликована в Vercel. IHC не изменялся.
 - [FACT] `api/submit-application.php` не менялся в этой серии правок. Vercel-деплой `dpl_65z5q9bCz1MeURrPnPeL2tGF7BaQ` получил статус `READY`, alias `https://g10-kirov.vercel.app` обновлён.
 - [FACT] Предыдущая сверка с IHC подтверждала старую runtime-версию. Последние версии backend/frontend нужно загрузить на IHC и затем проверить отдельно.
 
@@ -77,7 +77,7 @@ Production-маршрут формы: `/api/submit-application.php`.
 2. Интерфейс Яндекс Метрики временно отвечал `503`, поэтому пользовательские цели не заведены.
 3. IHC пока содержит предыдущую runtime-версию; отображение EnvyBox на production после загрузки нового `script.js` ещё не проверено.
 4. FileZilla иногда закрывает защищённое соединение после списка файлов. Вход проходит; это нестабильность передачи, а не доказательство неверного пароля.
-5. Локальная рабочая папка содержит незакоммиченные frontend-изменения. Нельзя считать их частью GitHub, Vercel или IHC до отдельной проверки и публикации.
+5. Runtime-изменения из коммита `97a43ce` уже входят в GitHub и Vercel; IHC по-прежнему требует отдельной загрузки и проверки сисадмином.
 
 ## 7. Что делаем сейчас
 

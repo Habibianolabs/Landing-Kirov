@@ -53,7 +53,7 @@
 - публичный домен: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/);
 - [FACT] `g10-kirov.vercel.app` используется только как демонстрация frontend. Домен заказчика [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/) по-прежнему обслуживается отдельным IHC-сервером; production-обработчик заявок на демонстрационный хостинг не распространяется.
 
-[FACT] Последний общий коммит локальной ветки и GitHub `main` — `8dede29` (`fix: update pricing periods`). Рабочая папка сейчас не чистая: локально изменены `index.html`, `styles.css`, `script.js`, добавлены `assets/site/kirov/banner/g10-kirov-banner-1600.jpg` и `assets/site/kirov/logos/mamina-kuhnya-attached.jpg`. Эти изменения не входят в GitHub и не считаются частью IHC, пока не будут отдельно проверены и сохранены. Текущая frontend-версия уже опубликована в Vercel-деплое `dpl_65z5q9bCz1MeURrPnPeL2tGF7BaQ`; это не подтверждение работы PHP-почты на домене заказчика.
+[FACT] Последний общий runtime-коммит локальной ветки и GitHub `main` — `97a43ce` (`content: split partner showcase sections`). Рабочее дерево чистое, текущая frontend-версия опубликована в Vercel; это не подтверждение работы PHP-почты на домене заказчика.
 
 [FACT] Публичный домен обслуживается отдельным сервером IHC: `95.181.224.17`, web-сервер `nginx/1.20.2`. Проверка 17 августа 2026 года: HTTP-запрос к этому IP с именем домена перенаправляет на `https://g10.kirov.restoved.ru/`, а HTTPS-ответ домена — `200 OK` от `nginx/1.20.2`.
 
@@ -63,7 +63,7 @@
 
 [FACT] Простая загрузка `api/submit-application.js` на IHC только раздавала исходный JavaScript как файл и не запускала серверный обработчик. Для домена заказчика добавлен PHP-маршрут `api/submit-application.php`; 20 августа подтверждено, что он исполняется на IHC как PHP 7.3.33. Подтверждённую версию PHP нужно передать сисадмину через GitHub.
 
-[FACT] Предыдущая версия `index.html`, `styles.css` и `script.js` совпала с IHC при проверке 20 августа. После этого в локальном frontend появились незакоммиченные изменения, а PHP/backend в IHC ещё нужно проверить отдельной загрузкой. `api/submit-application.php` не менялся в этой серии правок и остаётся в GitHub `main`; `.env.local`, `.git` и `webstat` в синхронизацию не входят.
+[FACT] Предыдущая версия `index.html`, `styles.css` и `script.js` совпала с IHC при проверке 20 августа. Текущий frontend-коммит `97a43ce` опубликован в GitHub и Vercel, а PHP/backend в IHC ещё нужно проверить отдельной загрузкой. `api/submit-application.php` не менялся в этой серии правок; `.env.local`, `.git` и `webstat` в синхронизацию не входят.
 
 ## Текущее состояние frontend
 
