@@ -140,9 +140,11 @@ function setupRutubeEmbeds() {
       iframe.src = `${source}${separator}autostart=true`;
       iframe.title = embed.dataset.rutubeTitle || "Видео с мероприятий";
       iframe.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write";
+      iframe.setAttribute("allowfullscreen", "");
       iframe.loading = "eager";
       iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      playButton.replaceWith(iframe);
+      frame.replaceChildren(iframe);
+      embed.classList.add("is-playing");
     }, { once: true });
   });
 }
