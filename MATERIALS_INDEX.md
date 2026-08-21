@@ -172,7 +172,7 @@
 |---|---|---|---|
 | `assets/site/kirov/banner/g10-kirov-banner.jpg` | Готовый banner asset из материалов пользователя | Hero | Подключён без crop |
 | `assets/site/kirov/logos/kultura-gostepriimstva.png` | Локальный логотип | Партнёры программы | Подключён |
-| `assets/site/kirov/logos/mamina-kuhnya-program.png` | Новый предоставленный логотип `мамкухня.png` | Партнёры программы | Подключён в карточку «Мамина кухня» |
+| `assets/site/kirov/logos/mamina-kuhnya-program.png` | Новый предоставленный логотип `мамкухня.png` | Партнёры программы и партнёры проекта | Подключён в карточки «Мамина Кухня» |
 | `assets/site/kirov/logos/mamina-kuhnya.png` | Предыдущий локальный логотип | Архивный asset | Не используется в текущей разметке |
 | `assets/site/kirov/concepts/illustrations/mamina-uyut.png` | Предоставленный референс с тремя графическими карточками; очищенная иллюстрация | Концепция «Реберная» | Подключена, 1586×992 px |
 | `assets/site/kirov/concepts/illustrations/mamina-kultura.png` | Предоставленный референс с тремя графическими карточками; очищенная иллюстрация | Концепция «Царское село» | Подключена, 1587×991 px |
