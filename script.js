@@ -127,6 +127,28 @@ function setupAboutCarousel() {
 
 setupAboutCarousel();
 
+function setupRutubeEmbeds() {
+  document.querySelectorAll("[data-rutube-embed]").forEach((embed) => {
+    const frame = embed.querySelector(".video-embed__frame");
+    const playButton = embed.querySelector("[data-rutube-play]");
+    const source = embed.dataset.rutubeSrc;
+    if (!frame || !playButton || !source) return;
+
+    playButton.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      const separator = source.includes("?") ? "&" : "?";
+      iframe.src = `${source}${separator}autostart=true`;
+      iframe.title = embed.dataset.rutubeTitle || "Видео с мероприятий";
+      iframe.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write";
+      iframe.loading = "eager";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      playButton.replaceWith(iframe);
+    }, { once: true });
+  });
+}
+
+setupRutubeEmbeds();
+
 function closeMenu({ restoreFocus = false } = {}) {
   if (!menuToggle || !siteNav) return;
   menuToggle.setAttribute("aria-expanded", "false");
