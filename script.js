@@ -253,18 +253,6 @@ document.querySelectorAll("[data-open-partner]").forEach((trigger) => {
   });
 });
 
-document.querySelectorAll("[data-program-spoiler-toggle]").forEach((trigger) => {
-  const panel = document.getElementById(trigger.getAttribute("aria-controls"));
-  const wrapper = trigger.closest("[data-program-spoiler]");
-  if (!panel || !wrapper) return;
-
-  trigger.addEventListener("click", () => {
-    const expanded = trigger.getAttribute("aria-expanded") === "true";
-    trigger.setAttribute("aria-expanded", String(!expanded));
-    wrapper.classList.toggle("is-expanded", !expanded);
-  });
-});
-
 document.querySelector("[data-close-partner]")?.addEventListener("click", () => { closeDialog(partnerDialog); restorePartnerFocus(); });
 partnerDialog?.addEventListener("click", (event) => { if (event.target === partnerDialog) { closeDialog(partnerDialog); restorePartnerFocus(); } });
 partnerDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeDialog(partnerDialog); restorePartnerFocus(); });

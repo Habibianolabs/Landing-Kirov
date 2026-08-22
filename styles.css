@@ -493,11 +493,11 @@ h2 {
 .program-partner-card__title-link { display: block; color: inherit; text-decoration: none; border-radius: 10px; }
 .program-partner-card__title-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .program-partner-card__header h3 { display: grid; gap: 4px; margin: 0; color: var(--accent-deep); font-size: clamp(18px, 2.2vw, 26px); font-weight: 900; line-height: 1.08; letter-spacing: .04em; text-transform: uppercase; }
-.program-partner-card__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(170px, .8fr); align-items: start; gap: 22px; padding: 22px 24px; border-bottom: 1px solid var(--line); }
+.program-partner-card__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(170px, .8fr); align-items: start; gap: 22px; min-height: 278px; padding: 22px 24px; border-bottom: 1px solid var(--line); box-sizing: border-box; }
 .program-partner-card__intro { min-width: 0; min-height: 136px; }
 .program-partner-card__intro p { margin: 0; color: var(--ink); font-size: clamp(14px, 1.35vw, 17px); line-height: 1.48; }
 .program-partner-card__intro strong { display: block; margin-bottom: 5px; color: var(--accent-deep); font-size: clamp(24px, 3vw, 36px); line-height: 1; }
-.program-partner-card__brand-plate { display: grid; align-content: center; justify-items: center; gap: 14px; min-width: 0; width: 100%; height: 216px; padding: 20px; text-align: center; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 14px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
+.program-partner-card__brand-plate { display: grid; align-content: center; justify-items: center; gap: 14px; min-width: 0; width: 100%; height: 72px; padding: 0; text-align: center; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
 .program-partner-card__brand-mark { display: grid; place-items: center; width: min(100%, 250px); min-height: 82px; }
 .program-partner-card__brand-mark--mamina { width: min(100%, 250px); min-height: 82px; }
 .program-partner-card__brand-logo { display: block; width: 100%; height: auto; max-height: 82px; object-fit: contain; }
@@ -526,16 +526,11 @@ h2 {
 .program-partner-card__founder-placeholder { min-height: 118px; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
 .program-partner-card__founder-meta { display: grid; gap: 1px; margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.25; }
 .program-partner-card__founder-meta strong { color: var(--ink); font-size: 13px; }
-.program-partner-card--culture .program-partner-card__closing-text { max-height: 7.75em; }
-.program-partner-card--mamina .program-partner-card__closing-text { max-height: 7.75em; }
 .program-partner-card__closing { flex: 1; padding: 20px 24px 22px; }
-.program-partner-card__closing-text { max-height: 4.8em; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%); transition: max-height .28s ease; }
+.program-partner-card__closing-text { max-height: none; overflow: visible; -webkit-mask-image: none; mask-image: none; }
 .program-partner-card__closing-text::after { display: none; }
 .program-partner-card__closing p { margin: 0; color: var(--ink); font-size: 13px; line-height: 1.55; }
 .program-partner-card__closing strong { color: var(--accent-deep); }
-.program-partner-card__closing.is-expanded .program-partner-card__closing-text { max-height: 80em; }
-.program-partner-card__closing.is-expanded .program-partner-card__closing-text { -webkit-mask-image: none; mask-image: none; }
-.program-partner-card__toggle { margin-top: 15px; }
 
 .benefits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 
@@ -735,16 +730,31 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .intro-quote__mark { font-size: 64px; }
   .intro-quote p { font-size: 18px; line-height: 1.4; }
   .program-partners-grid, .about-section { grid-template-columns: 1fr; }
-  .program-partner-card__body { grid-template-columns: 1fr; gap: 20px; }
+  .program-partner-card { display: grid; grid-template-columns: 1fr; }
+  .program-partner-card__header,
+  .program-partner-card__body { display: contents; }
+  .program-partner-card--culture .program-partner-card__title-link,
+  .program-partner-card--mamina .program-partner-card__title-link { display: contents; }
+  .program-partner-card--culture .program-partner-card__header .program-partner-card__brand-plate,
+  .program-partner-card--mamina .program-partner-card__header .program-partner-card__brand-plate { height: 72px; padding: 0; }
+  .program-partner-card__brand-plate { order: 1; width: min(100%, 280px); margin: 22px auto 0; }
+  .program-partner-card__cofounders-column,
+  .program-partner-card__founder { order: 2; width: min(100%, 380px); margin: 0 auto; }
+  .program-partner-card__header h3 { order: 3; width: 100%; padding: 18px 16px 20px; border-bottom: 1px solid var(--line); box-sizing: border-box; }
+  .program-partner-card__intro { order: 4; min-height: 0; padding: 22px 16px 0 !important; border-top: 0; }
+  .program-partner-card__closing { order: 5; min-height: 0; padding: 20px 16px 22px; border-top: 1px solid var(--line); }
+  .program-partner-card__body { grid-template-columns: 1fr; gap: 20px; min-height: 0; padding: 0; border-bottom: 0; }
+  .program-partner-card__title-link:focus-visible h3 { outline: 3px solid var(--accent); outline-offset: -3px; }
   .program-partner-card--culture .program-partner-card__header .program-partner-card__brand-plate,
   .program-partner-card--mamina .program-partner-card__header .program-partner-card__brand-plate { max-width: 280px; }
   .program-partner-card--culture .program-partner-card__body,
   .program-partner-card--mamina .program-partner-card__body { grid-template-columns: 1fr; }
-  .program-partner-card__cofounders-column { max-width: 380px; min-height: 190px; }
-  .program-partner-card__cofounders { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .program-partner-card__founder { max-width: 380px; min-height: 190px; }
-  .program-partner-card__founder-placeholder { min-height: 138px; }
-  .program-partner-card__brand-plate { justify-self: start; max-width: 320px; }
+  .program-partner-card__cofounders-column,
+  .program-partner-card__founder { max-width: 380px; min-height: 248px; grid-template-rows: 190px minmax(48px, auto); }
+  .program-partner-card__cofounders { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 190px; }
+  .program-partner-card__cofounder { height: 190px; }
+  .program-partner-card__founder-placeholder { height: 190px; min-height: 190px; }
+  .program-partner-card__brand-plate { justify-self: center; max-width: 320px; }
   .concepts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefit-card { grid-template-columns: 1fr; gap: 12px; min-height: 0; padding: 16px; }
