@@ -517,8 +517,9 @@ h2 {
 .program-partner-card--mamina .program-partner-card__body { grid-template-columns: minmax(0, 1.08fr) minmax(200px, .92fr); align-items: stretch; }
 .program-partner-card--culture .program-partner-card__intro,
 .program-partner-card--mamina .program-partner-card__intro { min-height: 0; padding-top: 2px; }
-.program-partner-card__cofounders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; }
-.program-partner-card__cofounder { min-width: 0; min-height: 178px; margin: 0; overflow: hidden; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
+.program-partner-card__cofounders-column { display: grid; grid-template-rows: minmax(118px, 1fr) auto; gap: 10px; min-width: 0; min-height: 178px; }
+.program-partner-card__cofounders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; min-height: 0; }
+.program-partner-card__cofounder { min-width: 0; min-height: 0; margin: 0; overflow: hidden; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
 .program-partner-card__cofounder img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
 .program-partner-card__cofounder + .program-partner-card__cofounder img { object-position: center 18%; transform: scale(1.58); transform-origin: center 22%; }
 .program-partner-card__founder { display: grid; grid-template-rows: minmax(118px, 1fr) auto; gap: 10px; min-width: 0; min-height: 178px; }
@@ -739,8 +740,8 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .program-partner-card--mamina .program-partner-card__header .program-partner-card__brand-plate { max-width: 280px; }
   .program-partner-card--culture .program-partner-card__body,
   .program-partner-card--mamina .program-partner-card__body { grid-template-columns: 1fr; }
-  .program-partner-card__cofounders { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 380px; }
-  .program-partner-card__cofounder { min-height: 190px; }
+  .program-partner-card__cofounders-column { max-width: 380px; min-height: 190px; }
+  .program-partner-card__cofounders { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .program-partner-card__founder { max-width: 380px; min-height: 190px; }
   .program-partner-card__founder-placeholder { min-height: 138px; }
   .program-partner-card__brand-plate { justify-self: start; max-width: 320px; }
