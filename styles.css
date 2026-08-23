@@ -518,7 +518,11 @@ h2 {
 .program-partner-card--culture .program-partner-card__header .program-partner-card__brand-logo--culture { max-width: 210px; max-height: 72px; }
 .program-partner-card--mamina .program-partner-card__header .program-partner-card__brand-logo--mamina { max-width: 210px; max-height: 72px; }
 .program-partner-card--culture .program-partner-card__body,
-.program-partner-card--mamina .program-partner-card__body { grid-template-columns: minmax(0, 1.08fr) minmax(200px, .92fr); align-items: stretch; }
+.program-partner-card--mamina .program-partner-card__body {
+  grid-template-columns: minmax(0, 1.08fr) minmax(200px, .92fr);
+  align-items: stretch;
+  min-height: 399px;
+}
 .program-partner-card--culture .program-partner-card__intro,
 .program-partner-card--mamina .program-partner-card__intro { min-height: 0; padding-top: 2px; }
 .program-partner-card--culture .program-partner-card__intro--metrics,
