@@ -765,12 +765,17 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .program-partner-card__cofounder { height: 190px; }
   .program-partner-card__founder-placeholder { height: 190px; min-height: 190px; }
   .program-partner-card--mamina .program-partner-card__intro--metrics { min-height: 0; }
+  .program-partner-card--mamina .program-partner-card__intro--metrics { grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr); }
   .program-partner-card__metric { padding-right: 10px; }
   .program-partner-card__metric + .program-partner-card__metric { padding-left: 10px; }
+  .program-partner-card--mamina .program-partner-card__metric-value { flex-wrap: nowrap; gap: 3px; white-space: nowrap; }
+  .program-partner-card--mamina .program-partner-card__metric-value strong { font-size: clamp(28px, 8.25vw, 32px); }
+  .program-partner-card--mamina .program-partner-card__metric-unit { font-size: clamp(14px, 4.1vw, 16px); letter-spacing: -.015em; }
   .program-partner-card__metric-value { gap: 3px 5px; margin-bottom: 10px !important; }
   .program-partner-card__metric-value strong { font-size: 34px; }
   .program-partner-card__metric-unit { font-size: 18px; }
   .program-partner-card__metric-copy { max-width: none; font-size: 14px; line-height: 1.45; }
+  .program-partner-card--mamina .program-partner-card__founder-meta { box-sizing: border-box; padding: 0 16px 2px; }
   .program-partner-card__brand-plate { justify-self: center; max-width: 320px; }
   .concepts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
