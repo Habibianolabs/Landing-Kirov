@@ -493,6 +493,8 @@ h2 {
 .program-partner-card__title-link { display: block; color: inherit; text-decoration: none; border-radius: 10px; }
 .program-partner-card__title-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .program-partner-card__header h3 { display: grid; gap: 4px; margin: 0; color: var(--accent-deep); font-size: clamp(18px, 2.2vw, 26px); font-weight: 900; line-height: 1.08; letter-spacing: .04em; text-transform: uppercase; }
+.program-partner-card--culture .program-partner-card__header h3 { display: block; }
+.program-partner-card--culture .program-partner-card__title-segment { display: inline; white-space: nowrap; }
 .program-partner-card__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(170px, .8fr); align-items: start; gap: 22px; min-height: 278px; padding: 22px 24px; border-bottom: 1px solid var(--line); box-sizing: border-box; }
 .program-partner-card__intro { min-width: 0; min-height: 136px; }
 .program-partner-card__intro p { margin: 0; color: var(--ink); font-size: clamp(14px, 1.35vw, 17px); line-height: 1.48; }
@@ -517,13 +519,21 @@ h2 {
 .program-partner-card--mamina .program-partner-card__body { grid-template-columns: minmax(0, 1.08fr) minmax(200px, .92fr); align-items: stretch; }
 .program-partner-card--culture .program-partner-card__intro,
 .program-partner-card--mamina .program-partner-card__intro { min-height: 0; padding-top: 2px; }
+.program-partner-card--mamina .program-partner-card__intro--metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; min-height: 190px; }
+.program-partner-card__metric { min-width: 0; padding: 0 12px 0 0; }
+.program-partner-card__metric + .program-partner-card__metric { padding: 0 0 0 12px; border-left: 1px solid rgba(128, 177, 230, .64); }
+.program-partner-card__metric-value { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 6px; margin: 0 0 12px !important; }
+.program-partner-card__metric-value strong { display: inline; margin: 0; color: var(--accent-deep); font-size: clamp(30px, 3.2vw, 38px); line-height: 1; }
+.program-partner-card__metric-unit { color: var(--ink); font-size: clamp(16px, 1.55vw, 20px); font-weight: 800; line-height: 1.1; }
+.program-partner-card__metric-copy { max-width: 22ch; color: var(--ink); font-size: clamp(14px, 1.35vw, 17px); line-height: 1.48; }
 .program-partner-card__cofounders-column { display: grid; grid-template-rows: minmax(118px, 1fr) auto; gap: 10px; min-width: 0; min-height: 178px; }
 .program-partner-card__cofounders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; min-height: 0; }
-.program-partner-card__cofounder { min-width: 0; min-height: 0; margin: 0; overflow: hidden; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
+.program-partner-card__cofounder { min-width: 0; min-height: 0; height: 190px; margin: 0; overflow: hidden; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
 .program-partner-card__cofounder img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
 .program-partner-card__cofounder + .program-partner-card__cofounder img { object-position: center 18%; transform: scale(1.58); transform-origin: center 22%; }
 .program-partner-card__founder { display: grid; grid-template-rows: minmax(118px, 1fr) auto; gap: 10px; min-width: 0; min-height: 178px; }
-.program-partner-card__founder-placeholder { min-height: 118px; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
+.program-partner-card__founder-placeholder { height: 190px; min-height: 190px; overflow: hidden; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
+.program-partner-card__founder-photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
 .program-partner-card__founder-meta { display: grid; gap: 1px; margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.25; }
 .program-partner-card__founder-meta strong { color: var(--ink); font-size: 13px; }
 .program-partner-card__closing { flex: 1; padding: 20px 24px 22px; }
@@ -754,6 +764,13 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .program-partner-card__cofounders { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 190px; }
   .program-partner-card__cofounder { height: 190px; }
   .program-partner-card__founder-placeholder { height: 190px; min-height: 190px; }
+  .program-partner-card--mamina .program-partner-card__intro--metrics { min-height: 0; }
+  .program-partner-card__metric { padding-right: 10px; }
+  .program-partner-card__metric + .program-partner-card__metric { padding-left: 10px; }
+  .program-partner-card__metric-value { gap: 3px 5px; margin-bottom: 10px !important; }
+  .program-partner-card__metric-value strong { font-size: 34px; }
+  .program-partner-card__metric-unit { font-size: 18px; }
+  .program-partner-card__metric-copy { max-width: none; font-size: 14px; line-height: 1.45; }
   .program-partner-card__brand-plate { justify-self: center; max-width: 320px; }
   .concepts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
