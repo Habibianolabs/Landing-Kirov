@@ -537,7 +537,7 @@ h2 {
 .program-partner-card__cofounders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; min-height: 0; }
 .program-partner-card__cofounder { min-width: 0; min-height: 0; height: 190px; margin: 0; overflow: hidden; overflow: clip; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
 .program-partner-card__cofounder img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 24%; }
-.program-partner-card__cofounder + .program-partner-card__cofounder img { object-position: center 18%; transform: scale(2.15); transform-origin: center 22%; }
+.program-partner-card__cofounder + .program-partner-card__cofounder img { object-position: center 0%; transform: scale(2.15); transform-origin: center 6%; }
 .program-partner-card__founder { display: grid; grid-template-rows: minmax(118px, 1fr) auto; gap: 10px; min-width: 0; min-height: 178px; }
 .program-partner-card__founder-placeholder { height: 190px; min-height: 190px; overflow: hidden; background: rgba(247, 250, 255, .66); border: 1px solid rgba(145, 169, 208, .76); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 8px 18px rgba(39, 89, 164, .08); }
 .program-partner-card__founder-photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
@@ -772,6 +772,7 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .program-partner-card__founder { max-width: 380px; min-height: 248px; grid-template-rows: 190px minmax(48px, auto); }
   .program-partner-card__cofounders { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 190px; }
   .program-partner-card__cofounder { height: 190px; }
+  .program-partner-card__cofounder + .program-partner-card__cofounder img { object-position: center 0%; transform-origin: center 12%; }
   .program-partner-card__founder-placeholder { height: 190px; min-height: 190px; }
   .program-partner-card--mamina .program-partner-card__founder-photo { object-position: center 24%; }
   .program-partner-card--culture .program-partner-card__intro--metrics,
