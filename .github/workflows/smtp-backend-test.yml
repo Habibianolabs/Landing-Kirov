@@ -1,4 +1,4 @@
-name: PHP application backend test
+name: Yandex SMTP application backend test
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - "tools/php-mail-integration.test.mjs"
       - "api/lib/phpmailer/**"
       - "package.json"
-      - ".github/workflows/php-backend-test.yml"
+      - ".github/workflows/smtp-backend-test.yml"
   pull_request:
     paths:
       - "api/submit-application.php"
@@ -17,14 +17,14 @@ on:
       - "tools/php-mail-integration.test.mjs"
       - "api/lib/phpmailer/**"
       - "package.json"
-      - ".github/workflows/php-backend-test.yml"
+      - ".github/workflows/smtp-backend-test.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: php-backend-test-${{ github.ref }}
+  group: smtp-backend-test-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
