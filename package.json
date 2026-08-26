@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test:backend": "node --test tools/php-handler-contract.test.mjs"
+    "test:backend": "node --test tools/php-handler-contract.test.mjs",
+    "test:php-integration": "node --test tools/php-mail-integration.test.mjs"
   }
 }

@@ -1,0 +1,42 @@
+name: PHP application backend test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "api/submit-application.php"
+      - "tools/capture-mail.php"
+      - "tools/php-handler-contract.test.mjs"
+      - "tools/php-mail-integration.test.mjs"
+      - "package.json"
+      - ".github/workflows/php-backend-test.yml"
+  pull_request:
+    paths:
+      - "api/submit-application.php"
+      - "tools/capture-mail.php"
+      - "tools/php-handler-contract.test.mjs"
+      - "tools/php-mail-integration.test.mjs"
+      - "package.json"
+      - ".github/workflows/php-backend-test.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-production-handler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install PHP command-line runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes php-cli
+      - name: Check the production mail contract
+        run: npm run test:backend
+      - name: Execute the production PHP endpoint and capture all emails
+        run: npm run test:php-integration
