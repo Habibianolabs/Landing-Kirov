@@ -4,7 +4,7 @@
 
 ## Актуализация 26 августа 2026
 
-[FACT] Целевая архитектура больше не включает Vercel. Runtime — статические `index.html`, `styles.css`, `script.js` и PHP `api/submit-application.php` на сервере заказчика. PHP отправляет заявки через Resend; ключ, отправитель, разрешённые источники и получатели задаются переменными окружения сервера. Node/Vercel-адаптер и конфигурация удалены. Подробности: [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
+[FACT] Целевая архитектура больше не включает Vercel. Runtime — статические `index.html`, `styles.css`, `script.js` и PHP `api/submit-application.php` на сервере заказчика. PHP отправляет заявки четырём адресатам через встроенную `mail()`; внешние почтовые сервисы, аккаунты, ключи и пароли не требуются. Node/Vercel-адаптер и конфигурация удалены. Подробности: [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
 
 Короткая сводка готовности функций и оставшихся действий: [`PROJECT_STATUS.md`](PROJECT_STATUS.md). Оперативная backend-передача: [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md).
 
@@ -22,8 +22,6 @@
 - `styles.css` — design tokens, статичный голубой фон, blue-glass surfaces, layout, responsive и motion states;
 - `script.js` — навигация, active sections, disclosures, dialogs, lightbox, consent, форма, Яндекс Метрика и EnvyBox loader;
 - `api/submit-application.php` — production-обработчик для IHC с серверной валидацией, honeypot, файловым rate limiting и PHP `mail()`;
-- `api/submit-application.js` — legacy-обработчик отдельной демонстрационной версии, не используемый доменом заказчика;
-- `.env.example` — безопасная памятка по маршруту почты, без секретов;
 - `assets/site/kirov/` — подключённые banner, логотипы, фотографии и event-assets;
 - `assets/source-materials/` — канонический бриф;
 - `vercel.json` — `cleanUrls: true`, `trailingSlash: false`;

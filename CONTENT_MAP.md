@@ -20,7 +20,7 @@
 
 [FACT] Баннер — готовое изображение. Его текст, композиция, цвета, шрифты и элементы не редактируются и не перекрываются элементами сайта.
 
-[FACT] Реализация остаётся статической: HTML, CSS и vanilla JavaScript без React, Next.js, Vite и сборщика. Production-серверная часть для IHC — PHP-обработчик `api/submit-application.php`; legacy-файл `api/submit-application.js` не используется доменом заказчика.
+[FACT] Реализация остаётся статической: HTML, CSS и vanilla JavaScript без React, Next.js, Vite и сборщика. Единственная production-серверная часть для IHC — PHP-обработчик `api/submit-application.php`.
 
 [FACT] Публичный домен `g10.kirov.restoved.ru` обслуживается IHC сервером `95.181.224.17`; этот сервер раздаёт статические файлы и может запускать PHP. Маршрут формы использует `api/submit-application.php`; его загрузка на IHC и проверка ведутся в `MISSING_MATERIALS.md`.
 

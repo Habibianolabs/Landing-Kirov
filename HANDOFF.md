@@ -4,7 +4,7 @@
 
 ## Актуализация 26 августа 2026
 
-[FACT] Vercel исключён из целевой архитектуры. Репозиторий передаёт на сервер заказчика статический frontend и единственный backend `api/submit-application.php`. Frontend всегда отправляет на `/api/submit-application.php`; Node/Vercel-файлы удалены. PHP отправляет через Resend, а ключ, отправитель и получатели задаются вне GitHub в настройках сервера. Текущий этап — контрольная доставка на почту пользователя, затем GitHub и отдельная публикация на сервере заказчика. См. [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
+[FACT] Vercel исключён из целевой архитектуры. Репозиторий передаёт на сервер заказчика статический frontend и единственный backend `api/submit-application.php`. PHP отправляет через встроенную `mail()` на четыре адреса заказчика; Resend, аккаунты, ключи и пароли в production не нужны. Локальная заявка подтверждена в Gmail. Текущий этап — GitHub, затем единственная публикация сисадмином и production-тест. См. [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
 
 Короткий статус готовности и список оставшихся задач: [`PROJECT_STATUS.md`](PROJECT_STATUS.md). Backend-сводка для нового чата: [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md).
 
@@ -46,7 +46,7 @@
 
 ## Стек и структура
 
-[FACT] Проект статический: `index.html` + `styles.css` + `script.js`, без Next.js/React/Vite и без сборщика. Production-серверная часть для IHC — `api/submit-application.php`; `api/submit-application.js` оставлен только как legacy-адаптер демонстрационной версии. Конфигурация — `vercel.json`; runtime-зависимости отсутствуют.
+[FACT] Проект статический: `index.html` + `styles.css` + `script.js`, без Next.js/React/Vite и без сборщика. Production-серверная часть для IHC — только `api/submit-application.php`; Node/Vercel-адаптер и `vercel.json` удалены. Runtime-зависимости отсутствуют.
 
 [FACT] 20 августа 2026 года текущая локальная frontend-версия опубликована в Vercel-деплое `dpl_65z5q9bCz1MeURrPnPeL2tGF7BaQ` со статусом `READY`; alias `https://g10-kirov.vercel.app` обновлён. Главный баннер загружается отдельным файлом 1600×900 размером 484 КБ, исходник 1920×1080 сохранён как fallback. IHC не изменялся.
 
@@ -126,4 +126,4 @@
 
 ## Проверки и безопасность
 
-Последние проверки: `node --check script.js`, `node --check api/submit-application.js`, проверка синтаксиса PHP-файла, `git diff --check`, IHC `OPTIONS`/неполный POST, проверка EnvyBox API и сверка runtime-файлов с IHC. Предыдущая версия IHC синхронизирована; текущие подтверждённые runtime-файлы требуют отдельной загрузки сисадмином. Не включать `.env.local` или `.vercel/.env.production.local` в документы, Git или архив; если локальный токен когда-либо раскрыт, его нужно отозвать и выпустить заново.
+Последние проверки: `node --check script.js`, локальные backend-тесты, проверка синтаксиса PHP-файла, `git diff --check`, IHC `OPTIONS`/неполный POST, проверка EnvyBox и сверка runtime-файлов с IHC. Предыдущая версия IHC синхронизирована; текущие подтверждённые runtime-файлы требуют отдельной загрузки сисадмином. Не включать `.env.local`, `.git`, `tools` или `webstat` в production-архив.

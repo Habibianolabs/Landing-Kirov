@@ -1,5 +1,9 @@
 {
   "name": "g10-kirov-landing",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env.form-test.local tools/local-form-server.mjs",
+    "test:local-backend": "node --test tools/*.test.mjs"
+  }
 }

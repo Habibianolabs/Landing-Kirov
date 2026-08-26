@@ -100,7 +100,7 @@
 - `assets/site/kirov/photos/about/` — три фотографии карусели «О проекте» из предоставленной папки;
 - `assets/site/kirov/events/` — три подключённых event-фото и архивный набор предыдущих кадров;
 - `api/submit-application.php` — production PHP endpoint формы на IHC;
-- `.env.example` — безопасный env-контракт;
+- `FORM_DELIVERY.md` — актуальная инструкция по production-почте без внешних секретов;
 - `PROJECT.md`, `AGENTS.md` и остальные Markdown в корне — актуальный контекст, план и handoff;
 - `output/` и `.playwright-cli/` — локальные QA-артефакты, не runtime.
 

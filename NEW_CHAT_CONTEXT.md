@@ -4,7 +4,7 @@
 
 ## Актуализация 26 августа 2026
 
-[FACT] Не использовать Vercel. Актуальная цепочка: форма → `/api/submit-application.php` на сервере заказчика → Resend → получатели из закрытой серверной настройки. `api/submit-application.js`, `vercel.json` и `.vercelignore` удалены. Ключи и реальные получатели нельзя добавлять в GitHub. Временный тест выполняется на почту пользователя; после проверки получатели заменяются на адреса заказчика без изменения кода. См. [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
+[FACT] Не использовать Vercel. Актуальная production-цепочка: форма → `/api/submit-application.php` на сервере заказчика → встроенная PHP `mail()` → четыре утверждённых адреса. Resend, внешние аккаунты, API-ключи и почтовые пароли не используются. `api/submit-application.js`, `vercel.json` и `.vercelignore` удалены. См. [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
 
 [FACT] 22 августа 2026 года в карточках «Партнёры программы» убраны кнопки «Подробнее» и рамки вокруг логотипов. На mobile фото сооснователей размещены сразу после логотипа; пустое место «Маминой кухни» имеет такую же высоту. На desktop нижние описания выровнены по одной линии.
 
@@ -74,8 +74,7 @@
 - статический index.html + styles.css + script.js;
 - без Next.js, React, Vite и без сборщика;
 - production PHP endpoint для IHC: api/submit-application.php;
-- legacy preview adapter: api/submit-application.js;
-- env-контракт: .env.example.
+- локальные автоматические проверки: `tools/local-form-server.mjs` и `tools/local-form-server.test.mjs` (на production не загружаются).
 
 Стиль работы с пользователем:
 - Пользователь не программист. Любой технический термин, сокращение или сообщение об ошибке нужно объяснять простым русским языком: что это, зачем нужно и какое действие требуется.

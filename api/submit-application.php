@@ -7,31 +7,18 @@ const DUPLICATE_LIMIT_MAX = 2;
 const DUPLICATE_LIMIT_WINDOW_SECONDS = 1800;
 const MIN_FORM_TIME_SECONDS = 2;
 const MAX_FORM_AGE_SECONDS = 86400;
-
-function environment_value($name)
-{
-    $value = getenv($name);
-    return $value === false ? '' : trim((string) $value);
-}
-
-function application_recipients()
-{
-    $configured = environment_value('APPLICATION_RECIPIENTS');
-    if ($configured === '') {
-        throw new RuntimeException('Application recipients are not configured');
-    }
-
-    $recipients = [];
-    foreach (explode(',', $configured) as $recipient) {
-        $recipient = trim($recipient);
-        if ($recipient === '' || !filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
-            throw new RuntimeException('Application recipients are invalid');
-        }
-        $recipients[] = $recipient;
-    }
-
-    return array_values(array_unique($recipients));
-}
+const MAIL_FROM = 'event@restoranoff.ru';
+const MAIL_FROM_NAME = 'G10 Киров';
+const RECIPIENTS = [
+    'lp@restoranoff.ru',
+    'rv@restoranoff.ru',
+    'event@restoranoff.ru',
+    'p.spiridonova@restoranoff.ru',
+];
+const ALLOWED_ORIGINS = [
+    'https://g10.kirov.restoved.ru',
+    'https://www.g10.kirov.restoved.ru',
+];
 
 function response_json($status, $body, $headers = [])
 {
@@ -111,18 +98,7 @@ function request_origin_is_allowed()
         return true;
     }
 
-    $configured = environment_value('APPLICATION_ALLOWED_ORIGINS');
-    $allowedOrigins = $configured === '' ? [
-        'https://g10.kirov.restoved.ru',
-        'https://www.g10.kirov.restoved.ru',
-    ] : array_values(array_filter(array_map('trim', explode(',', $configured))));
-
-    if (environment_value('APPLICATION_ENV') === 'testing') {
-        $allowedOrigins[] = 'http://127.0.0.1:8000';
-        $allowedOrigins[] = 'http://localhost:8000';
-    }
-
-    return in_array($origin, array_unique($allowedOrigins), true);
+    return in_array($origin, ALLOWED_ORIGINS, true);
 }
 
 function rate_limit_directory()
@@ -185,93 +161,11 @@ function check_rate_limit($key, $max, $windowSeconds)
     ];
 }
 
-function escape_html($value)
-{
-    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
-
-function resend_http_status(array $headers)
-{
-    foreach ($headers as $header) {
-        if (preg_match('/^HTTP\/\S+\s+(\d{3})\b/i', $header, $matches)) {
-            return (int) $matches[1];
-        }
-    }
-    return 0;
-}
-
-function send_resend_request(array $payload, $apiKey)
-{
-    $json = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false) {
-        throw new RuntimeException('Application email payload is invalid');
-    }
-
-    $status = 0;
-    if (function_exists('curl_init')) {
-        $request = curl_init('https://api.resend.com/emails');
-        curl_setopt_array($request, [
-            CURLOPT_POST => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => 10,
-            CURLOPT_TIMEOUT => 20,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $apiKey,
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'User-Agent: G10-Kirov-Application/1.0',
-            ],
-            CURLOPT_POSTFIELDS => $json,
-        ]);
-        $result = curl_exec($request);
-        $status = (int) curl_getinfo($request, CURLINFO_HTTP_CODE);
-        $curlError = curl_errno($request);
-        curl_close($request);
-        if ($result === false || $curlError !== 0) {
-            throw new RuntimeException('Resend request failed');
-        }
-    } elseif (filter_var(ini_get('allow_url_fopen'), FILTER_VALIDATE_BOOLEAN)) {
-        $context = stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'timeout' => 20,
-                'ignore_errors' => true,
-                'header' => implode("\r\n", [
-                    'Authorization: Bearer ' . $apiKey,
-                    'Content-Type: application/json',
-                    'Accept: application/json',
-                    'User-Agent: G10-Kirov-Application/1.0',
-                ]),
-                'content' => $json,
-            ],
-        ]);
-        $result = @file_get_contents('https://api.resend.com/emails', false, $context);
-        $responseHeaders = isset($http_response_header) && is_array($http_response_header) ? $http_response_header : [];
-        $status = resend_http_status($responseHeaders);
-        if ($result === false && $status === 0) {
-            throw new RuntimeException('Resend request failed');
-        }
-    } else {
-        throw new RuntimeException('No HTTPS client is available');
-    }
-
-    if ($status < 200 || $status >= 300) {
-        error_log('Resend rejected the G10 Kirov application email with HTTP ' . $status . '.');
-        return false;
-    }
-    return true;
-}
-
 function send_application_email(array $application)
 {
-    $apiKey = environment_value('RESEND_API_KEY');
-    $from = environment_value('RESEND_FROM_EMAIL');
-    if ($apiKey === '' || $from === '') {
-        throw new RuntimeException('Email provider is not configured');
-    }
-
     $subject = 'Новая заявка G10 Киров — ' . $application['name'];
-    $text = implode("\n", [
+    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $message = implode("\r\n", [
         'Новая заявка на участие в G10 Киров.',
         '',
         'Имя: ' . $application['name'],
@@ -280,21 +174,23 @@ function send_application_email(array $application)
         'Тариф: ' . ($application['plan'] !== '' ? $application['plan'] : 'не выбран'),
         'Источник формы: ' . $application['source'],
     ]);
-    $html = '<h2>Новая заявка на участие в G10 Киров</h2>'
-        . '<p><strong>Имя:</strong> ' . escape_html($application['name']) . '</p>'
-        . '<p><strong>Телефон:</strong> ' . escape_html($application['phone']) . '</p>'
-        . '<p><strong>E-mail:</strong> ' . escape_html($application['email']) . '</p>'
-        . '<p><strong>Тариф:</strong> ' . escape_html($application['plan'] !== '' ? $application['plan'] : 'не выбран') . '</p>'
-        . '<p><strong>Источник формы:</strong> ' . escape_html($application['source']) . '</p>';
+    $encodedFromName = '=?UTF-8?B?' . base64_encode(MAIL_FROM_NAME) . '?=';
+    $headers = implode("\r\n", [
+        'From: ' . $encodedFromName . ' <' . MAIL_FROM . '>',
+        'Reply-To: ' . $application['email'],
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+        'X-Mailer: G10-Kirov-Application/1.0',
+    ]);
 
-    return send_resend_request([
-        'from' => $from,
-        'to' => application_recipients(),
-        'reply_to' => $application['email'],
-        'subject' => $subject,
-        'text' => $text,
-        'html' => $html,
-    ], $apiKey);
+    foreach (RECIPIENTS as $recipient) {
+        if (!@mail($recipient, $encodedSubject, $message, $headers, '-f' . MAIL_FROM)) {
+            error_log('The G10 Kirov application email was not accepted for ' . $recipient . '.');
+            return false;
+        }
+    }
+    return true;
 }
 
 $method = request_method();
