@@ -645,8 +645,9 @@ h2 {
 .partner-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .partner-stats--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .partner-stats--highlights { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.partner-stats span { display: grid; gap: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.2; }
+.partner-stats > span { display: grid; gap: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.2; }
 .partner-stats strong { color: var(--ink); font-size: 16px; line-height: 1; }
+.partner-stat__label { color: var(--ink-soft); }
 .partner-stat--featured strong { color: var(--accent-deep); font-size: clamp(24px, 3vw, 34px); letter-spacing: -.055em; white-space: nowrap; }
 .text-button { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 0; color: var(--accent-deep); font-size: 13px; font-weight: 900; background: none; border: 0; }
 .text-button__arrow { position: relative; display: inline-block; flex: 0 0 18px; width: 18px; height: 18px; margin: 0; font-size: 0; line-height: 1; transition: transform .18s ease; }
@@ -810,9 +811,11 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
   .partner-stats { grid-template-columns: 1fr; gap: 10px; }
   .partner-stats span { grid-template-columns: minmax(86px, auto) 1fr; align-items: baseline; }
   .partner-stats--highlights,
-  .partner-stats--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .partner-stats--highlights span,
-  .partner-stats--two span { grid-template-columns: 1fr; align-items: start; }
+  .partner-stats--two { grid-template-columns: 1fr; }
+  .partner-stats--highlights > span,
+  .partner-stats--two > span { grid-template-columns: minmax(96px, auto) minmax(0, 1fr); align-items: baseline; }
+  .partner-stats--highlights > span .partner-stat__label,
+  .partner-stats--two > span .partner-stat__label { font-size: 13px; }
   .partner-stats strong { font-size: 17px; }
   .partner-stat--featured strong { font-size: 24px; }
   .partner-speakers ul { grid-template-columns: 1fr; }
