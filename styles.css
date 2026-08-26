@@ -644,7 +644,7 @@ h2 {
 .partner-card__meta p { margin: 0; color: var(--ink-soft); font-size: 13px; }
 .partner-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .partner-stats--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.partner-stats--highlights { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.partner-stats--highlights { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .partner-stats > span { display: grid; gap: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.2; }
 .partner-stats strong { color: var(--ink); font-size: 16px; line-height: 1; }
 .partner-stat__label { color: var(--ink-soft); }
