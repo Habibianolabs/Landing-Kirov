@@ -23,6 +23,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: php-backend-test-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-production-handler:
     runs-on: ubuntu-latest
