@@ -74,7 +74,7 @@
 - статический index.html + styles.css + script.js;
 - без Next.js, React, Vite и без сборщика;
 - production PHP endpoint для IHC: api/submit-application.php;
-- локальные автоматические проверки: `tools/local-form-server.mjs` и `tools/local-form-server.test.mjs` (на production не загружаются).
+- локальная автоматическая проверка production-контракта: `tools/php-handler-contract.test.mjs` (на production не загружается).
 
 Стиль работы с пользователем:
 - Пользователь не программист. Любой технический термин, сокращение или сообщение об ошибке нужно объяснять простым русским языком: что это, зачем нужно и какое действие требуется.

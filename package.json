@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node --env-file-if-exists=.env.form-test.local tools/local-form-server.mjs",
-    "test:local-backend": "node --test tools/*.test.mjs"
+    "test:backend": "node --test tools/php-handler-contract.test.mjs"
   }
 }
