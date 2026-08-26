@@ -7,14 +7,31 @@ const DUPLICATE_LIMIT_MAX = 2;
 const DUPLICATE_LIMIT_WINDOW_SECONDS = 1800;
 const MIN_FORM_TIME_SECONDS = 2;
 const MAX_FORM_AGE_SECONDS = 86400;
-const MAIL_FROM = 'event@restoranoff.ru';
 
-const RECIPIENTS = [
-    'lp@restoranoff.ru',
-    'rv@restoranoff.ru',
-    'event@restoranoff.ru',
-    'p.spiridonova@restoranoff.ru',
-];
+function environment_value($name)
+{
+    $value = getenv($name);
+    return $value === false ? '' : trim((string) $value);
+}
+
+function application_recipients()
+{
+    $configured = environment_value('APPLICATION_RECIPIENTS');
+    if ($configured === '') {
+        throw new RuntimeException('Application recipients are not configured');
+    }
+
+    $recipients = [];
+    foreach (explode(',', $configured) as $recipient) {
+        $recipient = trim($recipient);
+        if ($recipient === '' || !filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+            throw new RuntimeException('Application recipients are invalid');
+        }
+        $recipients[] = $recipient;
+    }
+
+    return array_values(array_unique($recipients));
+}
 
 function response_json($status, $body, $headers = [])
 {
@@ -39,15 +56,10 @@ function request_method()
 
 function client_ip()
 {
-    // These headers are supplied by the hosting proxy. They are used only for
-    // rate limiting, not for identifying or authorizing a person.
-    $forwarded = trim((string) (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
-    if ($forwarded !== '') {
-        return trim(explode(',', $forwarded, 2)[0]);
-    }
-
-    $realIp = trim((string) (isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : ''));
-    return $realIp !== '' ? $realIp : trim((string) (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown'));
+    // Do not trust client-supplied forwarding headers. The hosting proxy must
+    // pass the real client address to REMOTE_ADDR for rate limiting.
+    $remoteAddress = trim((string) (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''));
+    return $remoteAddress !== '' ? $remoteAddress : 'unknown';
 }
 
 function clean_string($value, $maxLength)
@@ -99,29 +111,30 @@ function request_origin_is_allowed()
         return true;
     }
 
-    return in_array($origin, [
+    $configured = environment_value('APPLICATION_ALLOWED_ORIGINS');
+    $allowedOrigins = $configured === '' ? [
         'https://g10.kirov.restoved.ru',
         'https://www.g10.kirov.restoved.ru',
-    ], true);
+    ] : array_values(array_filter(array_map('trim', explode(',', $configured))));
+
+    if (environment_value('APPLICATION_ENV') === 'testing') {
+        $allowedOrigins[] = 'http://127.0.0.1:8000';
+        $allowedOrigins[] = 'http://localhost:8000';
+    }
+
+    return in_array($origin, array_unique($allowedOrigins), true);
 }
 
 function rate_limit_directory()
 {
-    $directories = [
-        rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'g10-kirov-application-rate',
-        dirname(__DIR__) . DIRECTORY_SEPARATOR . '.g10-kirov-application-rate',
-    ];
-
-    foreach ($directories as $directory) {
-        if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
-            continue;
-        }
-        if (is_writable($directory)) {
-            return $directory;
-        }
+    $directory = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'g10-kirov-application-rate';
+    if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
+        throw new RuntimeException('Rate-limit storage is unavailable');
     }
-
-    throw new RuntimeException('Rate-limit storage is unavailable');
+    if (!is_writable($directory)) {
+        throw new RuntimeException('Rate-limit storage is unavailable');
+    }
+    return $directory;
 }
 
 function rate_limit_file($key)
@@ -172,20 +185,93 @@ function check_rate_limit($key, $max, $windowSeconds)
     ];
 }
 
-function escape_header($value)
+function escape_html($value)
 {
-    return str_replace(["\r", "\n"], '', $value);
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-function mail_subject($subject)
+function resend_http_status(array $headers)
 {
-    return '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    foreach ($headers as $header) {
+        if (preg_match('/^HTTP\/\S+\s+(\d{3})\b/i', $header, $matches)) {
+            return (int) $matches[1];
+        }
+    }
+    return 0;
+}
+
+function send_resend_request(array $payload, $apiKey)
+{
+    $json = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+        throw new RuntimeException('Application email payload is invalid');
+    }
+
+    $status = 0;
+    if (function_exists('curl_init')) {
+        $request = curl_init('https://api.resend.com/emails');
+        curl_setopt_array($request, [
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 20,
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Bearer ' . $apiKey,
+                'Content-Type: application/json',
+                'Accept: application/json',
+                'User-Agent: G10-Kirov-Application/1.0',
+            ],
+            CURLOPT_POSTFIELDS => $json,
+        ]);
+        $result = curl_exec($request);
+        $status = (int) curl_getinfo($request, CURLINFO_HTTP_CODE);
+        $curlError = curl_errno($request);
+        curl_close($request);
+        if ($result === false || $curlError !== 0) {
+            throw new RuntimeException('Resend request failed');
+        }
+    } elseif (filter_var(ini_get('allow_url_fopen'), FILTER_VALIDATE_BOOLEAN)) {
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'timeout' => 20,
+                'ignore_errors' => true,
+                'header' => implode("\r\n", [
+                    'Authorization: Bearer ' . $apiKey,
+                    'Content-Type: application/json',
+                    'Accept: application/json',
+                    'User-Agent: G10-Kirov-Application/1.0',
+                ]),
+                'content' => $json,
+            ],
+        ]);
+        $result = @file_get_contents('https://api.resend.com/emails', false, $context);
+        $responseHeaders = isset($http_response_header) && is_array($http_response_header) ? $http_response_header : [];
+        $status = resend_http_status($responseHeaders);
+        if ($result === false && $status === 0) {
+            throw new RuntimeException('Resend request failed');
+        }
+    } else {
+        throw new RuntimeException('No HTTPS client is available');
+    }
+
+    if ($status < 200 || $status >= 300) {
+        error_log('Resend rejected the G10 Kirov application email with HTTP ' . $status . '.');
+        return false;
+    }
+    return true;
 }
 
 function send_application_email(array $application)
 {
-    $subject = mail_subject('Новая заявка G10 Киров — ' . $application['name']);
-    $message = implode("\n", [
+    $apiKey = environment_value('RESEND_API_KEY');
+    $from = environment_value('RESEND_FROM_EMAIL');
+    if ($apiKey === '' || $from === '') {
+        throw new RuntimeException('Email provider is not configured');
+    }
+
+    $subject = 'Новая заявка G10 Киров — ' . $application['name'];
+    $text = implode("\n", [
         'Новая заявка на участие в G10 Киров.',
         '',
         'Имя: ' . $application['name'],
@@ -194,23 +280,21 @@ function send_application_email(array $application)
         'Тариф: ' . ($application['plan'] !== '' ? $application['plan'] : 'не выбран'),
         'Источник формы: ' . $application['source'],
     ]);
-    $headers = implode("\r\n", [
-        'From: G10 Киров <' . escape_header(MAIL_FROM) . '>',
-        'Reply-To: ' . escape_header($application['email']),
-        'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'X-Mailer: G10 Kirov application form',
-    ]);
+    $html = '<h2>Новая заявка на участие в G10 Киров</h2>'
+        . '<p><strong>Имя:</strong> ' . escape_html($application['name']) . '</p>'
+        . '<p><strong>Телефон:</strong> ' . escape_html($application['phone']) . '</p>'
+        . '<p><strong>E-mail:</strong> ' . escape_html($application['email']) . '</p>'
+        . '<p><strong>Тариф:</strong> ' . escape_html($application['plan'] !== '' ? $application['plan'] : 'не выбран') . '</p>'
+        . '<p><strong>Источник формы:</strong> ' . escape_html($application['source']) . '</p>';
 
-    foreach (RECIPIENTS as $recipient) {
-        $sent = @mail($recipient, $subject, $message, $headers, '-f' . MAIL_FROM);
-        if (!$sent) {
-            error_log('G10 Kirov application mail was not accepted for delivery.');
-            return false;
-        }
-    }
-
-    return true;
+    return send_resend_request([
+        'from' => $from,
+        'to' => application_recipients(),
+        'reply_to' => $application['email'],
+        'subject' => $subject,
+        'text' => $text,
+        'html' => $html,
+    ], $apiKey);
 }
 
 $method = request_method();
@@ -277,7 +361,14 @@ if (!$ipLimit['allowed'] || !$duplicateLimit['allowed']) {
     response_json(429, ['ok' => false, 'message' => 'Слишком много попыток. Попробуйте позже.'], ['Retry-After' => (string) $retryAfter]);
 }
 
-if (!send_application_email($application)) {
+try {
+    $emailSent = send_application_email($application);
+} catch (Exception $error) {
+    error_log('G10 Kirov application email provider is unavailable.');
+    $emailSent = false;
+}
+
+if (!$emailSent) {
     response_json(503, ['ok' => false, 'message' => 'Не удалось принять заявку. Попробуйте ещё раз позже.']);
 }
 

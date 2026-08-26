@@ -291,7 +291,7 @@ applicationDialog?.addEventListener("cancel", (event) => { event.preventDefault(
 
 const yandexMetrikaId = 111727875;
 let yandexMetrikaEnabled = false;
-const isVercelDemo = window.location.hostname.endsWith(".vercel.app");
+const applicationEndpoint = "/api/submit-application.php";
 
 function loadYandexMetrika() {
   if (document.querySelector("script[data-yandex-metrika]")) return;
@@ -420,17 +420,13 @@ document.querySelectorAll("[data-application-form]").forEach((form, index) => {
       firstInvalid?.focus();
       return;
     }
-    if (isVercelDemo) {
-      showFormStatus("Это демонстрационная версия. Заявки принимаются на сайте организатора: g10.kirov.restoved.ru.", { isError: true });
-      return;
-    }
     const submitButton = form.querySelector("[type='submit']");
     const formData = Object.fromEntries(new FormData(form).entries());
     if (submitButton) submitButton.disabled = true;
     showFormStatus("Отправляем заявку…");
 
     try {
-      const response = await fetch("/api/submit-application.php", {
+      const response = await fetch(applicationEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(formData)

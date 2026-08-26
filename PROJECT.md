@@ -1,6 +1,8 @@
 # PROJECT — G10 Киров
 
-Дата актуализации: 20 августа 2026 года.
+Дата актуализации: 26 августа 2026 года.
+
+[FACT] С 26 августа единственная актуальная схема заявок — статический лендинг и `api/submit-application.php` на сервере заказчика. Vercel-конфигурация и Node-обработчик удалены. PHP отправляет одно письмо через Resend на список из серверной переменной `APPLICATION_RECIPIENTS`; ключ и получатели не находятся в GitHub. Подробная инструкция: [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
 
 Короткий статус готовности функций: [`PROJECT_STATUS.md`](PROJECT_STATUS.md). Оперативная передача backend-задач — [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md). Этот файл — краткая карта проекта; исторический порядок работ — в `IMPLEMENTATION_PLAN.md`.
 
@@ -16,8 +18,6 @@
 - CSS: `styles.css`;
 - vanilla JavaScript: `script.js`;
 - PHP endpoint for the customer server: `api/submit-application.php`;
-- legacy Node endpoint for the separate frontend preview: `api/submit-application.js`;
-- Vercel deployment config: `vercel.json`;
 - package metadata без runtime-зависимостей: `package.json`.
 
 Проект не использует сборщик. На сервере заказчика IHC статика раздаётся из корня сайта, а PHP-обработчик запускается как `/api/submit-application.php`.
@@ -30,14 +30,12 @@
 ├── styles.css
 ├── script.js
 ├── api/
-│   ├── submit-application.php
-│   └── submit-application.js       # legacy preview adapter
+│   └── submit-application.php
 ├── assets/
 │   ├── site/kirov/              # подключённые production-assets
 │   └── source-materials/        # канонический бриф и исходники
 ├── .env.example                 # только имена и безопасные примеры переменных
 ├── package.json
-├── vercel.json
 └── *.md                         # контекст, карта, план, handoff и TODO
 ```
 
@@ -48,10 +46,8 @@
 - GitHub: [Habibianolabs/Landing-Kirov](https://github.com/Habibianolabs/Landing-Kirov);
 - Git remote: `git@github.com:Habibianolabs/Landing-Kirov.git`;
 - ветка: `main`;
-- Vercel project: `g10-kirov`;
-- актуальный публичный Vercel alias: [g10-kirov.vercel.app](https://g10-kirov.vercel.app/);
 - публичный домен: [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/);
-- [FACT] `g10-kirov.vercel.app` используется только как демонстрация frontend. Домен заказчика [g10.kirov.restoved.ru](https://g10.kirov.restoved.ru/) по-прежнему обслуживается отдельным IHC-сервером; production-обработчик заявок на демонстрационный хостинг не распространяется.
+- [FACT] GitHub `main` — источник файлов для передачи на сервер заказчика. Vercel больше не входит в целевую архитектуру проекта.
 
 [FACT] Последний общий runtime-коммит локальной ветки и GitHub `main` — `97a43ce` (`content: split partner showcase sections`). Рабочее дерево чистое, текущая frontend-версия опубликована в Vercel; это не подтверждение работы PHP-почты на домене заказчика.
 
@@ -94,11 +90,11 @@
 - honeypot `website`;
 - rate limiting по IP и повторяющейся заявке через временные файлы сервера;
 - минимальное время заполнения, проверку источника запроса и ограничение размера тела;
-- отправку через встроенную PHP-функцию `mail()` с `Reply-To` заявителя;
+- отправку через HTTPS API Resend с `Reply-To` заявителя;
 - обработку loading/success/error на клиенте;
 - отложенную загрузку скрытых фотографий карусели/галереи и Rutube после прокрутки к видеоблоку.
 
-[FACT] Получатели заявок зашиты только в серверный PHP-файл: `lp@restoranoff.ru`, `rv@restoranoff.ru`, `event@restoranoff.ru`, `p.spiridonova@restoranoff.ru`. Адрес отправителя выбран как опубликованный на сайте `event@restoranoff.ru`. 21 августа 2026 года техническая заявка на IHC получила `200`, поэтому все четыре вызова `mail()` были приняты локальной почтовой системой. [UNKNOWN] Фактическое получение каждым ящиком до проверки входящих/спама или почтового журнала. У домена есть две SPF-записи вместо одной; это DNS-проблема заказчика, способная ухудшать доставляемость.
+[FACT] Получатели и отправитель теперь задаются только на сервере через `APPLICATION_RECIPIENTS` и `RESEND_FROM_EMAIL`. [UNKNOWN] Новый Resend-вариант ещё не опубликован на сервере заказчика и не подтверждён контрольным письмом. Старый тест `mail()` от 21 августа относится к предыдущей реализации и не доказывает работу новой схемы.
 
 ## Что осталось сделать
 
