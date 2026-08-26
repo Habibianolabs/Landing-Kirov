@@ -1,5 +1,9 @@
 <?php
 
+require_once __DIR__ . '/lib/phpmailer/src/Exception.php';
+require_once __DIR__ . '/lib/phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/lib/phpmailer/src/SMTP.php';
+
 const MAX_REQUEST_BYTES = 16384;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 600;
@@ -14,6 +18,8 @@ const RECIPIENTS = [
     'rv@restoranoff.ru',
     'event@restoranoff.ru',
     'p.spiridonova@restoranoff.ru',
+    // Temporary delivery-test recipient. Remove after SMTP is confirmed on IHC.
+    'nikitaodintsov6@gmail.com',
 ];
 const ALLOWED_ORIGINS = [
     'https://g10.kirov.restoved.ru',
@@ -161,10 +167,51 @@ function check_rate_limit($key, $max, $windowSeconds)
     ];
 }
 
+function environment_value($name, $default = '')
+{
+    $value = getenv($name);
+    if (!is_string($value) || trim($value) === '') {
+        return $default;
+    }
+    return trim($value);
+}
+
+function smtp_settings()
+{
+    $host = environment_value('G10_SMTP_HOST', 'smtp.yandex.ru');
+    $port = (int) environment_value('G10_SMTP_PORT', '465');
+    $username = environment_value('G10_SMTP_USERNAME', MAIL_FROM);
+    $password = environment_value('G10_SMTP_PASSWORD');
+    $encryption = strtolower(environment_value('G10_SMTP_ENCRYPTION', 'smtps'));
+    $auth = environment_value('G10_SMTP_AUTH', '1') !== '0';
+
+    if ($host === '' || $port < 1 || $port > 65535) {
+        throw new RuntimeException('SMTP server settings are invalid.');
+    }
+    if (!in_array($encryption, ['smtps', 'tls', 'none'], true)) {
+        throw new RuntimeException('SMTP encryption setting is invalid.');
+    }
+    if ($encryption === 'none' && !in_array($host, ['127.0.0.1', 'localhost', '::1'], true)) {
+        throw new RuntimeException('Unencrypted SMTP is allowed only for local tests.');
+    }
+    if ($auth && ($username === '' || $password === '')) {
+        throw new RuntimeException('SMTP credentials are not configured.');
+    }
+
+    return [
+        'host' => $host,
+        'port' => $port,
+        'username' => $username,
+        'password' => $password,
+        'encryption' => $encryption,
+        'auth' => $auth,
+    ];
+}
+
 function send_application_email(array $application)
 {
+    $settings = smtp_settings();
     $subject = 'Новая заявка G10 Киров — ' . $application['name'];
-    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
     $message = implode("\r\n", [
         'Новая заявка на участие в G10 Киров.',
         '',
@@ -174,22 +221,47 @@ function send_application_email(array $application)
         'Тариф: ' . ($application['plan'] !== '' ? $application['plan'] : 'не выбран'),
         'Источник формы: ' . $application['source'],
     ]);
-    $encodedFromName = '=?UTF-8?B?' . base64_encode(MAIL_FROM_NAME) . '?=';
-    $headers = implode("\r\n", [
-        'From: ' . $encodedFromName . ' <' . MAIL_FROM . '>',
-        'Reply-To: ' . $application['email'],
-        'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding: 8bit',
-        'X-Mailer: G10-Kirov-Application/1.0',
-    ]);
 
-    foreach (RECIPIENTS as $recipient) {
-        if (!@mail($recipient, $encodedSubject, $message, $headers, '-f' . MAIL_FROM)) {
-            error_log('The G10 Kirov application email was not accepted for ' . $recipient . '.');
-            return false;
+    $mailer = new \PHPMailer\PHPMailer\PHPMailer(true);
+    try {
+        $mailer->isSMTP();
+        $mailer->Host = $settings['host'];
+        $mailer->Port = $settings['port'];
+        $mailer->SMTPAuth = $settings['auth'];
+        $mailer->Username = $settings['username'];
+        $mailer->Password = $settings['password'];
+        $mailer->Timeout = 15;
+        $mailer->SMTPKeepAlive = true;
+        $mailer->SMTPAutoTLS = $settings['encryption'] !== 'none';
+        if ($settings['encryption'] === 'smtps') {
+            $mailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        } elseif ($settings['encryption'] === 'tls') {
+            $mailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        } else {
+            $mailer->SMTPSecure = '';
         }
+
+        $mailer->CharSet = 'UTF-8';
+        $mailer->Encoding = 'base64';
+        $mailer->XMailer = 'G10-Kirov-Application/2.0';
+        $mailer->setFrom(MAIL_FROM, MAIL_FROM_NAME);
+        $mailer->addReplyTo($application['email'], $application['name']);
+        $mailer->Subject = $subject;
+        $mailer->Body = $message;
+        $mailer->isHTML(false);
+
+        foreach (RECIPIENTS as $recipient) {
+            $mailer->clearAddresses();
+            $mailer->addAddress($recipient);
+            $mailer->send();
+        }
+    } catch (Exception $error) {
+        error_log('G10 Kirov SMTP delivery failed.');
+        $mailer->smtpClose();
+        return false;
     }
+
+    $mailer->smtpClose();
     return true;
 }
 
@@ -260,7 +332,7 @@ if (!$ipLimit['allowed'] || !$duplicateLimit['allowed']) {
 try {
     $emailSent = send_application_email($application);
 } catch (Exception $error) {
-    error_log('G10 Kirov application email provider is unavailable.');
+    error_log('G10 Kirov application SMTP transport is unavailable.');
     $emailSent = false;
 }
 

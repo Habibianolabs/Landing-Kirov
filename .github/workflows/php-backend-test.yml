@@ -5,17 +5,17 @@ on:
     branches: [main]
     paths:
       - "api/submit-application.php"
-      - "tools/capture-mail.php"
       - "tools/php-handler-contract.test.mjs"
       - "tools/php-mail-integration.test.mjs"
+      - "api/lib/phpmailer/**"
       - "package.json"
       - ".github/workflows/php-backend-test.yml"
   pull_request:
     paths:
       - "api/submit-application.php"
-      - "tools/capture-mail.php"
       - "tools/php-handler-contract.test.mjs"
       - "tools/php-mail-integration.test.mjs"
+      - "api/lib/phpmailer/**"
       - "package.json"
       - ".github/workflows/php-backend-test.yml"
   workflow_dispatch:
@@ -36,7 +36,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes php-cli
-      - name: Check the production mail contract
+      - name: Check PHP syntax
+        run: |
+          php -l api/submit-application.php
+          php -l api/lib/phpmailer/src/Exception.php
+          php -l api/lib/phpmailer/src/PHPMailer.php
+          php -l api/lib/phpmailer/src/SMTP.php
+      - name: Check the production SMTP contract
         run: npm run test:backend
-      - name: Execute the production PHP endpoint and capture all emails
+      - name: Execute the production PHP endpoint against a test SMTP server
         run: npm run test:php-integration
