@@ -18,8 +18,6 @@ const RECIPIENTS = [
     'rv@restoranoff.ru',
     'event@restoranoff.ru',
     'p.spiridonova@restoranoff.ru',
-    // Temporary delivery-test recipient. Remove after SMTP is confirmed on IHC.
-    'nikitaodintsov6@gmail.com',
 ];
 const ALLOWED_ORIGINS = [
     'https://g10.kirov.restoved.ru',

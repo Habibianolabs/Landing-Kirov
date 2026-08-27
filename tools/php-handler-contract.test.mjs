@@ -12,16 +12,16 @@ test("production PHP uses authenticated SMTP instead of the server mail function
   assert.doesNotMatch(php, /Resend|RESEND_API_KEY|api\.resend\.com/i);
 });
 
-test("production PHP contains all configured customer and temporary test recipients", () => {
+test("production PHP contains only the four configured customer recipients", () => {
   for (const recipient of [
     "lp@restoranoff.ru",
     "rv@restoranoff.ru",
     "event@restoranoff.ru",
-    "p.spiridonova@restoranoff.ru",
-    "nikitaodintsov6@gmail.com"
+    "p.spiridonova@restoranoff.ru"
   ]) {
     assert.match(php, new RegExp(recipient.replace(".", "\\.")));
   }
+  assert.doesNotMatch(php, /nikitaodintsov6@gmail\.com/);
 });
 
 test("production PHP uses the approved sender and applicant Reply-To", () => {

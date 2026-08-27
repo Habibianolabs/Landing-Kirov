@@ -169,13 +169,12 @@ test("the production endpoint delivers one SMTP message to every configured reci
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { ok: true });
 
-  assert.equal(capturedMessages.length, 5);
+  assert.equal(capturedMessages.length, 4);
   const expectedRecipients = [
     "lp@restoranoff.ru",
     "rv@restoranoff.ru",
     "event@restoranoff.ru",
-    "p.spiridonova@restoranoff.ru",
-    "nikitaodintsov6@gmail.com"
+    "p.spiridonova@restoranoff.ru"
   ];
 
   for (const recipient of expectedRecipients) {
