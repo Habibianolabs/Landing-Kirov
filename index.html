@@ -31,7 +31,7 @@
           <a href="#schedule" data-nav-section="schedule">Программа</a>
           <a href="#topics" data-nav-section="topics">Темы</a>
           <a href="#pricing" data-nav-section="pricing">Стоимость участия</a>
-          <a class="nav-cta" href="#application" data-open-application>Оставить заявку</a>
+          <a class="nav-cta" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-cta-source="navigation">Оставить заявку</a>
         </nav>
       </div>
     </header>
@@ -48,7 +48,7 @@
           </picture>
         </div>
         <div class="hero__footer hero__footer--action-only">
-          <button class="button button--primary" type="button" data-open-application data-cta-source="hero">Оставить заявку</button>
+          <a class="button button--primary" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-cta-source="hero">Оставить заявку</a>
         </div>
       </section>
 
@@ -212,7 +212,7 @@
         </div>
         <div class="inline-cta inline-cta--light">
           <div><p class="section-kicker">Практика вместо теории</p><h3>Покажем, как технологии и автоматизация превращают ресторанный бизнес в управляемую систему</h3></div>
-          <button class="button button--primary" type="button" data-open-application data-cta-source="topics">Принять участие <span class="cta-arrow" aria-hidden="true"></span></button>
+          <a class="button button--primary" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-cta-source="topics">Принять участие <span class="cta-arrow" aria-hidden="true"></span></a>
         </div>
       </section>
 
@@ -324,7 +324,7 @@
         </div>
         <div class="inline-cta">
           <div><p class="section-kicker">Закрытая группа</p><h3>Станьте самым эффективным операционистом собственного бизнеса</h3></div>
-          <button class="button button--primary" type="button" data-open-application data-cta-source="schedule">Принять участие <span class="cta-arrow" aria-hidden="true"></span></button>
+          <a class="button button--primary" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-cta-source="schedule">Принять участие <span class="cta-arrow" aria-hidden="true"></span></a>
         </div>
       </section>
 
@@ -337,13 +337,13 @@
             <div class="price-card__top"><span class="price-card__eyebrow">Для одного участника</span><h3>Оптима</h3></div>
             <div class="price-card__price"><small>до 8 сентября</small><strong>97 000 ₽</strong></div>
             <ul class="price-timeline"><li><span>после 8 сентября</span><b>125 000 ₽</b></li></ul>
-            <button class="button button--primary" type="button" data-open-application data-plan="Оптима" data-cta-source="pricing-optima">Принять участие <span class="cta-arrow" aria-hidden="true"></span></button>
+            <a class="button button--primary" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-plan="Оптима" data-cta-source="pricing-optima">Принять участие <span class="cta-arrow" aria-hidden="true"></span></a>
           </article>
           <article class="price-card">
             <div class="price-card__top"><span class="price-card__eyebrow">От двух участников</span><h3>Корпоратив</h3></div>
             <div class="price-card__price"><small>до 8 сентября</small><strong>87 000 ₽</strong></div>
             <ul class="price-timeline"><li><span>после 8 сентября</span><b>115 000 ₽</b></li></ul>
-            <button class="button button--primary" type="button" data-open-application data-plan="Корпоратив" data-cta-source="pricing-corporate">Принять участие <span class="cta-arrow" aria-hidden="true"></span></button>
+            <a class="button button--primary" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-plan="Корпоратив" data-cta-source="pricing-corporate">Принять участие <span class="cta-arrow" aria-hidden="true"></span></a>
           </article>
         </div>
         <p class="section-lead pricing-lead">Участникам «Клуба Ресторанных Ведомостей» <span class="pricing-lead__discount">скидка&nbsp;10%.</span><br>Доступна оплата в рассрочку.</p>
@@ -398,16 +398,10 @@
       <section class="section-frame application-section" id="application" aria-labelledby="application-title">
         <div class="application-layout">
           <div class="application-copy"><p class="section-kicker">Регистрация открыта</p><h2 id="application-title">Станьте самым эффективным операционистом собственного бизнеса</h2><p>Закрытая группа для владельцев бизнеса и операционных директоров.</p></div>
-          <form class="application-form" data-application-form novalidate>
-            <label>Имя и фамилия<input type="text" name="name" autocomplete="name" required></label>
-            <label>Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
-            <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
-            <input type="hidden" name="source" value="inline-form"><input type="hidden" name="plan" value=""><input type="hidden" name="form_started_at" value="">
-            <div class="form-honeypot" hidden aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-            <label class="consent-field"><input type="checkbox" name="consent" required><span>Согласен(а) на обработку персональных данных и принимаю <a href="https://restoved.ru/privacy-notice" target="_blank" rel="noreferrer">уведомление о конфиденциальности</a>.</span></label>
-            <button class="button button--primary" type="submit">Отправить заявку <span class="cta-arrow" aria-hidden="true"></span></button>
-            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-          </form>
+          <div class="application-form application-form--external">
+            <p>Заявка заполняется в отдельной защищённой форме Google. После отправки она автоматически появится в таблице организаторов.</p>
+            <a class="button button--primary" href="https://forms.gle/g696GpGUuFctGQio7" target="_blank" rel="noreferrer" data-open-application data-cta-source="application-section">Открыть форму заявки <span class="cta-arrow" aria-hidden="true"></span></a>
+          </div>
         </div>
       </section>
 
@@ -427,24 +421,6 @@
       <button class="gallery-dialog__nav gallery-dialog__nav--prev" type="button" data-gallery-prev aria-label="Предыдущая фотография">‹</button>
       <figure><img data-gallery-image alt=""><figcaption data-gallery-caption></figcaption></figure>
       <button class="gallery-dialog__nav gallery-dialog__nav--next" type="button" data-gallery-next aria-label="Следующая фотография">›</button>
-    </dialog>
-
-    <dialog class="application-dialog" id="applicationDialog" aria-labelledby="application-dialog-title">
-      <div class="dialog__shell">
-        <button class="dialog__close" type="button" data-close-application aria-label="Закрыть окно">×</button>
-        <p class="section-kicker">Регистрация</p>
-        <h2 id="application-dialog-title">Оставить заявку на участие</h2>
-        <form class="application-form" data-application-form novalidate>
-          <label>Имя и фамилия<input type="text" name="name" autocomplete="name" required></label>
-          <label>Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
-          <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
-          <input type="hidden" name="source" value="modal"><input type="hidden" name="plan" value="">
-          <input type="hidden" name="form_started_at" value=""><div class="form-honeypot" hidden aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-          <label class="consent-field"><input type="checkbox" name="consent" required><span>Согласен(а) на обработку персональных данных и принимаю <a href="https://restoved.ru/privacy-notice" target="_blank" rel="noreferrer">уведомление о конфиденциальности</a>.</span></label>
-          <button class="button button--primary" type="submit">Отправить заявку <span class="cta-arrow" aria-hidden="true"></span></button>
-          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-        </form>
-      </div>
     </dialog>
 
     <dialog class="consent-dialog" id="consentDialog" aria-labelledby="consent-dialog-title">

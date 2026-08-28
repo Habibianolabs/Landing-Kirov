@@ -4,7 +4,7 @@
 
 ## Актуализация 28 августа 2026
 
-[FACT] Целевая архитектура больше не включает Vercel. Runtime — статические `index.html`, `styles.css`, `script.js` и PHP `api/submit-application.php` на сервере заказчика. PHP отправляет заявки только через Telegram Bot API; почтовая доставка отключена. Токен и идентификатор группы задаются на сервере как `G10_TELEGRAM_BOT_TOKEN` и `G10_TELEGRAM_CHAT_ID`. Подробности: [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
+[FACT] Временная рабочая архитектура заявок не зависит от сервера лендинга: CTA открывают Google Форму `https://forms.gle/g696GpGUuFctGQio7` в новой вкладке; ответы попадают в связанную Google Таблицу «Заявки G10 Киров». Уведомления владельцу формы включены. PHP/Telegram и почтовые обработчики не участвуют в текущем маршруте.
 
 Короткая сводка готовности функций и оставшихся действий: [`PROJECT_STATUS.md`](PROJECT_STATUS.md). Оперативная backend-передача: [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md).
 

@@ -973,6 +973,8 @@ button[aria-expanded="true"] .disclosure-plus { transform: rotate(45deg); }
 .application-copy > p:not(.section-kicker) { max-width: 46ch; margin: 0 0 16px; color: var(--ink-soft); font-size: 16px; }
 .application-note { padding: 14px 16px; border-left: 2px solid var(--accent); background: rgba(255, 255, 255, .54); font-size: 13px !important; }
 .application-form { display: grid; gap: 13px; padding: 24px; background: rgba(255, 255, 255, .72); border: 1px solid var(--line); border-radius: 16px; }
+.application-form--external { align-content: center; min-height: 220px; }
+.application-form--external p { margin: 0; color: var(--muted); line-height: 1.6; }
 .form-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
 .application-form label:not(.consent-field) { display: grid; gap: 6px; color: var(--ink); font-size: 12px; font-weight: 900; }
 .application-form input[type="text"], .application-form input[type="tel"], .application-form input[type="email"] { width: 100%; min-height: 48px; padding: 0 14px; color: var(--ink); background: rgba(247, 250, 255, .9); border: 1px solid var(--line-strong); border-radius: 10px; }

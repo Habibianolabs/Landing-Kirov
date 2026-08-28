@@ -267,31 +267,8 @@ document.querySelectorAll("[data-disclosure-trigger]").forEach((trigger) => {
   });
 });
 
-const applicationDialog = document.getElementById("applicationDialog");
-let lastApplicationTrigger = null;
-document.querySelectorAll("[data-open-application]").forEach((trigger) => {
-  trigger.addEventListener("click", (event) => {
-    event.preventDefault();
-    closeMenu();
-    lastApplicationTrigger = trigger;
-    const plan = trigger.dataset.plan || "";
-    applicationDialog?.querySelectorAll("input[name='plan']").forEach((field) => { field.value = plan; });
-    showDialog(applicationDialog);
-  });
-});
-
-function closeApplicationDialog() {
-  closeDialog(applicationDialog);
-  lastApplicationTrigger?.focus();
-  lastApplicationTrigger = null;
-}
-document.querySelector("[data-close-application]")?.addEventListener("click", closeApplicationDialog);
-applicationDialog?.addEventListener("click", (event) => { if (event.target === applicationDialog) closeApplicationDialog(); });
-applicationDialog?.addEventListener("cancel", (event) => { event.preventDefault(); closeApplicationDialog(); });
-
 const yandexMetrikaId = 111727875;
 let yandexMetrikaEnabled = false;
-const applicationEndpoint = "/api/submit-application.php";
 
 function loadYandexMetrika() {
   if (document.querySelector("script[data-yandex-metrika]")) return;
@@ -340,6 +317,7 @@ function trackEvent(name, data = {}) {
 
 document.querySelectorAll("[data-open-application]").forEach((trigger) => {
   trigger.addEventListener("click", () => {
+    closeMenu();
     trackEvent("application_open", {
       plan: trigger.dataset.plan || "not_selected",
       source: trigger.dataset.ctaSource || "unknown"
@@ -381,69 +359,6 @@ function hasFullConsent() {
   try { return localStorage.getItem(consentStorageKey) === "all"; }
   catch (error) { return false; }
 }
-
-document.querySelectorAll("[data-application-form]").forEach((form, index) => {
-  const status = form.querySelector("[data-form-status]");
-  const errorId = `application-form-errors-${index + 1}`;
-  const formStartedAt = form.querySelector("[name='form_started_at']");
-  if (formStartedAt) formStartedAt.value = String(Math.floor(Date.now() / 1000));
-  if (status) status.id = errorId;
-
-  const fields = [...form.querySelectorAll("input:not([type='hidden'])")];
-  fields.forEach((field) => field.setAttribute("aria-describedby", errorId));
-
-  function showFormStatus(message, { isError = false } = {}) {
-    if (!status) return;
-    status.textContent = message;
-    status.classList.toggle("is-error", isError);
-    status.setAttribute("role", isError ? "alert" : "status");
-    status.setAttribute("aria-live", isError ? "assertive" : "polite");
-  }
-
-  function clearFieldErrors() {
-    fields.forEach((field) => field.removeAttribute("aria-invalid"));
-  }
-
-  fields.forEach((field) => field.addEventListener("input", () => {
-    field.removeAttribute("aria-invalid");
-  }));
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    clearFieldErrors();
-    if (!form.checkValidity()) {
-      const invalidFields = fields.filter((field) => !field.validity.valid);
-      invalidFields.forEach((field) => field.setAttribute("aria-invalid", "true"));
-      const firstInvalid = invalidFields[0];
-      const fieldNames = invalidFields.map((field) => (field.closest("label")?.innerText?.trim().replace(/\s+/g, " ") || "поле").replace(/[.。]+$/, ""));
-      showFormStatus(`Проверьте поля: ${fieldNames.join(", ")}.`, { isError: true });
-      firstInvalid?.focus();
-      return;
-    }
-    const submitButton = form.querySelector("[type='submit']");
-    const formData = Object.fromEntries(new FormData(form).entries());
-    if (submitButton) submitButton.disabled = true;
-    showFormStatus("Отправляем заявку…");
-
-    try {
-      const response = await fetch(applicationEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(formData)
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.message || "Не удалось отправить заявку.");
-      showFormStatus("Заявка отправлена. Мы свяжемся с вами в ближайшее время.");
-      trackEvent("application_submitted", { plan: formData.plan || "not_selected", source: formData.source || "unknown" });
-      form.reset();
-      if (formStartedAt) formStartedAt.value = String(Math.floor(Date.now() / 1000));
-    } catch (error) {
-      showFormStatus(error.message || "Не удалось отправить заявку. Попробуйте ещё раз.", { isError: true });
-    } finally {
-      if (submitButton) submitButton.disabled = false;
-    }
-  });
-});
 
 const galleryDialog = document.getElementById("galleryDialog");
 const galleryImage = galleryDialog?.querySelector("[data-gallery-image]");
