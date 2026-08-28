@@ -210,6 +210,8 @@ section[id] { scroll-margin-top: calc(var(--header-height) + 22px); }
   border: 1px solid var(--accent-deep);
   border-radius: var(--radius-control);
   transition: transform .18s ease, background-color .18s ease, opacity .18s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .nav-cta:hover,
@@ -385,14 +387,25 @@ main {
 .intro-quote p { margin: 0; color: var(--ink); font-size: clamp(19px, 2vw, 25px); font-weight: 700; line-height: 1.36; letter-spacing: -.025em; }
 
 .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   min-height: 46px;
   padding: 0 22px;
   border: 0;
   font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
   text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.cta-arrow { position: relative; top: 3.5px; display: inline-block; flex: 0 0 18px; width: 18px; height: 18px; margin: 0; font-size: 0; line-height: 1; }
+.cta-arrow { position: relative; top: 0; display: inline-block; flex: 0 0 18px; width: 18px; height: 18px; margin: 0; font-size: 0; line-height: 1; }
 .cta-arrow::before { position: absolute; top: 14px; left: 1px; width: 18px; height: 2px; content: ""; background: currentColor; border-radius: 999px; transform: rotate(-45deg); transform-origin: left center; }
 .cta-arrow::after { position: absolute; top: 1px; right: 1px; width: 8px; height: 8px; content: ""; border-top: 2px solid currentColor; border-right: 2px solid currentColor; }
 

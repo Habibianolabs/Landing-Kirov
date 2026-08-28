@@ -317,7 +317,7 @@ function trackEvent(name, data = {}) {
 
 document.querySelectorAll("[data-open-application]").forEach((trigger) => {
   trigger.addEventListener("click", () => {
-    closeMenu();
+    if (siteNav?.classList.contains("is-open")) window.setTimeout(() => closeMenu(), 0);
     trackEvent("application_open", {
       plan: trigger.dataset.plan || "not_selected",
       source: trigger.dataset.ctaSource || "unknown"
