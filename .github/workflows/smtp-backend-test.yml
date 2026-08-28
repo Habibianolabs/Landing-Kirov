@@ -1,4 +1,4 @@
-name: Yandex SMTP application backend test
+name: Telegram application backend test
 
 on:
   push:
@@ -6,16 +6,12 @@ on:
     paths:
       - "api/submit-application.php"
       - "tools/php-handler-contract.test.mjs"
-      - "tools/php-mail-integration.test.mjs"
-      - "api/lib/phpmailer/**"
       - "package.json"
       - ".github/workflows/smtp-backend-test.yml"
   pull_request:
     paths:
       - "api/submit-application.php"
       - "tools/php-handler-contract.test.mjs"
-      - "tools/php-mail-integration.test.mjs"
-      - "api/lib/phpmailer/**"
       - "package.json"
       - ".github/workflows/smtp-backend-test.yml"
   workflow_dispatch:
@@ -24,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: smtp-backend-test-${{ github.ref }}
+  group: telegram-backend-test-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -41,12 +37,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes php-cli
       - name: Check PHP syntax
-        run: |
-          php -l api/submit-application.php
-          php -l api/lib/phpmailer/src/Exception.php
-          php -l api/lib/phpmailer/src/PHPMailer.php
-          php -l api/lib/phpmailer/src/SMTP.php
-      - name: Check the production SMTP contract
+        run: php -l api/submit-application.php
+      - name: Check the production Telegram contract
         run: npm run test:backend
-      - name: Execute the production PHP endpoint against a test SMTP server
-        run: npm run test:php-integration

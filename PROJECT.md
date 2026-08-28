@@ -1,8 +1,8 @@
 # PROJECT — G10 Киров
 
-Дата актуализации: 26 августа 2026 года.
+Дата актуализации: 28 августа 2026 года.
 
-[FACT] С 26 августа актуальная production-схема заявок — статический лендинг и `api/submit-application.php` на сервере заказчика. PHP использует встроенную почтовую функцию сервера `mail()` и отправляет заявку четырём утверждённым адресатам. Vercel, Resend, внешние аккаунты, API-ключи и почтовые пароли в production не используются. Подробная инструкция: [`FORM_DELIVERY.md`](FORM_DELIVERY.md).
+[FACT] С 28 августа актуальная production-схема заявок — статический лендинг и `api/submit-application.php` на сервере заказчика. PHP отправляет заявку только в закрытую Telegram-группу; почта, SMTP и PHPMailer из рабочего маршрута исключены. Токен и идентификатор группы читаются из закрытых настроек сервера. Подробности: [`FORM_DELIVERY.md`](FORM_DELIVERY.md) и [`TELEGRAM_SETUP.md`](TELEGRAM_SETUP.md).
 
 Короткий статус готовности функций: [`PROJECT_STATUS.md`](PROJECT_STATUS.md). Оперативная передача backend-задач — [`BACKEND_CHAT_CONTEXT.md`](BACKEND_CHAT_CONTEXT.md). Этот файл — краткая карта проекта; исторический порядок работ — в `IMPLEMENTATION_PLAN.md`.
 

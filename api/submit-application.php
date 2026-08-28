@@ -1,9 +1,5 @@
 <?php
 
-require_once __DIR__ . '/lib/phpmailer/src/Exception.php';
-require_once __DIR__ . '/lib/phpmailer/src/PHPMailer.php';
-require_once __DIR__ . '/lib/phpmailer/src/SMTP.php';
-
 const MAX_REQUEST_BYTES = 16384;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 600;
@@ -11,14 +7,6 @@ const DUPLICATE_LIMIT_MAX = 2;
 const DUPLICATE_LIMIT_WINDOW_SECONDS = 1800;
 const MIN_FORM_TIME_SECONDS = 2;
 const MAX_FORM_AGE_SECONDS = 86400;
-const MAIL_FROM = 'event@restoranoff.ru';
-const MAIL_FROM_NAME = 'G10 Киров';
-const RECIPIENTS = [
-    'lp@restoranoff.ru',
-    'rv@restoranoff.ru',
-    'event@restoranoff.ru',
-    'p.spiridonova@restoranoff.ru',
-];
 const ALLOWED_ORIGINS = [
     'https://g10.kirov.restoved.ru',
     'https://www.g10.kirov.restoved.ru',
@@ -174,92 +162,88 @@ function environment_value($name, $default = '')
     return trim($value);
 }
 
-function smtp_settings()
+function telegram_settings()
 {
-    $host = environment_value('G10_SMTP_HOST', 'smtp.yandex.ru');
-    $port = (int) environment_value('G10_SMTP_PORT', '465');
-    $username = environment_value('G10_SMTP_USERNAME', MAIL_FROM);
-    $password = environment_value('G10_SMTP_PASSWORD');
-    $encryption = strtolower(environment_value('G10_SMTP_ENCRYPTION', 'smtps'));
-    $auth = environment_value('G10_SMTP_AUTH', '1') !== '0';
+    $token = environment_value('G10_TELEGRAM_BOT_TOKEN');
+    $chatId = environment_value('G10_TELEGRAM_CHAT_ID');
 
-    if ($host === '' || $port < 1 || $port > 65535) {
-        throw new RuntimeException('SMTP server settings are invalid.');
-    }
-    if (!in_array($encryption, ['smtps', 'tls', 'none'], true)) {
-        throw new RuntimeException('SMTP encryption setting is invalid.');
-    }
-    if ($encryption === 'none' && !in_array($host, ['127.0.0.1', 'localhost', '::1'], true)) {
-        throw new RuntimeException('Unencrypted SMTP is allowed only for local tests.');
-    }
-    if ($auth && ($username === '' || $password === '')) {
-        throw new RuntimeException('SMTP credentials are not configured.');
+    if (!preg_match('/^[0-9]+:[A-Za-z0-9_-]+$/', $token) || !preg_match('/^-?[0-9]+$/', $chatId)) {
+        throw new RuntimeException('Telegram settings are not configured.');
     }
 
     return [
-        'host' => $host,
-        'port' => $port,
-        'username' => $username,
-        'password' => $password,
-        'encryption' => $encryption,
-        'auth' => $auth,
+        'token' => $token,
+        'chat_id' => $chatId,
     ];
 }
 
-function send_application_email(array $application)
+function telegram_request($url, array $fields)
 {
-    $settings = smtp_settings();
-    $subject = 'Новая заявка G10 Киров — ' . $application['name'];
-    $message = implode("\r\n", [
-        'Новая заявка на участие в G10 Киров.',
-        '',
+    if (function_exists('curl_init')) {
+        $handle = curl_init($url);
+        if ($handle === false) {
+            return false;
+        }
+        curl_setopt_array($handle, [
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 2,
+            CURLOPT_TIMEOUT => 5,
+            CURLOPT_POSTFIELDS => $fields,
+        ]);
+        $response = curl_exec($handle);
+        $status = (int) curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        $error = curl_error($handle);
+        curl_close($handle);
+
+        if (!is_string($response) || $error !== '' || $status < 200 || $status >= 300) {
+            return false;
+        }
+        return $response;
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+            'content' => http_build_query($fields, '', '&'),
+            'timeout' => 5,
+            'ignore_errors' => true,
+        ],
+    ]);
+    $response = @file_get_contents($url, false, $context);
+    return is_string($response) ? $response : false;
+}
+
+function send_application_to_telegram(array $application)
+{
+    $settings = telegram_settings();
+    $text = implode("\n", [
+        'Новая заявка G10 Киров',
         'Имя: ' . $application['name'],
         'Телефон: ' . $application['phone'],
-        'E-mail: ' . $application['email'],
+        'Email: ' . $application['email'],
         'Тариф: ' . ($application['plan'] !== '' ? $application['plan'] : 'не выбран'),
         'Источник формы: ' . $application['source'],
     ]);
-
-    $mailer = new \PHPMailer\PHPMailer\PHPMailer(true);
-    try {
-        $mailer->isSMTP();
-        $mailer->Host = $settings['host'];
-        $mailer->Port = $settings['port'];
-        $mailer->SMTPAuth = $settings['auth'];
-        $mailer->Username = $settings['username'];
-        $mailer->Password = $settings['password'];
-        $mailer->Timeout = 15;
-        $mailer->SMTPKeepAlive = true;
-        $mailer->SMTPAutoTLS = $settings['encryption'] !== 'none';
-        if ($settings['encryption'] === 'smtps') {
-            $mailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-        } elseif ($settings['encryption'] === 'tls') {
-            $mailer->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-        } else {
-            $mailer->SMTPSecure = '';
-        }
-
-        $mailer->CharSet = 'UTF-8';
-        $mailer->Encoding = 'base64';
-        $mailer->XMailer = 'G10-Kirov-Application/2.0';
-        $mailer->setFrom(MAIL_FROM, MAIL_FROM_NAME);
-        $mailer->addReplyTo($application['email'], $application['name']);
-        $mailer->Subject = $subject;
-        $mailer->Body = $message;
-        $mailer->isHTML(false);
-
-        foreach (RECIPIENTS as $recipient) {
-            $mailer->clearAddresses();
-            $mailer->addAddress($recipient);
-            $mailer->send();
-        }
-    } catch (Exception $error) {
-        error_log('G10 Kirov SMTP delivery failed.');
-        $mailer->smtpClose();
+    $url = 'https://api.telegram.org/bot' . $settings['token'] . '/sendMessage';
+    $response = telegram_request($url, [
+        'chat_id' => $settings['chat_id'],
+        'text' => $text,
+    ]);
+    if ($response === false) {
+        error_log('G10 Kirov Telegram request failed.');
         return false;
     }
 
-    $mailer->smtpClose();
+    $decoded = json_decode($response, true);
+    if (!is_array($decoded) || empty($decoded['ok'])) {
+        error_log('G10 Kirov Telegram rejected the application.');
+        return false;
+    }
+
+    $messageId = isset($decoded['result']['message_id']) ? (int) $decoded['result']['message_id'] : 0;
+    error_log('G10 Kirov Telegram delivery accepted; message_id=' . $messageId . '.');
     return true;
 }
 
@@ -328,13 +312,13 @@ if (!$ipLimit['allowed'] || !$duplicateLimit['allowed']) {
 }
 
 try {
-    $emailSent = send_application_email($application);
+    $telegramSent = send_application_to_telegram($application);
 } catch (Exception $error) {
-    error_log('G10 Kirov application SMTP transport is unavailable.');
-    $emailSent = false;
+    error_log('G10 Kirov Telegram transport is unavailable.');
+    $telegramSent = false;
 }
 
-if (!$emailSent) {
+if (!$telegramSent) {
     response_json(503, ['ok' => false, 'message' => 'Не удалось принять заявку. Попробуйте ещё раз позже.']);
 }
 
