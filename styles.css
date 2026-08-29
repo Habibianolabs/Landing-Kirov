@@ -661,7 +661,7 @@ h2 {
 .partner-stats > span { display: grid; gap: 3px; color: var(--ink-soft); font-size: 10px; line-height: 1.2; }
 .partner-stats strong { color: var(--ink); font-size: 16px; line-height: 1; }
 .partner-stat__label { color: var(--ink-soft); }
-.text-button { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 0; color: var(--accent-deep); font-size: 13px; font-weight: 900; background: none; border: 0; }
+.text-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 18px; padding: 0; color: var(--accent-deep); font-size: 13px; font-weight: 900; text-align: center; background: none; border: 0; }
 .text-button__arrow { position: relative; display: inline-block; flex: 0 0 18px; width: 18px; height: 18px; margin: 0; font-size: 0; line-height: 1; transition: transform .18s ease; }
 .text-button__arrow::before { position: absolute; top: 14px; left: 1px; width: 18px; height: 2px; content: ""; background: currentColor; border-radius: 999px; transform: rotate(-45deg); transform-origin: left center; }
 .text-button__arrow::after { position: absolute; top: 1px; right: 1px; width: 8px; height: 8px; content: ""; border-top: 2px solid currentColor; border-right: 2px solid currentColor; }
